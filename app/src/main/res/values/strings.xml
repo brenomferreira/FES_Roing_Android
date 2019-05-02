@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">APP_FES_Rowing_V.0.0</string>
+    <string name="conectar_bluetooth">Conectar Bluetooth</string>
+    <string name="terminal">Terminal</string>
+    <string name="ajuste_de_par_metros">Ajuste de Parâmetros</string>
+    <string name="aquecimento_e_sincronia">Aquecimento e Sincronia</string>
+    <string name="treino_de_velocidade">Treino de Velocidade</string>
+    <string name="treino_livre">Treino Livre</string>
+    <string name="treino_compensador_de_fadiga">Treino Compensador de Fadiga</string>
+    <string name="Text_Apresentacao">Aplicativo Desenvolvido por Breno em seu Doutorado</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/colorD">
+
+        <Button
+                android:backgroundTint="@color/colorAccent"
+                android:id="@+id/btn_conectBTh"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/conectar_bluetooth" tools:targetApi="lollipop"/>
+
+        <Button
+                android:backgroundTint="@color/colorAccent"
+                android:id="@+id/btn_telaTerminal"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/btn_conectBTh"
+                android:layout_width="wrap_content"
+                android:text="@string/terminal" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/logotipounb" />
+
+    </RelativeLayout>
+
+    <Button
+            android:backgroundTint="@color/colorAccent"
+            android:id="@+id/btn_parametros"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/ajuste_de_par_metros"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <Button
+            android:id="@+id/btn_aquecimento"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/aquecimento_e_sincronia"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <Button
+            android:backgroundTint="@color/colorAccent"
+            android:id="@+id/btn_treinoVelocidade"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/treino_de_velocidade"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <Button
+            android:backgroundTint="@color/colorAccent"
+            android:id="@+id/btn_treinoLivre"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/treino_livre"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <Button
+            android:backgroundTint="@color/colorAccent"
+            android:id="@+id/btn_treinoCompensadorFadiga"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/treino_compensador_de_fadiga"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+
+    <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/Text_Apresentacao"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</LinearLayout>
