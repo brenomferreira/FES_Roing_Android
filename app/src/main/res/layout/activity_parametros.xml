@@ -3,26 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:scrollbars="vertical"
     tools:context=".views.ParametrosActivity">
-
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Os valores serão enviados para o Estimulador" />
 
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
         <CheckBox
             android:id="@+id/checkboxCH12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
             android:text="@string/amplitude_ch_1_e_2_extens_o" />
 
         <TextView
@@ -30,17 +32,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:text="@string/ma" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/unidadeMedida"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/unidadeMedida"
             android:text="valor..." />
 
 
     </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar_CH12"
+        style="@android:style/Widget.Material.SeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:max="100"
+        android:maxHeight="20dp"
+        android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressTint="@color/colorPrimary"
+        android:scrollbars="none" />
+
 
 
 </LinearLayout>
