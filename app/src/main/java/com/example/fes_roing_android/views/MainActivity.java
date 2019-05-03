@@ -1,16 +1,19 @@
-package com.example.fes_roing_android;
+package com.example.fes_roing_android.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import com.example.fes_roing_android.R;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ViewHolder mViewHolder = new ViewHolder();
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,27 +29,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_parametros){
+        if (id == R.id.btn_parametros) {
             // Lógica de navegação.
             // Intent intent = new Intent(getApplicationContext(), ParametrosActivity.class);
-            Intent intent = new Intent (this, ParametrosActivity.class);
+            Intent intent = new Intent(this, ParametrosActivity.class);
             startActivity(intent);
-        }
-        else if  (id == R.id.btn_conectBTh){
+        } else if (id == R.id.btn_conectBTh) {
             // logica da conexão
 
         }
 
+
     }
 
 
-    private static class ViewHolder{
+    private static class ViewHolder {
         Button conecta_bluetooth;
         Button parametros;
     }
-
-
-
 
 
 }

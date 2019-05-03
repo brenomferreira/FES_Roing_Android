@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="vertical"
-    tools:context=".ParametrosActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:context=".views.ParametrosActivity">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Os valores serão enviados para o Estimulador"/>
+        android:text="Os valores serão enviados para o Estimulador" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkboxCH12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amplitude_ch_1_e_2_extens_o" />
+
+        <TextView
+            android:id="@+id/unidadeMedida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/ma" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/unidadeMedida"
+            android:layout_toLeftOf="@+id/unidadeMedida"
+            android:text="valor..." />
+
+
+    </RelativeLayout>
+
 
 </LinearLayout>

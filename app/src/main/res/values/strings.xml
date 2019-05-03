@@ -8,4 +8,7 @@
     <string name="treino_livre">Treino Livre</string>
     <string name="treino_compensador_de_fadiga">Treino Compensador de Fadiga</string>
     <string name="Text_Apresentacao">Aplicativo Desenvolvido por Breno em seu Doutorado</string>
+    <string name="amplitude_ch_1_e_2_extens_o">Amplitude CH 1 e 2 (Extensão)</string>
+    <string name="n_a">n/a</string>
+    <string name="ma">(mA)</string>
 </resources>
