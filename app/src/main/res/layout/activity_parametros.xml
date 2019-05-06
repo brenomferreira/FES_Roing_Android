@@ -8,10 +8,19 @@
     android:scrollbars="vertical"
     tools:context=".views.ParametrosActivity">
 
+    <Button
+        android:id="@+id/btn_voltar_ac.Parametros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/voltar" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Os valores serão enviados para o Estimulador" />
+
+
+    <!-- Inicio quadro CH12 -->
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -28,7 +37,7 @@
             android:text="@string/amplitude_ch_1_e_2_extens_o" />
 
         <TextView
-            android:id="@+id/unidadeMedida"
+            android:id="@+id/unidadeMedida_ch12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -37,26 +46,28 @@
             android:text="@string/ma" />
 
         <EditText
+            android:id="@+id/editText_CH12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/unidadeMedida"
-            android:text="valor..." />
+            android:layout_toLeftOf="@+id/unidadeMedida_ch12"
+            android:hint="Valor..."
+            android:inputType="number" />
 
 
     </RelativeLayout>
 
     <SeekBar
         android:id="@+id/seekBar_CH12"
-        style="@android:style/Widget.Material.SeekBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:max="100"
         android:maxHeight="20dp"
         android:progressBackgroundTint="@color/colorPrimaryDark"
         android:progressTint="@color/colorPrimary"
         android:scrollbars="none" />
 
+    <!-- Fim quadro CH12 -->
 
 
 </LinearLayout>

@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:scrollbars="vertical"
     tools:context=".views.MainActivity">
 
     <RelativeLayout
@@ -45,54 +44,61 @@
         android:layout_gravity="center"
         android:text="Parametros ainda não Ajustados" />
 
-    <Button
-        android:id="@+id/btn_parametros"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/ajuste_de_par_metros"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_aquecimento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/aquecimento_e_sincronia"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_treinoVelocidade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/treino_de_velocidade"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            <Button
+                android:id="@+id/btn_parametros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/ajuste_de_par_metros"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <Button
-        android:id="@+id/btn_treinoLivre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/treino_livre"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            <Button
+                android:id="@+id/btn_aquecimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/aquecimento_e_sincronia"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <Button
-        android:id="@+id/btn_treinoCompensadorFadiga"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/treino_compensador_de_fadiga"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            <Button
+                android:id="@+id/btn_treinoVelocidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/treino_de_velocidade"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
+            <Button
+                android:id="@+id/btn_treinoLivre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/treino_livre"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <Button
+                android:id="@+id/btn_treinoCompensadorFadiga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/treino_compensador_de_fadiga"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Text_Apresentacao"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+         />
 
 </LinearLayout>
