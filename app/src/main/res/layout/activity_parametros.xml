@@ -19,6 +19,13 @@
         android:layout_height="wrap_content"
         android:text="Os valores serão enviados para o Estimulador" />
 
+    <TextView
+        android:id="@+id/textView_valor_previo"
+        android:hint="Valor prévio dos Parametros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Os valores serão enviados para o Estimulador" />
+
 
     <!-- Inicio quadro CH12 -->
 

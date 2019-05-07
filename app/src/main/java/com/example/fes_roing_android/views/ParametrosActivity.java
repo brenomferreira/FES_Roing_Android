@@ -3,14 +3,20 @@ package com.example.fes_roing_android.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.util.SecurityPreferences;
 
-public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener {
+import org.w3c.dom.Text;
+
+public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener {
     
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
@@ -20,12 +26,25 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_parametros);
-        
+
+
+
+
+        // util packages
         this.mSecurityPreferences = new SecurityPreferences(this);
+
+        // TextViews
+        mViewHolder.valor_previo = (TextView) findViewById(R.id.textView_valor_previo);
+
+        // OnClick
         this.mViewHolder.btn_voltar = (Button) findViewById(R.id.btn_voltar_ac_Parametros);
         this.mViewHolder.btn_voltar.setOnClickListener(this);
         this.mViewHolder.check_CH12 = (CheckBox) findViewById(R.id.checkboxCH12);
         this.mViewHolder.check_CH12.setOnClickListener(this);
+
+        // OnKey
+        this.mViewHolder.editText_CH12 = (EditText) findViewById(R.id.editText_CH12);
+        this.mViewHolder.editText_CH12.setOnKeyListener(this);
     
     } // Fim onCreate
     
@@ -53,12 +72,29 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     
     } // Fim onClick
 
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent event) {
+        int id = view.getId();
+        int evento_key = event.getKeyCode();
+
+        if (id == R.id.editText_CH12){
+            if(evento_key == 66 ){ // 66 corresponde à tecla ENTER
+                this.mViewHolder.valor_previo.setText("teste");
+            }
+
+        } // Fim dos eventos teclados ch12
+
+        return false;
+    }// Fim Método onKey
+
     private static class ViewHolder {
         Button btn_voltar;
         CheckBox check_CH12;
         CheckBox check_CH34;
         CheckBox check_CH56;
         CheckBox check_CH78;
+        EditText editText_CH12;
+        TextView valor_previo;
 
     }// Fim class ViewHolder
     
