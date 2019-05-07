@@ -15,7 +15,7 @@ import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
 
-public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener {
+public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener, SeekBar.OnSeekBarChangeListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
@@ -31,6 +31,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
 //SeekBars
         mViewHolder.seekBar_CH12 = (SeekBar) findViewById(R.id.seekBar_CH12);
+        mViewHolder.seekBar_CH12.setOnSeekBarChangeListener(this);
 
 // TextViews
         mViewHolder.valor_previo = (TextView) findViewById(R.id.textView_valor_previo);
@@ -88,6 +89,27 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         return false;
     }// Fim Método onKey
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        int id = seekBar.getId();
+        if (id == R.id.seekBar_CH12) {
+
+            this.mViewHolder.editText_CH12.setText(""+ progress);
+
+        }
+    }// Fim SeekBar OnProgressChanged
+
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 
     private static class ViewHolder {
         Button      btn_voltar;
