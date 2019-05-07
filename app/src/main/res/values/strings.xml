@@ -10,7 +10,10 @@
     <string name="Text_Apresentacao">Aplicativo Desenvolvido por Breno em seu Doutorado</string>
     <string name="amplitude_ch_1_e_2_extens_o">Amplitude CH 1 e 2 (Extensão)</string>
     <string name="amplitude_ch_3_e_4_extens_o">Amplitude CH 3 e 4 (Flexão)</string>
+    <string name="amplitude_ch_5_e_6_extens_o">Amplitude CH 5 e 6 (Aux. Extensão)</string>
+    <string name="amplitude_ch_7_e_8_extens_o">Amplitude CH 7 e 8 (Aux. Flexão)</string>
     <string name="n_a">n/a</string>
     <string name="ma">(mA)</string>
     <string name="voltar"><![CDATA[< Voltar]]></string>
+    <string name="enviar_para_o_estimulador">Enviar para o Estimulador</string>
 </resources>

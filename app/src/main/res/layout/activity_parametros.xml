@@ -27,6 +27,8 @@
         android:text="Os valores serão enviados para o Estimulador" />
 
 
+
+
     <!-- Inicio quadro CH12 -->
 
     <RelativeLayout
@@ -75,6 +77,164 @@
         android:scrollbars="none" />
 
     <!-- Fim quadro CH12 -->
+
+
+    <!-- Inicio quadro CH34 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkboxCH34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/amplitude_ch_3_e_4_extens_o" />
+
+        <TextView
+            android:id="@+id/unidadeMedida_ch34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/ma" />
+
+        <EditText
+            android:id="@+id/editText_CH34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/unidadeMedida_ch34"
+            android:hint="Valor..."
+            android:inputType="number" />
+
+
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar_CH34"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:max="100"
+        android:maxHeight="20dp"
+        android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressTint="@color/colorPrimary"
+        android:scrollbars="none" />
+
+    <!-- Fim quadro CH34 -->
+
+
+    <!-- Inicio quadro CH56 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkboxCH56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/amplitude_ch_5_e_6_extens_o" />
+
+        <TextView
+            android:id="@+id/unidadeMedida_ch56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/ma" />
+
+        <EditText
+            android:id="@+id/editText_CH56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/unidadeMedida_ch56"
+            android:hint="Valor..."
+            android:inputType="number" />
+
+
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar_CH56"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:max="100"
+        android:maxHeight="20dp"
+        android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressTint="@color/colorPrimary"
+        android:scrollbars="none" />
+
+    <!-- Fim quadro CH56 -->
+
+
+    <!-- Inicio quadro CH78 -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkboxCH78"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@string/amplitude_ch_7_e_8_extens_o" />
+
+        <TextView
+            android:id="@+id/unidadeMedida_ch78"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/ma" />
+
+        <EditText
+            android:id="@+id/editText_CH78"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/unidadeMedida_ch78"
+            android:hint="Valor..."
+            android:inputType="number" />
+
+
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar_CH78"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:max="100"
+        android:maxHeight="20dp"
+        android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressTint="@color/colorPrimary"
+        android:scrollbars="none" />
+
+    <!-- Fim quadro CH12 -->
+
+
+    <Button
+        android:id="@+id/btn_enviar_Estimulador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enviar_para_o_estimulador"/>
+
 
 
 </LinearLayout>
