@@ -29,8 +29,6 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_parametros);
 
 
-
-
 // util packages
         this.mSecurityPreferences = new SecurityPreferences(this);
 
@@ -63,11 +61,9 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.area_78 = (LinearLayout) findViewById(R.id.area_CH78);
 
 
-
         // habilitar/desabilitar layouts no start
         this.setEnableViews(this.mViewHolder.area_56, false);
         this.setEnableViews(this.mViewHolder.area_78, false);
-
 
 
     } // Fim onCreate
@@ -106,10 +102,35 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
             } // Fim se check false
 
-        } // Fim Lógica checkboxCH12
+        } // Fim Lógica checkboxCH34
 
+        if (id == R.id.checkboxCH56) {
+            if (this.mViewHolder.check_CH56.isChecked()) {
+// True
+                this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH56, ParametrosConstantes.CONFIRMADO_CH); // (Key, valor)
 
+            } // Fim se check true
+            else {
+// False
+                this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH56, ParametrosConstantes.NAO_CONFIRMADO_CH); // (Key, valor)
 
+            } // Fim se check false
+
+        } // Fim Lógica checkboxCH56
+
+        if (id == R.id.checkboxCH78) {
+            if (this.mViewHolder.check_CH78.isChecked()) {
+// True
+                this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH78, ParametrosConstantes.CONFIRMADO_CH); // (Key, valor)
+
+            } // Fim se check true
+            else {
+// False
+                this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH78, ParametrosConstantes.NAO_CONFIRMADO_CH); // (Key, valor)
+
+            } // Fim se check false
+
+        } // Fim Lógica checkboxCH78
 
 
         if (id == R.id.btn_voltar_ac_Parametros) {
