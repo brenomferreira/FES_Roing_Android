@@ -35,6 +35,12 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 //SeekBars
         mViewHolder.seekBar_CH12 = (SeekBar) findViewById(R.id.seekBar_CH12);
         mViewHolder.seekBar_CH12.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_CH34 = (SeekBar) findViewById(R.id.seekBar_CH34);
+        mViewHolder.seekBar_CH34.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_CH56 = (SeekBar) findViewById(R.id.seekBar_CH56);
+        mViewHolder.seekBar_CH56.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_CH78 = (SeekBar) findViewById(R.id.seekBar_CH78);
+        mViewHolder.seekBar_CH78.setOnSeekBarChangeListener(this);
 
 // TextViews
         mViewHolder.valor_previo = (TextView) findViewById(R.id.textView_valor_previo);
@@ -55,6 +61,12 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 // OnKey
         this.mViewHolder.editText_CH12 = (EditText) findViewById(R.id.editText_CH12);
         this.mViewHolder.editText_CH12.setOnKeyListener(this);
+        this.mViewHolder.editText_CH34 = (EditText) findViewById(R.id.editText_CH34);
+        this.mViewHolder.editText_CH34.setOnKeyListener(this);
+        this.mViewHolder.editText_CH56 = (EditText) findViewById(R.id.editText_CH56);
+        this.mViewHolder.editText_CH56.setOnKeyListener(this);
+        this.mViewHolder.editText_CH78 = (EditText) findViewById(R.id.editText_CH78);
+        this.mViewHolder.editText_CH78.setOnKeyListener(this);
 
         //Layout
         this.mViewHolder.area_56 = (LinearLayout) findViewById(R.id.area_CH56);
@@ -148,13 +160,36 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         if (id == R.id.editText_CH12) {
             if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                this.mViewHolder.valor_previo.setText("teste");
                 int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
                 this.mViewHolder.seekBar_CH12.setProgress(value);
-
             }
 
         } // Fim dos eventos teclados ch12
+
+        if (id == R.id.editText_CH34) {
+            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
+                this.mViewHolder.seekBar_CH34.setProgress(value);
+            }
+
+        } // Fim dos eventos teclados ch34
+
+
+        if (id == R.id.editText_CH56) {
+            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
+                this.mViewHolder.seekBar_CH56.setProgress(value);
+            }
+
+        } // Fim dos eventos teclados ch56
+
+        if (id == R.id.editText_CH78) {
+            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
+                this.mViewHolder.seekBar_CH78.setProgress(value);
+            }
+
+        } // Fim dos eventos teclados ch78
 
         return false;
     }// Fim Método onKey
@@ -162,11 +197,32 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int id = seekBar.getId();
-        if (id == R.id.seekBar_CH12) {
 
+        if (id == R.id.seekBar_CH12) {
             this.mViewHolder.editText_CH12.setText("" + progress);
 
-        }
+        } // Fim slider ch12
+
+        if (id == R.id.seekBar_CH34) {
+            this.mViewHolder.editText_CH34.setText("" + progress);
+
+        } // Fim slider ch12
+
+        if (id == R.id.seekBar_CH56) {
+            this.mViewHolder.editText_CH56.setText("" + progress);
+
+        } // Fim slider ch12
+
+        if (id == R.id.seekBar_CH78) {
+            this.mViewHolder.editText_CH78.setText("" + progress);
+
+        } // Fim slider ch12
+
+
+
+
+
+
     }// Fim SeekBar OnProgressChanged
 
 
