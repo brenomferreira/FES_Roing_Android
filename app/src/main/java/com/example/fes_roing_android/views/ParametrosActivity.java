@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -26,6 +28,9 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         setContentView(R.layout.activity_parametros);
 
+
+
+
 // util packages
         this.mSecurityPreferences = new SecurityPreferences(this);
 
@@ -41,10 +46,29 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.btn_voltar.setOnClickListener(this);
         this.mViewHolder.check_CH12 = (CheckBox) findViewById(R.id.checkboxCH12);
         this.mViewHolder.check_CH12.setOnClickListener(this);
+        this.mViewHolder.check_CH34 = (CheckBox) findViewById(R.id.checkboxCH34);
+        this.mViewHolder.check_CH34.setOnClickListener(this);
+        this.mViewHolder.check_CH56 = (CheckBox) findViewById(R.id.checkboxCH56);
+        this.mViewHolder.check_CH56.setOnClickListener(this);
+        this.mViewHolder.check_CH78 = (CheckBox) findViewById(R.id.checkboxCH78);
+        this.mViewHolder.check_CH78.setOnClickListener(this);
+
 
 // OnKey
         this.mViewHolder.editText_CH12 = (EditText) findViewById(R.id.editText_CH12);
         this.mViewHolder.editText_CH12.setOnKeyListener(this);
+
+        //Layout
+        this.mViewHolder.area_56 = (LinearLayout) findViewById(R.id.area_CH56);
+        this.mViewHolder.area_78 = (LinearLayout) findViewById(R.id.area_CH78);
+
+
+
+        // habilitar/desabilitar layouts no start
+        this.setEnableViews(this.mViewHolder.area_56, false);
+        this.setEnableViews(this.mViewHolder.area_78, false);
+
+
 
     } // Fim onCreate
 
@@ -55,15 +79,39 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             if (this.mViewHolder.check_CH12.isChecked()) {
 // True
                 this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH12, ParametrosConstantes.CONFIRMADO_CH); // (Key, valor)
+                this.setEnableViews(this.mViewHolder.area_56, true);
 
             } // Fim se check true
             else {
 // False
                 this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH12, ParametrosConstantes.NAO_CONFIRMADO_CH); // (Key, valor)
+                this.setEnableViews(this.mViewHolder.area_56, false);
 
             } // Fim se check false
 
         } // Fim Lógica checkboxCH12
+
+
+        if (id == R.id.checkboxCH34) {
+            if (this.mViewHolder.check_CH34.isChecked()) {
+// True
+                this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH34, ParametrosConstantes.CONFIRMADO_CH); // (Key, valor)
+                this.setEnableViews(this.mViewHolder.area_78, true);
+
+            } // Fim se check true
+            else {
+// False
+                this.mSecurityPreferences.storeString(ParametrosConstantes.AtiveCH34, ParametrosConstantes.NAO_CONFIRMADO_CH); // (Key, valor)
+                this.setEnableViews(this.mViewHolder.area_78, false);
+
+            } // Fim se check false
+
+        } // Fim Lógica checkboxCH12
+
+
+
+
+
         if (id == R.id.btn_voltar_ac_Parametros) {
             Intent intent2 = new Intent(this, MainActivity.class); // chama outra view
             startActivity(intent2);
@@ -95,7 +143,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         int id = seekBar.getId();
         if (id == R.id.seekBar_CH12) {
 
-            this.mViewHolder.editText_CH12.setText(""+ progress);
+            this.mViewHolder.editText_CH12.setText("" + progress);
 
         }
     }// Fim SeekBar OnProgressChanged
@@ -111,15 +159,46 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+
+    private void setEnableLinearLayout(boolean enable, ViewGroup vg) {
+        for (int i = 0; i < vg.getChildCount(); i++) {
+            View v = vg.getChildAt(i);
+            v.setEnabled(enable);
+        }
+    }
+
+    public void setEnableViews(View v, boolean enable) {
+        v.setEnabled(enable);
+        if (v instanceof ViewGroup) {
+
+            for (int i = 0; i < ((ViewGroup) v).getChildCount(); i++) {
+                View view = ((ViewGroup) v).getChildAt(i);
+                setEnableViews(view, enable);
+            }
+        }
+    }
+
+
     private static class ViewHolder {
-        Button      btn_voltar;
-        CheckBox    check_CH12;
-        CheckBox    check_CH34;
-        CheckBox    check_CH56;
-        CheckBox    check_CH78;
-        EditText    editText_CH12;
-        SeekBar     seekBar_CH12;
-        TextView    valor_previo;
+        Button btn_voltar;
+        Button Envi_Parametros;
+        CheckBox check_CH12;
+        CheckBox check_CH34;
+        CheckBox check_CH56;
+        CheckBox check_CH78;
+        EditText editText_CH12;
+        EditText editText_CH34;
+        EditText editText_CH56;
+        EditText editText_CH78;
+        SeekBar seekBar_CH12;
+        SeekBar seekBar_CH34;
+        SeekBar seekBar_CH56;
+        SeekBar seekBar_CH78;
+        TextView valor_previo;
+
+        //layout
+        LinearLayout area_56;
+        LinearLayout area_78;
 
     }// Fim class ViewHolder
 
