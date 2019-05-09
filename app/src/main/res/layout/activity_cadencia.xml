@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".views.CadenciaActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/voltar" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Limpar memória" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/btn_menos_Voga"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="" />
+
+                <Button
+                    android:id="@+id/btn_menos_Voga"
+                    android:layout_below="@+id/textView_Voga"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/radioButton"
+                    android:text="-" />
+
+                <Button
+                    android:id="@+id/btn_mais_Voga"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/btn_menos_Voga"
+                    android:layout_toRightOf="@+id/editText_Voga"
+                    android:text="+" />
+
+                <EditText
+                    android:id="@+id/editText_Voga"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/btn_menos_Voga"
+                    android:layout_below="@id/textView_Voga"
+                    android:hint="Valor.." />
+
+                <TextView
+                    android:id="@+id/textView_Voga"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/btn_menos_Voga"
+                    android:layout_alignEnd="@+id/btn_mais_Voga"
+                    android:layout_alignParentTop="true"
+                    android:text="VOGA(rem/min)" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
