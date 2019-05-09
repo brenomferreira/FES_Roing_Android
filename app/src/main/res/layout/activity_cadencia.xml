@@ -46,12 +46,13 @@
                     android:id="@+id/config_Voga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
 
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/radioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -89,9 +90,8 @@
                             android:id="@+id/textView_Voga"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-                            android:layout_alignStart="@+id/btn_menos_Voga"
                             android:layout_alignEnd="@+id/btn_mais_Voga"
+                            android:layout_alignRight="@+id/btn_mais_Voga"
                             android:layout_alignParentTop="true"
                             android:gravity="center"
                             android:text="VOGA(rem/min)" />
@@ -104,16 +104,16 @@
                 <!--Início Drive -->
                 <LinearLayout
                     android:id="@+id/config_Drive"
-                    android:layout_below="@id/config_Voga"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/config_Voga">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
 
-                        <RadioButton
+                        <CheckBox
                             android:id="@+id/radioButton2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -153,12 +153,12 @@
                             android:layout_height="wrap_content"
 
                             android:layout_alignStart="@+id/btn_menos_Drive"
+                            android:layout_alignLeft="@+id/btn_menos_Drive"
                             android:layout_alignEnd="@+id/btn_mais_Drive"
+                            android:layout_alignRight="@+id/btn_mais_Drive"
                             android:layout_alignParentTop="true"
                             android:gravity="center"
-                            android:text="Drive(s)"
-                            android:layout_alignLeft="@+id/btn_menos_Drive"
-                            android:layout_alignRight="@+id/btn_mais_Drive" />
+                            android:text="Drive(s)" />
 
 
                     </RelativeLayout>
@@ -169,9 +169,9 @@
                 <!--Início Freq -->
                 <LinearLayout
                     android:id="@+id/config_Freq"
-                    android:layout_toRightOf="@id/config_Voga"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/config_Voga">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -184,7 +184,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Freq"
                             android:layout_toRightOf="@+id/radioButton2"
-                            android:text="-" />
+                            android:text="-"
+                            tools:ignore="NotSibling" />
 
                         <Button
                             android:id="@+id/btn_mais_Freq"
@@ -209,12 +210,12 @@
                             android:layout_height="wrap_content"
 
                             android:layout_alignStart="@+id/btn_menos_Freq"
+                            android:layout_alignLeft="@+id/btn_menos_Freq"
                             android:layout_alignEnd="@+id/btn_mais_Freq"
+                            android:layout_alignRight="@+id/btn_mais_Freq"
                             android:layout_alignParentTop="true"
                             android:gravity="center"
-                            android:text="Frequência(Hz)"
-                            android:layout_alignLeft="@+id/btn_menos_Freq"
-                            android:layout_alignRight="@+id/btn_mais_Freq" />
+                            android:text="Frequência(Hz)" />
 
 
                     </RelativeLayout>
@@ -224,10 +225,10 @@
                 <!--Início Cadeira -->
                 <LinearLayout
                     android:id="@+id/config_Cadeira"
-                    android:layout_toRightOf="@id/config_Voga"
-                    android:layout_below="@+id/config_Voga"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/config_Voga"
+                    android:layout_toRightOf="@id/config_Voga">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -240,7 +241,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Cadeira"
                             android:layout_toRightOf="@+id/radioButton2"
-                            android:text="-" />
+                            android:text="-"
+                            tools:ignore="NotSibling" />
 
                         <Button
                             android:id="@+id/btn_mais_Cadeira"
@@ -265,12 +267,12 @@
                             android:layout_height="wrap_content"
 
                             android:layout_alignStart="@+id/btn_menos_Cadeira"
+                            android:layout_alignLeft="@+id/btn_menos_Cadeira"
                             android:layout_alignEnd="@+id/btn_mais_Cadeira"
+                            android:layout_alignRight="@+id/btn_mais_Cadeira"
                             android:layout_alignParentTop="true"
                             android:gravity="center"
-                            android:text="Mov (%)"
-                            android:layout_alignLeft="@+id/btn_menos_Cadeira"
-                            android:layout_alignRight="@+id/btn_mais_Cadeira" />
+                            android:text="Mov (%)" />
 
 
                     </RelativeLayout>
@@ -278,37 +280,44 @@
                 <!--Fim Cadeira -->
 
 
-<RadioGroup
-    android:layout_width="wrap_content"
-    android:layout_toRightOf="@id/config_Freq"
-    android:gravity="center"
-    android:layout_alignTop="@+id/config_Freq"
-    android:layout_alignBottom="@id/config_Cadeira"
-    android:layout_height="wrap_content">
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/config_Freq"
+                    android:layout_alignBottom="@id/config_Cadeira"
+                    android:layout_toRightOf="@id/config_Freq"
+                    android:gravity="center">
 
-    <RadioButton
-        android:id="@+id/radio_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1/1"/>
+                    <RadioButton
+                        android:id="@+id/radio_1_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1/1" />
 
-    <RadioButton
-        android:id="@+id/radio_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1/2"/>
+                    <RadioButton
+                        android:id="@+id/radio_1_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1/2" />
 
-    <RadioButton
-        android:id="@+id/radio_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1/3"/>
+                    <RadioButton
+                        android:id="@+id/radio_1_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1/3" />
 
 
-</RadioGroup>
+                </RadioGroup>
 
 
             </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cadência"/>
+
 
         </LinearLayout>
 

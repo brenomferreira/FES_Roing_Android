@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.mViewHolder.conecta_bluetooth = (Button) findViewById(R.id.btn_conectBTh);
         this.mViewHolder.parametros = (Button) findViewById(R.id.btn_parametros);
-
         this.mViewHolder.parametros.setOnClickListener(this);
+        this.mViewHolder.aquecimento = (Button) findViewById(R.id.btn_aquecimento);
+        this.mViewHolder.aquecimento.setOnClickListener(this);
+
     }
 
     @Override
@@ -75,6 +77,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        else if (id == R.id.btn_aquecimento){
+            // Lógica de navegação.
+            // Intent intent = new Intent(getApplicationContext(), ParametrosActivity.class);
+            Intent intent = new Intent(this, CadenciaActivity.class); // chama outra view
+            startActivity(intent);
+        } // Fim da logica do botão
+
 
     }
 
@@ -82,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static class ViewHolder {
         Button conecta_bluetooth;
         Button parametros;
+        Button aquecimento;
     } // Fim ViewHolder
 
 
