@@ -64,7 +64,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Voga"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Voga"
                             android:layout_toRightOf="@+id/radioButton"
@@ -72,7 +72,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Voga"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Voga"
                             android:layout_toRightOf="@+id/editText_Voga"
@@ -125,7 +125,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Drive"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Drive"
                             android:layout_toRightOf="@+id/radioButton2"
@@ -133,7 +133,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Drive"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Drive"
                             android:layout_toRightOf="@+id/editText_Drive"
@@ -181,7 +181,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Freq"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Freq"
                             android:layout_toRightOf="@+id/radioButton2"
@@ -190,7 +190,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Freq"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Freq"
                             android:layout_toRightOf="@+id/editText_Freq"
@@ -238,7 +238,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Cadeira"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Cadeira"
                             android:layout_toRightOf="@+id/radioButton2"
@@ -247,7 +247,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Cadeira"
-                            android:layout_width="30dp"
+                            android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Cadeira"
                             android:layout_toRightOf="@+id/editText_Cadeira"
@@ -341,7 +341,35 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:gravity="center"
+                    android:hint="não determinado" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:gravity="center"
+                    android:hint="não determinado" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:gravity="center"
+                    android:hint="não determinado" />
+
+
+            </LinearLayout>
 
 
             <TextView
