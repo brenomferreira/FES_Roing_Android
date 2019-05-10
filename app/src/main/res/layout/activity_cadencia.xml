@@ -38,7 +38,9 @@
             android:gravity="center">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:background="@drawable/view_border"
                 android:layout_height="wrap_content">
 
 
@@ -54,7 +56,7 @@
 
 
                         <CheckBox
-                            android:id="@+id/radioButton"
+                            android:id="@+id/checkBox_Voga"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@id/btn_menos_Voga"
@@ -67,7 +69,7 @@
                             android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Voga"
-                            android:layout_toRightOf="@+id/radioButton"
+                            android:layout_toRightOf="@+id/checkBox_Voga"
                             android:text="-" />
 
                         <Button
@@ -115,7 +117,7 @@
 
 
                         <CheckBox
-                            android:id="@+id/radioButton2"
+                            android:id="@+id/checkBox_Drive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@id/btn_menos_Drive"
@@ -128,7 +130,7 @@
                             android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Drive"
-                            android:layout_toRightOf="@+id/radioButton2"
+                            android:layout_toRightOf="@+id/checkBox_Drive"
                             android:text="-" />
 
                         <Button
@@ -184,7 +186,7 @@
                             android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Freq"
-                            android:layout_toRightOf="@+id/radioButton2"
+                            android:layout_toRightOf="@+id/checkBox_Drive"
                             android:text="-"
                             tools:ignore="NotSibling" />
 
@@ -241,7 +243,7 @@
                             android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Cadeira"
-                            android:layout_toRightOf="@+id/radioButton2"
+                            android:layout_toRightOf="@+id/checkBox_Drive"
                             android:text="-"
                             tools:ignore="NotSibling" />
 
@@ -403,6 +405,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:text="Ativar Estimulação"
+                android:background="@drawable/view_border"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -442,6 +445,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/view_border"
                     android:layout_weight="0.33"
                     android:gravity="center"
                     android:hint="não determinado" />
@@ -449,6 +453,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/view_border"
                     android:layout_weight="0.33"
                     android:gravity="center"
                     android:hint="não determinado" />
@@ -456,6 +461,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/view_border"
                     android:layout_weight="0.33"
                     android:gravity="center"
                     android:hint="não determinado" />
