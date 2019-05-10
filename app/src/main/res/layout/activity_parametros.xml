@@ -272,9 +272,138 @@
                     android:progressTint="@color/colorPrimary"
                     android:scrollbars="none" />
 
-                <!-- Fim quadro CH12 -->
 
             </LinearLayout>
+
+            <!-- Fim quadro CH78 -->
+
+
+
+            <!-- Inicio quadro Freq -->
+
+            <LinearLayout
+                android:id="@+id/area_Freq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/checkbox_Freq"
+                        android:layout_width="wrap_content"
+                        android:layout_toLeftOf="@+id/editText_Freq"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/frequ_ncia" />
+
+                    <TextView
+                        android:id="@+id/unidadeMedida_Freq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/hz" />
+
+                    <EditText
+                        android:id="@+id/editText_Freq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/unidadeMedida_Freq"
+                        android:hint="Valor..."
+                        android:inputType="number" />
+
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:id="@+id/seekBar_Freq"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:max="100"
+                    android:maxHeight="20dp"
+                    android:progressBackgroundTint="@color/colorPrimaryDark"
+                    android:progressTint="@color/colorPrimary"
+                    android:scrollbars="none" />
+
+
+            </LinearLayout>
+
+            <!-- Fim quadro Freq -->
+
+            <!-- Inicio quadro Largura de pulso -->
+
+            <LinearLayout
+                android:id="@+id/area_LP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/checkbox_LP"
+                        android:layout_width="wrap_content"
+                        android:layout_toLeftOf="@+id/editText_LP"
+                        android:layout_alignParentLeft="true"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="@string/largura_de_pulso" />
+
+                    <TextView
+                        android:id="@+id/unidadeMedida_LP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/s" />
+
+                    <EditText
+                        android:id="@+id/editText_LP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/unidadeMedida_LP"
+                        android:hint="Valor..."
+                        android:inputType="number" />
+
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:id="@+id/seekBar_LP"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:max="100"
+                    android:maxHeight="20dp"
+                    android:progressBackgroundTint="@color/colorPrimaryDark"
+                    android:progressTint="@color/colorPrimary"
+                    android:scrollbars="none" />
+
+
+            </LinearLayout>
+
+            <!-- Fim quadro Largura de pulso -->
+
+
 
 
             <Button

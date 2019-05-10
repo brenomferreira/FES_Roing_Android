@@ -16,4 +16,8 @@
     <string name="ma">(mA)</string>
     <string name="voltar"><![CDATA[< Voltar]]></string>
     <string name="enviar_para_o_estimulador">Enviar para o Estimulador</string>
+    <string name="frequ_ncia">Frequência</string>
+    <string name="hz">(Hz)</string>
+    <string name="largura_de_pulso">Largura de Pulso</string>
+    <string name="s">(µs)</string>
 </resources>
