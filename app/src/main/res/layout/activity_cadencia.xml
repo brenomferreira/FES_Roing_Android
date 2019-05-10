@@ -34,6 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center">
 
             <RelativeLayout
@@ -63,7 +64,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Voga"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Voga"
                             android:layout_toRightOf="@+id/radioButton"
@@ -71,7 +72,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Voga"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Voga"
                             android:layout_toRightOf="@+id/editText_Voga"
@@ -124,7 +125,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Drive"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Drive"
                             android:layout_toRightOf="@+id/radioButton2"
@@ -132,7 +133,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Drive"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Drive"
                             android:layout_toRightOf="@+id/editText_Drive"
@@ -180,7 +181,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Freq"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Freq"
                             android:layout_toRightOf="@+id/radioButton2"
@@ -189,7 +190,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Freq"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Freq"
                             android:layout_toRightOf="@+id/editText_Freq"
@@ -237,7 +238,7 @@
 
                         <Button
                             android:id="@+id/btn_menos_Cadeira"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Cadeira"
                             android:layout_toRightOf="@+id/radioButton2"
@@ -246,7 +247,7 @@
 
                         <Button
                             android:id="@+id/btn_mais_Cadeira"
-                            android:layout_width="40dp"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/btn_menos_Cadeira"
                             android:layout_toRightOf="@+id/editText_Cadeira"
@@ -313,10 +314,93 @@
             </RelativeLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_weight="0.33"
+                    android:text="Set Treino (1)"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp" />
+
+                <Button
+                    android:layout_weight="0.33"
+                    android:text="Set Treino (2)"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:layout_weight="0.33"
+                    android:text="Set Treino (3)"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cadência"/>
+                android:textSize="25dp"
+                android:gravity="center"
+                android:text="@string/cad_ncia"/>
+
+            <SeekBar
+                android:id="@+id/seekBar_Cadencia"
+                android:layout_width="match_parent"
+                android:layout_height="30sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:text="@string/posi_o_do_banco"/>
+
+            <SeekBar
+                android:id="@+id/seekBar_PosiçaoCadeira"
+                android:layout_width="match_parent"
+                android:layout_height="30sp" />
+
+
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:text="Ativar Estimulação"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_weight="0.33"
+                    android:text="Treino (1)"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:layout_weight="0.33"
+                    android:text="Treino (2)"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:layout_weight="0.33"
+                    android:text="Treino (3)"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
