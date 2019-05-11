@@ -34,38 +34,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:background="@drawable/view_border"
-                android:layout_height="wrap_content">
+                android:gravity="center">
 
                 <CheckBox
                     android:id="@+id/checkBox_Voga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/config_Voga"
+                    android:layout_alignBottom="@+id/area_config_Voga"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:text="" />
 
 
-
                 <!--Início Voga -->
                 <LinearLayout
-                    android:id="@+id/config_Voga"
+                    android:id="@+id/area_config_Voga"
                     android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/checkBox_Voga"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/checkBox_Voga">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
-
 
 
                         <Button
@@ -113,27 +110,23 @@
                     android:id="@+id/checkBox_Drive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/config_Drive"
-                    android:layout_alignParentLeft="true"
                     android:layout_below="@id/checkBox_Voga"
+                    android:layout_alignBottom="@+id/area_config_Drive"
+                    android:layout_alignParentLeft="true"
                     android:text="" />
-
-
 
 
                 <!--Início Drive -->
                 <LinearLayout
-                    android:id="@+id/config_Drive"
+                    android:id="@+id/area_config_Drive"
                     android:layout_width="wrap_content"
-                    android:layout_toRightOf="@+id/checkBox_Drive"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/config_Voga">
+                    android:layout_below="@id/area_config_Voga"
+                    android:layout_toRightOf="@+id/checkBox_Drive">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-
-
 
 
                         <Button
@@ -185,7 +178,7 @@
                     android:id="@+id/config_Freq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/config_Voga">
+                    android:layout_toRightOf="@id/area_config_Voga">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -241,8 +234,8 @@
                     android:id="@+id/config_Cadeira"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/config_Voga"
-                    android:layout_toRightOf="@id/config_Voga">
+                    android:layout_below="@+id/area_config_Voga"
+                    android:layout_toRightOf="@id/area_config_Voga">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -295,6 +288,7 @@
 
 
                 <RadioGroup
+                    android:id="@+id/area_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/config_Freq"
@@ -329,27 +323,27 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <Button
-                    android:layout_weight="0.33"
-                    android:text="Set Treino (1)"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="0dp" />
+                    android:layout_weight="0.33"
+                    android:text="Set Treino (1)" />
 
                 <Button
-                    android:layout_weight="0.33"
-                    android:text="Set Treino (2)"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:text="Set Treino (2)" />
 
                 <Button
-                    android:layout_weight="0.33"
-                    android:text="Set Treino (3)"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:text="Set Treino (3)" />
 
 
             </LinearLayout>
@@ -385,14 +379,12 @@
             </LinearLayout>
 
 
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
                 android:gravity="center"
-                android:text="@string/cad_ncia"/>
+                android:text="@string/cad_ncia"
+                android:textSize="25dp" />
 
             <SeekBar
                 android:id="@+id/seekBar_Cadencia"
@@ -402,9 +394,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
                 android:gravity="center"
-                android:text="@string/posi_o_do_banco"/>
+                android:text="@string/posi_o_do_banco"
+                android:textSize="25dp" />
 
             <SeekBar
                 android:id="@+id/seekBar_PosiçaoCadeira"
@@ -412,36 +404,35 @@
                 android:layout_height="30sp" />
 
 
-
             <CheckBox
                 android:layout_width="wrap_content"
-                android:text="Ativar Estimulação"
+                android:layout_height="wrap_content"
                 android:background="@drawable/view_border"
-                android:layout_height="wrap_content" />
+                android:text="Ativar Estimulação" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <Button
-                    android:layout_weight="0.33"
-                    android:text="Treino (1)"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:text="Treino (1)" />
 
                 <Button
-                    android:layout_weight="0.33"
-                    android:text="Treino (2)"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:text="Treino (2)" />
 
                 <Button
-                    android:layout_weight="0.33"
-                    android:text="Treino (3)"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:text="Treino (3)" />
 
 
             </LinearLayout>
@@ -456,30 +447,29 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/view_border"
                     android:layout_weight="0.33"
+                    android:background="@drawable/view_border"
                     android:gravity="center"
                     android:hint="não determinado" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/view_border"
                     android:layout_weight="0.33"
+                    android:background="@drawable/view_border"
                     android:gravity="center"
                     android:hint="não determinado" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/view_border"
                     android:layout_weight="0.33"
+                    android:background="@drawable/view_border"
                     android:gravity="center"
                     android:hint="não determinado" />
 
 
             </LinearLayout>
-
 
 
         </LinearLayout>
