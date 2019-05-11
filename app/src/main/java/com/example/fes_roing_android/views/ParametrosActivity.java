@@ -157,6 +157,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         int id = view.getId();
         int evento_key = event.getKeyCode();
+        //int evento_key = keyCode;
 
         if (id == R.id.editText_CH12) {
             if (evento_key == 66) { // 66 corresponde à tecla ENTER

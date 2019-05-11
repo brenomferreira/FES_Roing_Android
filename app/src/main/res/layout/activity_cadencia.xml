@@ -86,6 +86,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textView_Voga"
+                            android:inputType="number"
                             android:layout_toRightOf="@+id/btn_menos_Voga"
                             android:gravity="center"
                             android:hint="Valor.." />
@@ -149,6 +150,7 @@
                             android:id="@+id/editText_Drive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             android:layout_below="@id/textView_Drive"
                             android:layout_toRightOf="@+id/btn_menos_Drive"
                             android:gravity="center"
@@ -206,6 +208,7 @@
                             android:id="@+id/editText_Freq"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:inputType="number"
                             android:layout_below="@id/textView_Freq"
                             android:layout_toRightOf="@+id/btn_menos_Freq"
                             android:gravity="center"
@@ -262,6 +265,7 @@
                         <EditText
                             android:id="@+id/editText_Cadeira"
                             android:layout_width="wrap_content"
+                            android:inputType="number"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/textView_Cadeira"
                             android:layout_toRightOf="@+id/btn_menos_Cadeira"

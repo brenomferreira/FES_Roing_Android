@@ -17,4 +17,7 @@ public class ParametrosConstantes {
     public static final String Valor_LP = "LP";
     public static final String Valor_Mode = "MODE";
 
+    // CadenciaActivty
+    public static final String valorVoga = "Valor_Voga";
+
 } // Fim da classe ParametrosConstantes
