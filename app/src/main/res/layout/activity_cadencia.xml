@@ -43,11 +43,22 @@
                 android:background="@drawable/view_border"
                 android:layout_height="wrap_content">
 
+                <CheckBox
+                    android:id="@+id/checkBox_Voga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/config_Voga"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="" />
+
+
 
                 <!--Início Voga -->
                 <LinearLayout
                     android:id="@+id/config_Voga"
                     android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/checkBox_Voga"
                     android:layout_height="wrap_content">
 
                     <RelativeLayout
@@ -55,14 +66,7 @@
                         android:layout_height="wrap_content">
 
 
-                        <CheckBox
-                            android:id="@+id/checkBox_Voga"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/btn_menos_Voga"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:text="" />
+
 
                         <Button
                             android:id="@+id/btn_menos_Voga"
@@ -104,10 +108,24 @@
                 </LinearLayout>
                 <!--Fim Voga -->
 
+
+                <CheckBox
+                    android:id="@+id/checkBox_Drive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/config_Drive"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/checkBox_Voga"
+                    android:text="" />
+
+
+
+
                 <!--Início Drive -->
                 <LinearLayout
                     android:id="@+id/config_Drive"
                     android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/checkBox_Drive"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/config_Voga">
 
@@ -116,14 +134,7 @@
                         android:layout_height="wrap_content">
 
 
-                        <CheckBox
-                            android:id="@+id/checkBox_Drive"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/btn_menos_Drive"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:text="" />
+
 
                         <Button
                             android:id="@+id/btn_menos_Drive"
