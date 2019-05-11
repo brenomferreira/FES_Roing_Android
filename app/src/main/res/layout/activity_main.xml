@@ -3,38 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="1920px"
     android:orientation="vertical"
     tools:context=".views.MainActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="236px"
         android:background="@color/colorD">
 
-        <Button
-            android:id="@+id/btn_conectBTh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/conectar_bluetooth"
-            tools:targetApi="lollipop" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_telaTerminal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btn_conectBTh"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/terminal" />
+            <Button
+                android:id="@+id/btn_conectBTh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/conectar_bluetooth"
+                tools:targetApi="lollipop" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitEnd"
-            app:srcCompat="@drawable/logotipounb" />
+            <Button
+                android:id="@+id/btn_telaTerminal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/btn_conectBTh"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/terminal" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@+id/btn_telaTerminal"
+                app:srcCompat="@drawable/logotipounb" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -98,7 +106,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Text_Apresentacao"
-         />
+        android:text="@string/Text_Apresentacao" />
 
 </LinearLayout>
