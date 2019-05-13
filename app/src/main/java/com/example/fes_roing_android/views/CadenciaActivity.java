@@ -2,9 +2,11 @@ package com.example.fes_roing_android.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -48,6 +50,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         setEnableViews(this.mViewHolder.area_radioButton, false);
 
 
+
+        // habilitar botao done
+        this.mViewHolder.editText_Cadeira.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.editText_Drive.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.editText_Freq.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.editText_Voga.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
     }
 
     @Override
@@ -89,7 +99,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.editText_Voga){
            if (keyCode == 66){
-               calcularParametros();
+               String text = this.mViewHolder.editText_Voga.getText().toString();
+               this.mSecurityPreferences.storeString(ParametrosConstantes.valorVoga, text);
+               //calcularParametros();
 
            }
 

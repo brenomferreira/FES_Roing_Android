@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -77,6 +78,11 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.setEnableViews(this.mViewHolder.area_56, false);
         this.setEnableViews(this.mViewHolder.area_78, false);
 
+        // habilitar botao done
+        this.mViewHolder.editText_CH12.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.editText_CH34.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.editText_CH56.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.editText_CH78.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
     } // Fim onCreate
 
