@@ -9,8 +9,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
@@ -18,7 +21,7 @@ import com.example.fes_roing_android.util.SecurityPreferences;
 
 import static java.lang.Integer.parseInt;
 
-public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
+public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
@@ -49,10 +52,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Voga = (EditText) findViewById(R.id.editText_Voga);
         this.mViewHolder.editText_Voga.setOnEditorActionListener(this);
 
+
         //Areas layout
         this.mViewHolder.area_configDrive = (LinearLayout) findViewById(R.id.area_config_Drive);
         this.mViewHolder.area_configVoga = (LinearLayout) findViewById(R.id.area_config_Voga);
         this.mViewHolder.area_radioButton = (RadioGroup) findViewById(R.id.area_radioButton);
+        this.mViewHolder.area_radioButton.setOnCheckedChangeListener(this);
         setEnableViews(this.mViewHolder.area_radioButton, false);
 
 
@@ -62,7 +67,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Freq.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Voga.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-
+        this.mViewHolder.radio_1_1 = (RadioButton) findViewById(R.id.radio_1_1);
+        this.mViewHolder.radio_1_1.setChecked(true);
+        this.mViewHolder.radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
+        this.mViewHolder.radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
     }
 
     @Override
@@ -123,6 +131,33 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         return false;
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+
+        if (checkedId == R.id.radio_1_1) {
+            Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 1",
+                    Toast.LENGTH_SHORT).show();
+            this.mSecurityPreferences.storeString(ParametrosConstantes.cadencia, "1");
+
+
+        } else if (checkedId == R.id.radio_1_2) {
+            Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 2",
+                    Toast.LENGTH_SHORT).show();
+            this.mSecurityPreferences.storeString(ParametrosConstantes.cadencia, "2");
+
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 3",
+                    Toast.LENGTH_SHORT).show();
+            this.mSecurityPreferences.storeString(ParametrosConstantes.cadencia, "3");
+
+
+        }
+
+
+    }
+
 
     private static class ViewHolder {
 
@@ -134,11 +169,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         EditText editText_Cadeira;
 
 
-
         //Areas layout
         LinearLayout area_configDrive;
         LinearLayout area_configVoga;
         RadioGroup area_radioButton;
+        RadioButton radio_1_1;
+        RadioButton radio_1_2;
+        RadioButton radio_1_3;
 
 
     }
@@ -148,9 +185,19 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (this.mViewHolder.checkBox_Voga.isChecked()) {
             String text = mSecurityPreferences.getStoreString(ParametrosConstantes.valorVoga);
-            int valor = Integer.parseInt(text);
-            if(valor == 22)
-                this.mViewHolder.editText_Cadeira.setText("doidera");
+            int valor = parseInt(text);
+            int caso = parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.cadencia));
+
+            if (caso == 3) {
+
+            } else if (caso == 2) {
+
+            } else {
+                int calc = 1 * caso;
+                this.mViewHolder.editText_Drive.setText(calc);
+
+
+            }
 
 
         }

@@ -22,5 +22,7 @@ public class ParametrosConstantes {
     public static final String valorDrive = "Valor_Drive";
     public static final String valorFreq = "Valor_Freq";
     public static final String valorCadeirea = "Valor_Cadeira";
+    public static final String cadencia = "Valor_Cadencia";
+
 
 } // Fim da classe ParametrosConstantes
