@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.fes_roing_android.R;
@@ -51,7 +52,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         //Areas layout
         this.mViewHolder.area_configDrive = (LinearLayout) findViewById(R.id.area_config_Drive);
         this.mViewHolder.area_configVoga = (LinearLayout) findViewById(R.id.area_config_Voga);
-        this.mViewHolder.area_radioButton = (LinearLayout) findViewById(R.id.area_radioButton);
+        this.mViewHolder.area_radioButton = (RadioGroup) findViewById(R.id.area_radioButton);
         setEnableViews(this.mViewHolder.area_radioButton, false);
 
 
@@ -133,10 +134,11 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         EditText editText_Cadeira;
 
 
+
         //Areas layout
         LinearLayout area_configDrive;
         LinearLayout area_configVoga;
-        LinearLayout area_radioButton;
+        RadioGroup area_radioButton;
 
 
     }
