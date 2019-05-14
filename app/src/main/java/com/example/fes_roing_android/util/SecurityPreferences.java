@@ -16,7 +16,7 @@ public class SecurityPreferences {
     } // Fim do Construtor
 
     public void storeString(String key, String value) {
-        this.mSharedPreferences.edit().putString(key, value); // informa a chave e recupera o valor
+        this.mSharedPreferences.edit().putString(key, value).apply(); // informa a chave e recupera o valor
     } // fim do método edit (StoreString)
 
     public String getStoreString(String key) {

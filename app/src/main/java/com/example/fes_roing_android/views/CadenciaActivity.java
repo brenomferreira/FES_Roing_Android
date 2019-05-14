@@ -12,18 +12,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.fes_roing_android.R;
+import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
+
+import static java.lang.Integer.parseInt;
 
 public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadencia);
 
+        // util packages
+        this.mSecurityPreferences = new SecurityPreferences(this);
 
         // Onclick
         this.mViewHolder.checkBox_Voga = (CheckBox) findViewById(R.id.checkBox_Voga);
@@ -65,17 +71,32 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.checkBox_Voga) {
             if (this.mViewHolder.checkBox_Voga.isChecked()) {
                 setEnableViews(this.mViewHolder.area_configDrive, false);
+                setEnableViews(this.mViewHolder.area_configVoga, true);
                 setEnableViews(this.mViewHolder.area_radioButton, true);
                 if (this.mViewHolder.checkBox_Drive.isChecked()) {
                     this.mViewHolder.checkBox_Drive.setChecked(false);
                     setEnableViews(this.mViewHolder.area_configDrive, false);
                 }
-
-
             } else {
                 setEnableViews(this.mViewHolder.area_configDrive, true);
-
                 if (!mViewHolder.checkBox_Drive.isChecked()) {
+                    setEnableViews(this.mViewHolder.area_radioButton, false);
+                }
+            }
+        }// Fim lógica CheckBox Voga
+
+        if (id == R.id.checkBox_Drive) {
+            if (this.mViewHolder.checkBox_Drive.isChecked()) {
+                setEnableViews(this.mViewHolder.area_configVoga, false);
+                setEnableViews(this.mViewHolder.area_configDrive, true);
+                setEnableViews(this.mViewHolder.area_radioButton, true);
+                if (this.mViewHolder.checkBox_Voga.isChecked()) {
+                    this.mViewHolder.checkBox_Voga.setChecked(false);
+                    setEnableViews(this.mViewHolder.area_configVoga, false);
+                }
+            } else {
+                setEnableViews(this.mViewHolder.area_configVoga, true);
+                if (!mViewHolder.checkBox_Voga.isChecked()) {
                     setEnableViews(this.mViewHolder.area_radioButton, false);
                 }
             }
@@ -91,6 +112,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.editText_Voga) {
             if (event == null) {
+                String text = view.getText().toString();
+                this.mSecurityPreferences.storeString(ParametrosConstantes.valorVoga, text);
                 calcularParametros();
             }
         }
@@ -122,14 +145,15 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     public void calcularParametros() {
 
         if (this.mViewHolder.checkBox_Voga.isChecked()) {
+            String text = mSecurityPreferences.getStoreString(ParametrosConstantes.valorVoga);
+            int valor = Integer.parseInt(text);
+            if(valor == 22)
+                this.mViewHolder.editText_Cadeira.setText("doidera");
 
 
-            this.mViewHolder.editText_Freq.setText("999");
         }
         if (this.mViewHolder.checkBox_Drive.isChecked()) {
-
             this.mViewHolder.editText_Cadeira.setText("888");
-
         }
     }
 
