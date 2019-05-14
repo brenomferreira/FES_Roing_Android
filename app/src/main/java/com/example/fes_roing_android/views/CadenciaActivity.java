@@ -128,6 +128,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 calcularParametros();
             }
         }
+        if (id == R.id.editText_Drive) {
+            if (event == null) {
+                String text = view.getText().toString();
+                this.mSecurityPreferences.storeString(ParametrosConstantes.valorDrive, text);
+                calcularParametros();
+            }
+        }
 
 
         return false;
@@ -141,7 +148,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 1",
                     Toast.LENGTH_SHORT).show();
             this.mSecurityPreferences.storeString(ParametrosConstantes.cadencia, "1");
-
 
 
         } else if (checkedId == R.id.radio_1_2) {
@@ -185,17 +191,29 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void calcularParametros() {
+        float caso = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.cadencia));
 
         if (this.mViewHolder.checkBox_Voga.isChecked()) {
-            float caso = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.cadencia));
             float voga = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.valorVoga));
-            float calc = 60 / (voga*(1 + caso));
+            float calc = 60 / (voga * (1 + caso));
             String text = decimalFormat.format(calc);
             this.mSecurityPreferences.storeString(ParametrosConstantes.valorDrive, text);
             this.mViewHolder.editText_Drive.setText(text);
 
         }
+        if (this.mViewHolder.checkBox_Drive.isChecked()) {
+            float drive = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.valorDrive));
+            float calc = 60 / (drive * (1 + caso));
+            String text = decimalFormat.format(calc);
+            this.mSecurityPreferences.storeString(ParametrosConstantes.valorVoga, text);
+            this.mViewHolder.editText_Voga.setText(text);
+
+
+        }
+
+
     }
+
 
     public void setEnableViews(View v, boolean enable) {
         v.setEnabled(enable);
