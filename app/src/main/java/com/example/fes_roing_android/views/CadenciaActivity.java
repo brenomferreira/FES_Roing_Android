@@ -19,6 +19,8 @@ import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import static java.lang.Integer.parseInt;
 
@@ -26,7 +28,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
-    DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    DecimalFormat decimalFormat = new DecimalFormat("#.00", new DecimalFormatSymbols(new Locale("en", "US")));
 
 
     @Override
