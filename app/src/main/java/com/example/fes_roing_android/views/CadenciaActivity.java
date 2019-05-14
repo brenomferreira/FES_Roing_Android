@@ -202,15 +202,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         }
         if (this.mViewHolder.checkBox_Drive.isChecked()) {
-            float drive = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.valorDrive));
+            float drive = Float.parseFloat(this.mSecurityPreferences.getStoreString(ParametrosConstantes.valorDrive));
             float calc = 60 / (drive * (1 + caso));
-            String text = decimalFormat.format(calc);
+            String text =  "" +
+                    Math.floor(calc);
             this.mSecurityPreferences.storeString(ParametrosConstantes.valorVoga, text);
             this.mViewHolder.editText_Voga.setText(text);
 
-
         }
-
 
     }
 

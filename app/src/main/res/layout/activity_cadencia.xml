@@ -150,7 +150,7 @@
                             android:id="@+id/editText_Drive"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:layout_below="@id/textView_Drive"
                             android:layout_toRightOf="@+id/btn_menos_Drive"
                             android:gravity="center"
