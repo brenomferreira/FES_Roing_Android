@@ -18,7 +18,7 @@ public class ParametrosConstantes {
     public static final String Valor_Mode = "MODE";
 
     // CadenciaActivty
-    public static final String valorVoga = "valorvoga";
+    public static final String valorVoga = "Valor_Voga";
     public static final String valorDrive = "Valor_Drive";
     public static final String valorFreq = "Valor_Freq";
     public static final String valorCadeirea = "Valor_Cadeira";

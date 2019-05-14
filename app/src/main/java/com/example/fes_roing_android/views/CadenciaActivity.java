@@ -12,12 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
+
+import java.text.DecimalFormat;
 
 import static java.lang.Integer.parseInt;
 
@@ -25,6 +26,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
+    DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
 
     @Override
@@ -141,6 +143,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             this.mSecurityPreferences.storeString(ParametrosConstantes.cadencia, "1");
 
 
+
         } else if (checkedId == R.id.radio_1_2) {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 2",
                     Toast.LENGTH_SHORT).show();
@@ -155,7 +158,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         }
 
-
+        calcularParametros();
     }
 
 
@@ -184,25 +187,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     public void calcularParametros() {
 
         if (this.mViewHolder.checkBox_Voga.isChecked()) {
-            String text = mSecurityPreferences.getStoreString(ParametrosConstantes.valorVoga);
-            int valor = parseInt(text);
-            int caso = parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.cadencia));
+            float caso = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.cadencia));
+            float voga = (float) parseInt(this.mSecurityPreferences.getStoreString(ParametrosConstantes.valorVoga));
+            float calc = 60 / (voga*(1 + caso));
+            String text = decimalFormat.format(calc);
+            this.mSecurityPreferences.storeString(ParametrosConstantes.valorDrive, text);
+            this.mViewHolder.editText_Drive.setText(text);
 
-            if (caso == 3) {
-
-            } else if (caso == 2) {
-
-            } else {
-                int calc = 1 * caso;
-                this.mViewHolder.editText_Drive.setText(calc);
-
-
-            }
-
-
-        }
-        if (this.mViewHolder.checkBox_Drive.isChecked()) {
-            this.mViewHolder.editText_Cadeira.setText("888");
         }
     }
 
