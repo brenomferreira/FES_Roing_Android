@@ -19,6 +19,7 @@ import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -38,12 +39,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         // util packages
         this.mSecurityPreferences = new SecurityPreferences(this);
         //executar para limpar memoria
-        /*File sharedPreferenceFile = new File("/data/data/"+ getPackageName()+ "/shared_prefs/");
+
+        /*
+        File sharedPreferenceFile = new File("/data/data/"+ getPackageName()+ "/shared_prefs/");
         File[] listFiles = sharedPreferenceFile.listFiles();
         for (File file : listFiles) {
             file.delete();
-        }*/
-
+        }
+        */
 
         // TextViews
         this.mViewHolder.text_set_treino_01 = (TextView) findViewById(R.id.textView_setTreino_01);
@@ -93,10 +96,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
         this.mViewHolder.radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
 
-        this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorVoga));
+        this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga));
         this.mViewHolder.editText_Drive.setHint("" + this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive));
-        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorFreq));
-        this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorCadeirea));
+        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq));
+        this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea));
 
     }
 
@@ -105,9 +108,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         int id = view.getId();
         
         float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
-        float freq = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorFreq);
+        int freq = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq);
         float recovery = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorRecovery);
-        float voga = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorVoga);
+        int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
 
         String text_drive = decimalFormat.format(drive);
         String text_freq = decimalFormat.format(freq);
@@ -176,8 +179,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.editText_Voga) {
             if (event == null) {
                 String text = view.getText().toString();
-                float valor = Float.parseFloat(text);
-                this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorVoga, valor);
+                int valor = (int) Float.parseFloat(text);
+                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, valor);
                 calcularParametros();
             }
         }
@@ -201,19 +204,19 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         if (checkedId == R.id.radio_1_1) {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 1",
                     Toast.LENGTH_SHORT).show();
-            this.mSecurityPreferences.storeFloat(ParametrosConstantes.cadencia, 1f);
+            this.mSecurityPreferences.storeInt(ParametrosConstantes.cadencia, 1);
 
 
         } else if (checkedId == R.id.radio_1_2) {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 2",
                     Toast.LENGTH_SHORT).show();
-            this.mSecurityPreferences.storeFloat(ParametrosConstantes.cadencia, 2f);
+            this.mSecurityPreferences.storeInt(ParametrosConstantes.cadencia, 2);
 
 
         } else {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 3",
                     Toast.LENGTH_SHORT).show();
-            this.mSecurityPreferences.storeFloat(ParametrosConstantes.cadencia, 3f);
+            this.mSecurityPreferences.storeInt(ParametrosConstantes.cadencia, 3);
 
 
         }
@@ -250,26 +253,26 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void calcularParametros() {
-        float caso = (this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.cadencia));
+        int caso = (this.mSecurityPreferences.getStoreInt(ParametrosConstantes.cadencia));
         float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
-        float voga = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorVoga);
+        int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
 
         if (this.mViewHolder.checkBox_Voga.isChecked()) {
-            float calc = 60 / (voga * (1 + caso));
-            String text = decimalFormat.format(calc);
-            this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, calc);
+            float calc1 = 60f / (voga * (1f + caso));
+            String text = decimalFormat.format(calc1);
+            this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, calc1);
             this.mViewHolder.editText_Drive.setText(text);
         }
         if (this.mViewHolder.checkBox_Drive.isChecked()) {
-            float calc = 60 / (drive * (1 + caso));
+            int calc = (int) (60 / (drive * (1 + caso)));
             String text = "" +
                     Math.floor(calc);
-            this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorVoga, calc);
+            this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, calc);
             this.mViewHolder.editText_Voga.setText(text);
         }
 
         // calculo do Recovery (por ultimo para pegar as atualizaçoes dos valores)
-        float recovery = (voga / 60) * drive;
+        float recovery = (voga / 60f) * drive;
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
 
 
