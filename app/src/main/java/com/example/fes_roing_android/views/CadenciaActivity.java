@@ -19,7 +19,6 @@ import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -64,6 +63,22 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.set_treino_02.setOnClickListener(this);
         this.mViewHolder.set_treino_03 = (Button) findViewById(R.id.btn_setTreino_03);
         this.mViewHolder.set_treino_03.setOnClickListener(this);
+        this.mViewHolder.mais_cadeira = (Button) findViewById(R.id.btn_mais_Cadeira);
+        this.mViewHolder.mais_cadeira.setOnClickListener(this);
+        this.mViewHolder.mais_drive = (Button) findViewById(R.id.btn_mais_Drive);
+        this.mViewHolder.mais_drive.setOnClickListener(this);
+        this.mViewHolder.mais_freq = (Button) findViewById(R.id.btn_mais_Freq);
+        this.mViewHolder.mais_freq.setOnClickListener(this);
+        this.mViewHolder.mais_voga = (Button) findViewById(R.id.btn_mais_Voga);
+        this.mViewHolder.mais_voga.setOnClickListener(this);
+        this.mViewHolder.menos_cadeira = (Button) findViewById(R.id.btn_menos_Cadeira);
+        this.mViewHolder.menos_cadeira.setOnClickListener(this);
+        this.mViewHolder.menos_drive = (Button) findViewById(R.id.btn_menos_Drive);
+        this.mViewHolder.menos_drive.setOnClickListener(this);
+        this.mViewHolder.menos_freq = (Button) findViewById(R.id.btn_menos_Freq);
+        this.mViewHolder.menos_freq.setOnClickListener(this);
+        this.mViewHolder.menos_voga = (Button) findViewById(R.id.btn_menos_Voga);
+        this.mViewHolder.menos_voga.setOnClickListener(this);
 
 
         // onEditorAction
@@ -96,8 +111,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
         this.mViewHolder.radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
 
+
         this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga));
-        this.mViewHolder.editText_Drive.setHint("" + this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive));
+        this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive)));
         this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq));
         this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea));
 
@@ -106,17 +122,19 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        
+        calcularParametros();
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// get variaveis
         float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
         int freq = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq);
         float recovery = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorRecovery);
         int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
-
+        int cadeira = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea);
+//////////////////////////////////////////////////////////////////////////////////////////////////////
         String text_drive = decimalFormat.format(drive);
         String text_recovery = decimalFormat.format(recovery);
 
-        String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + voga + " | F:" + freq + "]" ;
-
+        String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + voga + " | F:" + freq + "]";
 
 
         if (id == R.id.checkBox_Voga) {
@@ -153,7 +171,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             }
         }// Fim lógica CheckBox Voga
 
-
+////////////////////////////////////////////////////////////////////////////////////
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
         }
@@ -165,9 +183,58 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             this.mViewHolder.text_set_treino_03.setText(result);
 
         }
+////////////////////////////////////////////////////////////////////////////////////
+
+//Voga
+        if (id == R.id.btn_mais_Voga) {
+            voga = voga + 1;
+        }
+        if (id == R.id.btn_menos_Voga) {
+            voga = voga - 1;
+        }
+//Drive
+        if (id == R.id.btn_mais_Drive) {
+            drive = drive + .1f;
+        }
+        if (id == R.id.btn_menos_Drive) {
+            drive = drive - .1f;
+        }
+//freq
+        if (id == R.id.btn_mais_Freq) {
+            freq = freq + 1;
+        }
+        if (id == R.id.btn_menos_Freq) {
+            freq = freq - 1;
+        }
+//cadeira
+        if (id == R.id.btn_mais_Cadeira) {
+            cadeira = cadeira + 5;
+        }
+        if (id == R.id.btn_menos_Cadeira) {
+            cadeira = cadeira - 5;
+        }
 
 
-    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// Atualiza display
+        text_drive = decimalFormat.format(drive);
+        this.mViewHolder.editText_Voga.setText("" + voga);
+        this.mViewHolder.editText_Cadeira.setText("" + cadeira);
+        this.mViewHolder.editText_Freq.setText("" + freq);
+        this.mViewHolder.editText_Drive.setText(text_drive);
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// get variaveis
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, drive);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, freq);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, voga);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorCadeirea, cadeira);
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    }// Fim OnClic
 
     @Override
     public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
@@ -187,6 +254,22 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 String text = view.getText().toString();
                 float valor = Float.parseFloat(text);
                 this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, valor);
+                calcularParametros();
+            }
+        }
+        if (id == R.id.editText_Freq) {
+            if (event == null) {
+                String text = view.getText().toString();
+                int valor = (int) Float.parseFloat(text);
+                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, valor);
+                calcularParametros();
+            }
+        }
+        if (id == R.id.editText_Cadeira) {
+            if (event == null) {
+                String text = view.getText().toString();
+                int valor = (int) Float.parseFloat(text);
+                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorCadeirea, valor);
                 calcularParametros();
             }
         }
@@ -228,6 +311,17 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         Button set_treino_01;
         Button set_treino_02;
         Button set_treino_03;
+
+        Button mais_voga;
+        Button menos_voga;
+        Button mais_drive;
+        Button menos_drive;
+        Button mais_freq;
+        Button menos_freq;
+        Button mais_cadeira;
+        Button menos_cadeira;
+
+
         CheckBox checkBox_Drive;
         CheckBox checkBox_Voga;
         EditText editText_Cadeira;
@@ -270,7 +364,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         }
 
         // calculo do Recovery (por ultimo para pegar as atualizaçoes dos valores)
-        float recovery = (voga / 60f) * drive;
+        float recovery = (60f / voga) - drive;
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
 
 

@@ -78,6 +78,7 @@
                             android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_alignRight="@+id/btn_mais_Drive"
+                            android:layout_alignParentRight="@+id/textView_Voga"
                             android:layout_alignBottom="@+id/btn_menos_Voga"
                             android:layout_toRightOf="@+id/editText_Voga"
                             android:text="+" />
@@ -194,6 +195,7 @@
                             android:layout_width="35dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView_Freq"
+                            android:layout_alignTop="@+id/btn_mais_Voga"
                             android:layout_toRightOf="@+id/checkBox_Drive"
                             android:text="-"
                             tools:ignore="NotSibling" />
