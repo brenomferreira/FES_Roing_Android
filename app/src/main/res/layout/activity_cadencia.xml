@@ -332,18 +332,21 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_setTreino_01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
                     android:text="Set Treino (1)" />
 
                 <Button
+                    android:id="@+id/btn_setTreino_02"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
                     android:text="Set Treino (2)" />
 
                 <Button
+                    android:id="@+id/btn_setTreino_03"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
@@ -359,6 +362,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView_setTreino_01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
@@ -366,13 +370,15 @@
                     android:hint="não determinado" />
 
                 <TextView
+                    android:id="@+id/textView_setTreino_02"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.33"
                     android:gravity="center"
                     android:hint="não determinado" />
 
                 <TextView
+                    android:id="@+id/textView_setTreino_03"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
