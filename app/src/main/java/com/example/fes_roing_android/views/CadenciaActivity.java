@@ -113,11 +113,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
 
         String text_drive = decimalFormat.format(drive);
-        String text_freq = decimalFormat.format(freq);
         String text_recovery = decimalFormat.format(recovery);
-        String text_voga = decimalFormat.format(voga);
 
-        String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + text_voga + " | F:" + text_freq + "]" ;
+        String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + voga + " | F:" + freq + "]" ;
 
 
 
