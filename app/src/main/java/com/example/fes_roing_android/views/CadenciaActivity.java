@@ -186,31 +186,62 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 ////////////////////////////////////////////////////////////////////////////////////
 
 //Voga
+
         if (id == R.id.btn_mais_Voga) {
+            if ((voga % 1) != 0) {
+                voga = voga - (voga % 1);
+            }
+
             voga = voga + 1;
+
         }
         if (id == R.id.btn_menos_Voga) {
+            if ((voga % 1) != 0) {
+                voga = voga - (voga % 1);
+            }
             voga = voga - 1;
         }
 //Drive
         if (id == R.id.btn_mais_Drive) {
-            drive = drive + .1f;
+            drive = drive * 10;
+            if ((drive % 1) != 0) {
+                drive = drive - (drive % 1);
+            }
+            drive = drive + 1f;
+            drive = drive / 10;
         }
         if (id == R.id.btn_menos_Drive) {
-            drive = drive - .1f;
+            drive = drive * 10;
+            if ((drive % 1) != 0) {
+                drive = drive - (drive % 1);
+            }
+            drive = drive - 1f;
+            drive = drive / 10;
         }
 //freq
         if (id == R.id.btn_mais_Freq) {
-            freq = freq + 1;
+            if ((freq % 5) != 0) {
+                freq = freq - (freq % 5);
+            }
+            freq = freq + 5;
         }
         if (id == R.id.btn_menos_Freq) {
-            freq = freq - 1;
+            if ((freq % 5) != 0) {
+                freq = freq - (freq % 5);
+            }
+            freq = freq - 5;
         }
 //cadeira
         if (id == R.id.btn_mais_Cadeira) {
+            if ((cadeira % 5) != 0) {
+                cadeira = cadeira - (cadeira % 5);
+            }
             cadeira = cadeira + 5;
         }
         if (id == R.id.btn_menos_Cadeira) {
+            if ((cadeira % 5) != 0) {
+                cadeira = cadeira - (cadeira % 5);
+            }
             cadeira = cadeira - 5;
         }
 
