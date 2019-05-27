@@ -25,34 +25,32 @@ import java.util.Locale;
 
 public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
 
+    DecimalFormat decimalFormat = new DecimalFormat("#0.00", new DecimalFormatSymbols(new Locale("en", "US")));
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
-    DecimalFormat decimalFormat = new DecimalFormat("#0.00", new DecimalFormatSymbols(new Locale("en", "US")));
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadencia);
 
-        // util packages
+        /*util packages*/
         this.mSecurityPreferences = new SecurityPreferences(this);
-        //executar para limpar memoria
 
-        /*
-        File sharedPreferenceFile = new File("/data/data/"+ getPackageName()+ "/shared_prefs/");
-        File[] listFiles = sharedPreferenceFile.listFiles();
-        for (File file : listFiles) {
-            file.delete();
-        }
-        */
 
-        // TextViews
+//        /*executar para limpar memoria*/
+//        File sharedPreferenceFile = new File("/data/data/" + getPackageName() + "/shared_prefs/");
+//        File[] listFiles = sharedPreferenceFile.listFiles();
+//        for (File file : listFiles) {
+//            file.delete();
+//        }
+
+        /*TextViews*/
         this.mViewHolder.text_set_treino_01 = (TextView) findViewById(R.id.textView_setTreino_01);
         this.mViewHolder.text_set_treino_02 = (TextView) findViewById(R.id.textView_setTreino_02);
         this.mViewHolder.text_set_treino_03 = (TextView) findViewById(R.id.textView_setTreino_03);
 
-        // Onclick
+        /*Onclick*/
         this.mViewHolder.checkBox_Voga = (CheckBox) findViewById(R.id.checkBox_Voga);
         this.mViewHolder.checkBox_Voga.setOnClickListener(this);
         this.mViewHolder.checkBox_Drive = (CheckBox) findViewById(R.id.checkBox_Drive);
@@ -81,7 +79,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.menos_voga.setOnClickListener(this);
 
 
-        // onEditorAction
+        /*onEditorAction*/
         this.mViewHolder.editText_Cadeira = (EditText) findViewById(R.id.editText_Cadeira);
         this.mViewHolder.editText_Cadeira.setOnEditorActionListener(this);
         this.mViewHolder.editText_Drive = (EditText) findViewById(R.id.editText_Drive);
@@ -92,7 +90,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Voga.setOnEditorActionListener(this);
 
 
-        //Areas layout
+        /*setEnableViews*/
         this.mViewHolder.area_configDrive = (LinearLayout) findViewById(R.id.area_config_Drive);
         this.mViewHolder.area_configVoga = (LinearLayout) findViewById(R.id.area_config_Voga);
         this.mViewHolder.area_radioButton = (RadioGroup) findViewById(R.id.area_radioButton);
@@ -100,12 +98,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         setEnableViews(this.mViewHolder.area_radioButton, false);
 
 
-        // habilitar botao done
+        /*onEditorAction IME_ACTION_DONE*/
         this.mViewHolder.editText_Cadeira.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Drive.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Freq.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Voga.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
+        /*RadioButton*/
         this.mViewHolder.radio_1_1 = (RadioButton) findViewById(R.id.radio_1_1);
         this.mViewHolder.radio_1_1.setChecked(true);
         this.mViewHolder.radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
@@ -123,14 +122,15 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         calcularParametros();
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-// get variaveis
+
+        /*get variaveis*/
         float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
         int freq = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq);
         float recovery = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorRecovery);
         int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
         int cadeira = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea);
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*Fim get variaveis*/
+
         String text_drive = decimalFormat.format(drive);
         String text_recovery = decimalFormat.format(recovery);
 
@@ -171,7 +171,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             }
         }// Fim lógica CheckBox Voga
 
-////////////////////////////////////////////////////////////////////////////////////
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
         }
@@ -183,9 +182,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             this.mViewHolder.text_set_treino_03.setText(result);
 
         }
-////////////////////////////////////////////////////////////////////////////////////
 
-//Voga
+        /*Voga*/
 
         if (id == R.id.btn_mais_Voga) {
             if ((voga % 1) != 0) {
@@ -201,7 +199,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             }
             voga = voga - 1;
         }
-//Drive
+        /*Drive*/
         if (id == R.id.btn_mais_Drive) {
             drive = drive * 10;
             if ((drive % 1) != 0) {
@@ -218,7 +216,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             drive = drive - 1f;
             drive = drive / 10;
         }
-//freq
+        /*freq*/
         if (id == R.id.btn_mais_Freq) {
             if ((freq % 5) != 0) {
                 freq = freq - (freq % 5);
@@ -231,7 +229,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             }
             freq = freq - 5;
         }
-//cadeira
+        /*cadeira*/
         if (id == R.id.btn_mais_Cadeira) {
             if ((cadeira % 5) != 0) {
                 cadeira = cadeira - (cadeira % 5);
@@ -246,8 +244,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-// Atualiza display
+
+        /*Atualiza display*/
         text_drive = decimalFormat.format(drive);
         this.mViewHolder.editText_Voga.setText("" + voga);
         this.mViewHolder.editText_Cadeira.setText("" + cadeira);
@@ -255,14 +253,15 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Drive.setText(text_drive);
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-// get variaveis
+        /*Fim Atualiza display*/
+
+        /*Armazena variaveis*/
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, drive);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, freq);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, voga);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorCadeirea, cadeira);
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+        /*Fim Armazena variaveis*/
 
 
     }// Fim OnClic
@@ -336,6 +335,42 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         calcularParametros();
     }
 
+    public void calcularParametros() {
+        int caso = (this.mSecurityPreferences.getStoreInt(ParametrosConstantes.cadencia));
+        float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
+        int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
+
+        if (this.mViewHolder.checkBox_Voga.isChecked()) {
+            float calc1 = 60f / (voga * (1f + caso));
+            String text = decimalFormat.format(calc1);
+            this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, calc1);
+            this.mViewHolder.editText_Drive.setText(text);
+        }
+        if (this.mViewHolder.checkBox_Drive.isChecked()) {
+            int calc = (int) (60 / (drive * (1 + caso)));
+            String text = "" +
+                    Math.floor(calc);
+            this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, calc);
+            this.mViewHolder.editText_Voga.setText(text);
+        }
+
+        // calculo do Recovery (por ultimo para pegar as atualizaçoes dos valores)
+        float recovery = (60f / voga) - drive;
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
+
+
+    }
+
+    public void setEnableViews(View v, boolean enable) {
+        v.setEnabled(enable);
+        if (v instanceof ViewGroup) {
+
+            for (int i = 0; i < ((ViewGroup) v).getChildCount(); i++) {
+                View view = ((ViewGroup) v).getChildAt(i);
+                setEnableViews(view, enable);
+            }
+        }
+    }
 
     private static class ViewHolder {
 
@@ -372,45 +407,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         RadioButton radio_1_3;
 
 
-    }
-
-
-    public void calcularParametros() {
-        int caso = (this.mSecurityPreferences.getStoreInt(ParametrosConstantes.cadencia));
-        float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
-        int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
-
-        if (this.mViewHolder.checkBox_Voga.isChecked()) {
-            float calc1 = 60f / (voga * (1f + caso));
-            String text = decimalFormat.format(calc1);
-            this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, calc1);
-            this.mViewHolder.editText_Drive.setText(text);
-        }
-        if (this.mViewHolder.checkBox_Drive.isChecked()) {
-            int calc = (int) (60 / (drive * (1 + caso)));
-            String text = "" +
-                    Math.floor(calc);
-            this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, calc);
-            this.mViewHolder.editText_Voga.setText(text);
-        }
-
-        // calculo do Recovery (por ultimo para pegar as atualizaçoes dos valores)
-        float recovery = (60f / voga) - drive;
-        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
-
-
-    }
-
-
-    public void setEnableViews(View v, boolean enable) {
-        v.setEnabled(enable);
-        if (v instanceof ViewGroup) {
-
-            for (int i = 0; i < ((ViewGroup) v).getChildCount(); i++) {
-                View view = ((ViewGroup) v).getChildAt(i);
-                setEnableViews(view, enable);
-            }
-        }
     }
 
 
