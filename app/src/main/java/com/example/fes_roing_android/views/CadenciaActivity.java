@@ -1,5 +1,6 @@
 package com.example.fes_roing_android.views;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -18,13 +19,19 @@ import android.widget.Toast;
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.SecurityPreferences;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Random;
 
 public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
 
+    LineGraphSeries<DataPoint> series;
+    Random aleatorio = new Random();
     DecimalFormat decimalFormat = new DecimalFormat("#0.00", new DecimalFormatSymbols(new Locale("en", "US")));
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
@@ -116,6 +123,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq));
         this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea));
 
+        /*Grafico*/
+        this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
+
+
     }
 
     @Override
@@ -173,13 +184,20 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
+            geraGrafico((float) voga, drive, (float)freq);
+            this.mViewHolder.text_set_treino_01.setTextColor(series.getColor());
+
         }
         if (id == R.id.btn_setTreino_02) {
             this.mViewHolder.text_set_treino_02.setText(result);
+            geraGrafico((float) voga, drive, (float)freq);
+            this.mViewHolder.text_set_treino_02.setTextColor(series.getColor());
 
         }
         if (id == R.id.btn_setTreino_03) {
             this.mViewHolder.text_set_treino_03.setText(result);
+            geraGrafico((float) voga, drive, (float)freq);
+            this.mViewHolder.text_set_treino_03.setTextColor(series.getColor());
 
         }
 
@@ -397,7 +415,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         TextView text_set_treino_01;
         TextView text_set_treino_02;
         TextView text_set_treino_03;
-
+        GraphView graph;
         //Areas layout
         LinearLayout area_configDrive;
         LinearLayout area_configVoga;
@@ -410,4 +428,58 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-}
+    /**
+     * Função para gerar o gráfico da voga.
+     * @param voga
+     * @param drive
+     * @param fs
+     */
+    public void geraGrafico(Float voga, Float drive, Float fs) {
+        series = new LineGraphSeries<DataPoint>();
+
+        float cicloSeg, recov, spDrive, spRecovery, t, xd, yd;
+
+        xd = 0;
+        t = 1 / fs;
+        cicloSeg = 60 / voga;
+        recov = cicloSeg - drive;
+        spDrive = drive / t;
+        spRecovery = recov / t;
+
+        for (int i = 0; i < spDrive - 1; i++) {
+
+            /*func em MatLab: DRIVE(i+1) = floor(50-50*cos(i*2*pi()/fs/Drive_seg/2));*/
+            yd = (float) (50 - 50 * Math.cos(i * 2 * Math.PI / (drive - t) / 2 * t));
+            series.appendData(new DataPoint(xd, yd), true, (int) (spDrive + spRecovery)); // o mesmo valor do for
+            xd = xd + t;
+            String txt = "Drive_" + i;
+            this.mSecurityPreferences.storeFloat(txt, yd);
+        }
+        for (int i = 0; i < spRecovery - 1; i++) {
+
+            /*func em MatLab: RECOVERY(i+1) = floor(50+50*cos(i*2*pi()/fs/Recovery_seg/2));*/
+            yd = (float) (50 - 50 * -Math.cos(i * 2 * Math.PI / (recov - t) / 2 * t));
+            series.appendData(new DataPoint(xd, yd), true, (int) (spDrive + spRecovery)); // o mesmo valor do for
+            xd = xd + t;
+            String txt = "Recov_" + i;
+            this.mSecurityPreferences.storeFloat(txt, yd);
+
+            this.mViewHolder.graph.addSeries(series);
+
+            this.mViewHolder.graph.getViewport().setMinY(0);
+            series.setColor(Color.rgb(aleatorio.nextInt(255), aleatorio.nextInt(255), aleatorio.nextInt(255)));
+            this.mViewHolder.graph.getViewport().setMaxY(100);
+            this.mViewHolder.graph.getViewport().setMinX(0);
+            this.mViewHolder.graph.getViewport().setMaxX(drive + recov);
+            this.mViewHolder.graph.getViewport().setYAxisBoundsManual(true);
+            this.mViewHolder.graph.getViewport().setXAxisBoundsManual(true);
+
+        }
+
+        this.mSecurityPreferences.storeFloat("spDrive", spDrive);
+        this.mSecurityPreferences.storeFloat("spRecovery", spRecovery);
+        this.mSecurityPreferences.storeFloat("fs", fs);
+
+    }
+
+}// FIM //
