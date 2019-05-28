@@ -41,6 +41,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     private MyTask task;
     private float fs, spDrive, spRecovery;
     private ArrayList<Float> vetor = new ArrayList<Float>();
+    private ArrayList<Float> vetor_01 = new ArrayList<Float>();
+    private ArrayList<Float> vetor_02 = new ArrayList<Float>();
+    private ArrayList<Float> vetor_03 = new ArrayList<Float>();
 
 
     @Override
@@ -209,6 +212,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
             geraGrafico((float) voga, drive, (float) freq);
+            this.vetor_01 = this.vetor;
             this.mViewHolder.text_set_treino_01.setTextColor(series.getColor());
 
         }
@@ -216,6 +220,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.btn_setTreino_02) {
             this.mViewHolder.text_set_treino_02.setText(result);
             geraGrafico((float) voga, drive, (float) freq);
+            this.vetor_02 = this.vetor;
             this.mViewHolder.text_set_treino_02.setTextColor(series.getColor());
 
         }
@@ -223,17 +228,25 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         if (id == R.id.btn_setTreino_03) {
             this.mViewHolder.text_set_treino_03.setText(result);
             geraGrafico((float) voga, drive, (float) freq);
+            this.vetor_03 = this.vetor;
             this.mViewHolder.text_set_treino_03.setTextColor(series.getColor());
 
         }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         if (id == R.id.btn_startTreino01) {
-            this.mViewHolder.start_treino_01.setText("Executando");
-            this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
-            ArrayList<Float> vetor = new ArrayList<Float>();
-            this.task.execute(this.vetor);
+            if (this.mViewHolder.start_treino_01.getText().toString().equals("Treino (1)")) {
+                this.mViewHolder.start_treino_01.setText("Executando");
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                ArrayList<Float> vetor = new ArrayList<Float>();
+                this.task.execute(this.vetor_01);
+            } else {
 
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
+                this.task.cancel(true);
 
+            }
 
         }
         if (id == R.id.btn_startTreino02) {
