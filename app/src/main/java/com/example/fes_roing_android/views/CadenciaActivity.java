@@ -25,6 +25,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     private SecurityPreferences mSecurityPreferences;
     private MyTask task;
     private float fs, spDrive, spRecovery;
-    private ArrayList<Float> vetor = new ArrayList<Float>();
     private ArrayList<Float> vetor_01 = new ArrayList<Float>();
     private ArrayList<Float> vetor_02 = new ArrayList<Float>();
     private ArrayList<Float> vetor_03 = new ArrayList<Float>();
@@ -211,30 +211,31 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
-            geraGrafico((float) voga, drive, (float) freq);
-            this.vetor_01 = this.vetor;
+            this.vetor_01 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_01.setTextColor(series.getColor());
 
         }
 
         if (id == R.id.btn_setTreino_02) {
             this.mViewHolder.text_set_treino_02.setText(result);
-            geraGrafico((float) voga, drive, (float) freq);
-            this.vetor_02 = this.vetor;
+            this.vetor_02 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_02.setTextColor(series.getColor());
 
         }
 
         if (id == R.id.btn_setTreino_03) {
             this.mViewHolder.text_set_treino_03.setText(result);
-            geraGrafico((float) voga, drive, (float) freq);
-            this.vetor_03 = this.vetor;
+            this.vetor_03 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_03.setTextColor(series.getColor());
 
         }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         if (id == R.id.btn_startTreino01) {
             if (this.mViewHolder.start_treino_01.getText().toString().equals("Treino (1)")) {
+                this.task.cancel(true);
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_01.setText("Executando");
                 this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
                 ArrayList<Float> vetor = new ArrayList<Float>();
@@ -250,8 +251,44 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         }
         if (id == R.id.btn_startTreino02) {
+            if (this.mViewHolder.start_treino_02.getText().toString().equals("Treino (2)")) {
+                this.task.cancel(true);
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_02.setText("Executando");
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                ArrayList<Float> vetor = new ArrayList<Float>();
+                this.task.execute(this.vetor_02);
+            } else {
+
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
+                this.task.cancel(true);
+
+            }
+
         }
         if (id == R.id.btn_startTreino03) {
+            if (this.mViewHolder.start_treino_03.getText().toString().equals("Treino (3)")) {
+                this.task.cancel(true);
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_03.setText("Executando");
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                ArrayList<Float> vetor = new ArrayList<Float>();
+                this.task.execute(this.vetor_03);
+            } else {
+
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
+                this.task.cancel(true);
+
+            }
+
         }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -501,8 +538,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
      * @param drive
      * @param fs
      */
-    public void geraGrafico(Float voga, Float drive, Float fs) {
+    public ArrayList<Float> geraGrafico(Float voga, Float drive, Float fs) {
         series = new LineGraphSeries<DataPoint>();
+
+        ArrayList<Float> vetor = new ArrayList<Float>();
 
         float cicloSeg, recov, spDrive, spRecovery, t, xd, yd;
 
@@ -514,8 +553,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         spRecovery = recov / t;
 
 
-        this.vetor.add(fs);
-        this.vetor.add(spDrive + spRecovery);
+        vetor.add(fs);
+        vetor.add(spDrive + spRecovery);
 
         for (int i = 0; i < spDrive - 1; i++) {
 
@@ -525,7 +564,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             xd = xd + t;
             String txt = "Drive_" + i;
             this.mSecurityPreferences.storeFloat(txt, yd);
-            this.vetor.add(yd);
+            vetor.add(yd);
         }
         for (int i = 0; i < spRecovery - 1; i++) {
 
@@ -535,7 +574,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             xd = xd + t;
             String txt = "Recov_" + i;
             this.mSecurityPreferences.storeFloat(txt, yd);
-            this.vetor.add(yd);
+            vetor.add(yd);
 
 
             this.mViewHolder.graph.addSeries(series);
@@ -553,6 +592,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecovery);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreq, fs);
+
+        return vetor;
 
     }
 
