@@ -461,18 +461,21 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_startTreino01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
                     android:text="Treino (1)" />
 
                 <Button
+                    android:id="@+id/btn_startTreino02"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"
                     android:text="Treino (2)" />
 
                 <Button
+                    android:id="@+id/btn_startTreino03"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.33"

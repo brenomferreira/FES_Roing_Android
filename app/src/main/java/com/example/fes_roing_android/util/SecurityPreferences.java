@@ -16,7 +16,7 @@ public class SecurityPreferences {
         this.mSharedPreferences.edit().putString(key, value).apply(); // informa a chave e recupera o valor
     } // fim do método edit (StoreString)
 
-    public String getStoreString(String key) {
+    public String getStoredString(String key) {
         return this.mSharedPreferences.getString(key, "");
     } // Fim do método getStoreString
     
@@ -25,17 +25,17 @@ public class SecurityPreferences {
         this.mSharedPreferences.edit().putFloat(key, value).apply(); // informa a chave e recupera o valor
     } // fim do método edit (StoreFloat)
 
-    public float getStoreFloat(String key) {
+    public float getStoredFloat(String key) {
         return this.mSharedPreferences.getFloat(key, 0.01f);
-    } // Fim do método getStoreFloat
+    } // Fim do método getStoredFloat
     
     // Int
     public void storeInt(String key, int value) {
         this.mSharedPreferences.edit().putInt(key, value).apply(); // informa a chave e recupera o valor
     } // fim do método edit (StoreInt)
 
-    public int getStoreInt(String key) {
+    public int getStoredInt(String key) {
         return this.mSharedPreferences.getInt(key, 1);
-    } // Fim do método getStoreInt
+    } // Fim do método getStoredInt
     
 } // Fim da Classe
