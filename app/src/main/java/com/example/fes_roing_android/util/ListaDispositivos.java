@@ -15,7 +15,7 @@ import java.util.Set;
 public class ListaDispositivos extends ListActivity {
 
     private BluetoothAdapter mBlueAdapter = null;
-    static String ENDERECO_MAC = null;
+   public static String ENDERECO_MAC = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,4 +22,7 @@
     <string name="s">(µs)</string>
     <string name="posi_o_do_banco">Posição do Banco</string>
     <string name="cad_ncia">Cadência</string>
+    <string name="Turning_on_BT">Ligar o Bluetooth...</string>
+
+
 </resources>
