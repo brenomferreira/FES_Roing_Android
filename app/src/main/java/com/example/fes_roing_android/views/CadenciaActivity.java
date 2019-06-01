@@ -13,18 +13,22 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
+import com.example.fes_roing_android.util.MyTask;
 import com.example.fes_roing_android.util.SecurityPreferences;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
@@ -35,6 +39,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     DecimalFormat decimalFormat = new DecimalFormat("#0.00", new DecimalFormatSymbols(new Locale("en", "US")));
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
+    private MyTask task;
+    private float fs, spDrive, spRecovery;
+    private ArrayList<Float> vetor_01 = new ArrayList<Float>();
+    private ArrayList<Float> vetor_02 = new ArrayList<Float>();
+    private ArrayList<Float> vetor_03 = new ArrayList<Float>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,11 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 //        for (File file : listFiles) {
 //            file.delete();
 //        }
+
+        /*SeekBar*/
+        this.mViewHolder.cadencia = (SeekBar) findViewById(R.id.seekBar_Cadencia);
+        this.mViewHolder.posicaoCadeira = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira);
+
 
         /*TextViews*/
         this.mViewHolder.text_set_treino_01 = (TextView) findViewById(R.id.textView_setTreino_01);
@@ -84,6 +99,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.menos_freq.setOnClickListener(this);
         this.mViewHolder.menos_voga = (Button) findViewById(R.id.btn_menos_Voga);
         this.mViewHolder.menos_voga.setOnClickListener(this);
+        this.mViewHolder.start_treino_01 = (Button) findViewById(R.id.btn_startTreino01);
+        this.mViewHolder.start_treino_01.setOnClickListener(this);
+        this.mViewHolder.start_treino_02 = (Button) findViewById(R.id.btn_startTreino02);
+        this.mViewHolder.start_treino_02.setOnClickListener(this);
+        this.mViewHolder.start_treino_03 = (Button) findViewById(R.id.btn_startTreino03);
+        this.mViewHolder.start_treino_03.setOnClickListener(this);
 
 
         /*onEditorAction*/
@@ -118,13 +139,16 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
 
 
-        this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga));
-        this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive)));
-        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq));
-        this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea));
+        this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga));
+        this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive)));
+        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq));
+        this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea));
 
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
+
+        //declarar depois de tudo
+        this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
 
 
     }
@@ -135,11 +159,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         calcularParametros();
 
         /*get variaveis*/
-        float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
-        int freq = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorFreq);
-        float recovery = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorRecovery);
-        int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
-        int cadeira = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorCadeirea);
+        float drive = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive);
+        int freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq);
+        float recovery = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorRecovery);
+        int voga = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga);
+        int cadeira = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
+        float spDrive = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.spDrive);
+        float spRecov = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.spRecovery);
+
         /*Fim get variaveis*/
 
         String text_drive = decimalFormat.format(drive);
@@ -184,25 +211,89 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
-            geraGrafico((float) voga, drive, (float)freq);
+            this.vetor_01 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_01.setTextColor(series.getColor());
 
         }
+
         if (id == R.id.btn_setTreino_02) {
             this.mViewHolder.text_set_treino_02.setText(result);
-            geraGrafico((float) voga, drive, (float)freq);
+            this.vetor_02 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_02.setTextColor(series.getColor());
 
         }
+
         if (id == R.id.btn_setTreino_03) {
             this.mViewHolder.text_set_treino_03.setText(result);
-            geraGrafico((float) voga, drive, (float)freq);
+            this.vetor_03 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_03.setTextColor(series.getColor());
 
         }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (id == R.id.btn_startTreino01) {
+            if (this.mViewHolder.start_treino_01.getText().toString().equals("Treino (1)")) {
+                this.task.cancel(true);
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_01.setText("Executando");
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                ArrayList<Float> vetor = new ArrayList<Float>();
+                this.task.execute(this.vetor_01);
+            } else {
+
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
+                this.task.cancel(true);
+
+            }
+
+        }
+        if (id == R.id.btn_startTreino02) {
+            if (this.mViewHolder.start_treino_02.getText().toString().equals("Treino (2)")) {
+                this.task.cancel(true);
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_02.setText("Executando");
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                ArrayList<Float> vetor = new ArrayList<Float>();
+                this.task.execute(this.vetor_02);
+            } else {
+
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
+                this.task.cancel(true);
+
+            }
+
+        }
+        if (id == R.id.btn_startTreino03) {
+            if (this.mViewHolder.start_treino_03.getText().toString().equals("Treino (3)")) {
+                this.task.cancel(true);
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_03.setText("Executando");
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                ArrayList<Float> vetor = new ArrayList<Float>();
+                this.task.execute(this.vetor_03);
+            } else {
+
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
+                this.task.cancel(true);
+
+            }
+
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         /*Voga*/
-
         if (id == R.id.btn_mais_Voga) {
             if ((voga % 1) != 0) {
                 voga = voga - (voga % 1);
@@ -279,6 +370,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, voga);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorCadeirea, cadeira);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecov);
         /*Fim Armazena variaveis*/
 
 
@@ -354,9 +447,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void calcularParametros() {
-        int caso = (this.mSecurityPreferences.getStoreInt(ParametrosConstantes.cadencia));
-        float drive = this.mSecurityPreferences.getStoreFloat(ParametrosConstantes.valorDrive);
-        int voga = this.mSecurityPreferences.getStoreInt(ParametrosConstantes.valorVoga);
+        int caso = (this.mSecurityPreferences.getStoredInt(ParametrosConstantes.cadencia));
+        float drive = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive);
+        int voga = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga);
 
         if (this.mViewHolder.checkBox_Voga.isChecked()) {
             float calc1 = 60f / (voga * (1f + caso));
@@ -396,6 +489,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         Button set_treino_02;
         Button set_treino_03;
 
+        Button start_treino_01;
+        Button start_treino_02;
+        Button start_treino_03;
+
         Button mais_voga;
         Button menos_voga;
         Button mais_drive;
@@ -416,7 +513,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         TextView text_set_treino_02;
         TextView text_set_treino_03;
         GraphView graph;
-        //Areas layout
+
+        /*SeekBar*/
+        SeekBar cadencia;
+        SeekBar posicaoCadeira;
+
+
+        /*Areas layout*/
         LinearLayout area_configDrive;
         LinearLayout area_configVoga;
         RadioGroup area_radioButton;
@@ -430,12 +533,15 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
     /**
      * Função para gerar o gráfico da voga.
+     *
      * @param voga
      * @param drive
      * @param fs
      */
-    public void geraGrafico(Float voga, Float drive, Float fs) {
+    public ArrayList<Float> geraGrafico(Float voga, Float drive, Float fs) {
         series = new LineGraphSeries<DataPoint>();
+
+        ArrayList<Float> vetor = new ArrayList<Float>();
 
         float cicloSeg, recov, spDrive, spRecovery, t, xd, yd;
 
@@ -446,6 +552,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         spDrive = drive / t;
         spRecovery = recov / t;
 
+
+        vetor.add(fs);
+        vetor.add(spDrive + spRecovery);
+
         for (int i = 0; i < spDrive - 1; i++) {
 
             /*func em MatLab: DRIVE(i+1) = floor(50-50*cos(i*2*pi()/fs/Drive_seg/2));*/
@@ -454,6 +564,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             xd = xd + t;
             String txt = "Drive_" + i;
             this.mSecurityPreferences.storeFloat(txt, yd);
+            vetor.add(yd);
         }
         for (int i = 0; i < spRecovery - 1; i++) {
 
@@ -463,6 +574,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             xd = xd + t;
             String txt = "Recov_" + i;
             this.mSecurityPreferences.storeFloat(txt, yd);
+            vetor.add(yd);
+
 
             this.mViewHolder.graph.addSeries(series);
 
@@ -476,9 +589,11 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         }
 
-        this.mSecurityPreferences.storeFloat("spDrive", spDrive);
-        this.mSecurityPreferences.storeFloat("spRecovery", spRecovery);
-        this.mSecurityPreferences.storeFloat("fs", fs);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecovery);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreq, fs);
+
+        return vetor;
 
     }
 

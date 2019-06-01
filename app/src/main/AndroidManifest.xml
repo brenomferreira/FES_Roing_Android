@@ -16,7 +16,9 @@
         <activity
             android:name=".views.CadenciaActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+
 
 
 
@@ -24,13 +26,16 @@
         <activity
             android:name=".views.ParametrosActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+
 
         </activity>
 
         <activity android:name=".views.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
