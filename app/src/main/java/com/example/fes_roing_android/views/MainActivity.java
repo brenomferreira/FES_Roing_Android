@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.fes_roing_android.R;
+import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.ListaDispositivos;
 import com.example.fes_roing_android.util.SecurityPreferences;
 
@@ -103,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //todo////////////////////////////////////////////////////
         else if (id == R.id.btn_conectBTh) {
             // logica da conexão
+
+
 
             if (!mBlueAdapter.isEnabled()) {
                 /*Ligar Bluetooth*/
@@ -219,64 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private class ConnectedThread extends Thread {
-        // private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
 
-        public ConnectedThread(BluetoothSocket socket) {
-//            mmSocket = socket;
-            InputStream tmpIn = null;
-            OutputStream tmpOut = null;
-
-            // Get the input and output streams, using temp objects because
-            // member streams are final
-            try {
-                tmpIn = socket.getInputStream();
-                tmpOut = socket.getOutputStream();
-            } catch (IOException e) {
-            }
-
-            mmInStream = tmpIn;
-            mmOutStream = tmpOut;
-        }
-
-        public void run() {
-            byte[] buffer = new byte[1024];  // buffer store for the stream
-            int bytes; // bytes returned from read()
-
-            // Keep listening to the InputStream until an exception occurs
-//            while (true) {
-//                try {
-//                    // Read from the InputStream
-//                    bytes = mmInStream.read(buffer);
-//                    // Send the obtained bytes to the UI activity
-//                    /*FIXME: por enquanto ainda nao esta sendo utilizado (responsavel por receber dados)*/
-//                    /* mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
-//                            .sendToTarget();*/
-//                } catch (IOException e) {
-//                    break;
-//                }
-//            }
-        }
-
-        /* Call this from the main activity to send data to the remote device */
-        public void enviar(String dadosEnviar) {
-            byte[] msgBuffer = dadosEnviar.getBytes();
-            try {
-                mmOutStream.write(msgBuffer);
-            } catch (IOException e) {
-
-            }
-        }
-//FIXME
-//        /* Call this from the main activity to shutdown the connection */
-//        public void cancel() {
-//            try {
-//                mmSocket.close();
-//            } catch (IOException e) { }
-//        }
-    }
 
 
 }
