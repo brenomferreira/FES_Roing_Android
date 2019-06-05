@@ -15,12 +15,15 @@ public class MyTask extends AsyncTask<ArrayList<Float>, Float, String> {
     private WeakReference<CadenciaActivity> activityWeakReference;
     SeekBar progressBar;
     SeekBar posicaoCadeira;
+    ConnectedThread connectedThread;
 
     // CONSTRUTOR
-    public MyTask(CadenciaActivity activity, SeekBar progressBar, SeekBar posicaoCadeira) {
+    public MyTask(CadenciaActivity activity, SeekBar progressBar, SeekBar posicaoCadeira, ConnectedThread connectedThread) {
         activityWeakReference = new WeakReference<CadenciaActivity>(activity);
         this.progressBar = progressBar;
         this.posicaoCadeira = posicaoCadeira;
+        this.connectedThread = connectedThread;
+
 
     }// Fim do CONSTRUTOR
 
@@ -70,10 +73,13 @@ public class MyTask extends AsyncTask<ArrayList<Float>, Float, String> {
         float temp = values[0];
 
         progressBar.setProgress((int) temp);
-        if (temp < 60)
+        if (temp < 60) {
             posicaoCadeira.setProgress((int) temp);
-        else
+            connectedThread.enviar("1");
+        } else {
             posicaoCadeira.setProgress(60);
+            connectedThread.enviar("0");
+        }
 
 
     }// Fim onProgressUpdate

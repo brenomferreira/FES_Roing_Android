@@ -16,6 +16,7 @@ import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.ListaDispositivos;
 import com.example.fes_roing_android.util.SecurityPreferences;
+import com.example.fes_roing_android.util.SocketHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         /*"00001101-0000-1000-8000-00805f9b34fb"*/
                         mSocket = mDevice.createRfcommSocketToServiceRecord(myUUID); // criar canal de comunicação
                         mSocket.connect();
+                        SocketHandler.setSocket(mSocket);
 
                         conexaoBT = true;
 

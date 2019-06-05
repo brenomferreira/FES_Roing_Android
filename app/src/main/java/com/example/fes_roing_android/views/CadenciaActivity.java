@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
+import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.MyTask;
 import com.example.fes_roing_android.util.SecurityPreferences;
+import com.example.fes_roing_android.util.SocketHandler;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -44,6 +46,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<Float> vetor_01 = new ArrayList<Float>();
     private ArrayList<Float> vetor_02 = new ArrayList<Float>();
     private ArrayList<Float> vetor_03 = new ArrayList<Float>();
+    ConnectedThread connectedThread;
+
 
 
     @Override
@@ -147,8 +151,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
 
+
+        connectedThread = new ConnectedThread(SocketHandler.getSocket());
+        connectedThread.start();
+
+
         //declarar depois de tudo
-        this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+        this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, connectedThread);
 
 
     }
@@ -237,7 +246,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_01.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, this.connectedThread);
                 ArrayList<Float> vetor = new ArrayList<Float>();
                 this.task.execute(this.vetor_01);
             } else {
@@ -257,7 +266,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_02.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, this.connectedThread);
                 ArrayList<Float> vetor = new ArrayList<Float>();
                 this.task.execute(this.vetor_02);
             } else {
@@ -277,7 +286,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_03.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, this.connectedThread);
                 ArrayList<Float> vetor = new ArrayList<Float>();
                 this.task.execute(this.vetor_03);
             } else {
