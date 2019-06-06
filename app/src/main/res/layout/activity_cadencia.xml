@@ -27,6 +27,8 @@
     </RelativeLayout>
 
 
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -37,276 +39,176 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/view_border"
-                android:gravity="center">
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/checkBox_Voga"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/area_config_Voga"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="" />
-
-
-                <!--Início Voga -->
-                <LinearLayout
-                    android:id="@+id/area_config_Voga"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/checkBox_Voga">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-
-                        <Button
-                            android:id="@+id/btn_menos_Voga"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView_Voga"
-                            android:layout_alignParentLeft="true"
-                            android:text="-" />
-
-                        <Button
-                            android:id="@+id/btn_mais_Voga"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/btn_menos_Voga"
-                            android:layout_alignParentRight="@+id/textView_Voga"
-                            android:layout_toRightOf="@+id/editText_Voga"
-                            android:text="+" />
-
-                        <EditText
-                            android:id="@+id/editText_Voga"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/textView_Voga"
-                            android:layout_toRightOf="@+id/btn_menos_Voga"
-                            android:gravity="center"
-                            android:hint="Valor.."
-                            android:inputType="number" />
-
-                        <TextView
-                            android:id="@+id/textView_Voga"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/btn_menos_Voga"
-                            android:layout_alignRight="@+id/btn_mais_Voga"
-                            android:layout_alignParentTop="true"
-                            android:gravity="center"
-                            android:text="VOGA(rem/min)" />
-
-
-                    </RelativeLayout>
-                </LinearLayout>
-                <!--Fim Voga -->
+                    android:layout_weight=".33"
+                    android:text="VOGA(rem/min)" />
 
 
                 <CheckBox
                     android:id="@+id/checkBox_Drive"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/checkBox_Voga"
-                    android:layout_alignBottom="@+id/area_config_Drive"
-                    android:layout_alignParentLeft="true"
-                    android:text="" />
+                    android:layout_weight=".33"
+                    android:text="Drive(s)" />
+
+                <TextView
+                    android:id="@+id/textView_Freq"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:text="Frequência(Hz)" />
 
 
-                <!--Início Drive -->
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/area_config_Voga"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".33"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/btn_menos_Voga"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView_Voga"
+                        android:layout_alignParentLeft="true"
+                        android:text="-" />
+
+                    <EditText
+                        android:id="@+id/editText_Voga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView_Voga"
+                        android:layout_toRightOf="@+id/btn_menos_Voga"
+                        android:gravity="center"
+                        android:hint="Valor.."
+                        android:inputType="number" />
+
+
+                    <Button
+                        android:id="@+id/btn_mais_Voga"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/btn_menos_Voga"
+                        android:layout_alignParentRight="@+id/textView_Voga"
+                        android:layout_toRightOf="@+id/editText_Voga"
+                        android:text="+" />
+
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/area_config_Drive"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/area_config_Voga"
-                    android:layout_alignLeft="@id/area_config_Voga"
-                    android:layout_alignRight="@id/area_config_Voga"
-                    android:layout_toRightOf="@+id/checkBox_Drive">
+                    android:layout_weight=".33"
+                    android:gravity="center_horizontal">
 
-                    <RelativeLayout
+                    <Button
+                        android:id="@+id/btn_menos_Drive"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView_Drive"
+                        android:layout_alignParentLeft="true"
+                        android:text="-" />
+
+                    <EditText
+                        android:id="@+id/editText_Drive"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView_Drive"
+                        android:layout_toRightOf="@+id/btn_menos_Drive"
+                        android:gravity="center"
+                        android:hint="Valor.."
+                        android:inputType="numberDecimal" />
+
+                    <Button
+                        android:id="@+id/btn_mais_Drive"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/btn_menos_Drive"
+                        android:layout_toRightOf="@+id/editText_Drive"
+                        android:text="+" />
 
 
-                        <Button
-                            android:id="@+id/btn_menos_Drive"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView_Drive"
-                            android:layout_alignParentLeft="true"
-                            android:text="-" />
-
-                        <Button
-                            android:id="@+id/btn_mais_Drive"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/btn_menos_Drive"
-                            android:layout_toRightOf="@+id/editText_Drive"
-                            android:text="+" />
-
-                        <EditText
-                            android:id="@+id/editText_Drive"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/textView_Drive"
-                            android:layout_toRightOf="@+id/btn_menos_Drive"
-                            android:gravity="center"
-                            android:hint="Valor.."
-                            android:inputType="numberDecimal" />
-
-                        <TextView
-                            android:id="@+id/textView_Drive"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_alignStart="@+id/btn_menos_Drive"
-                            android:layout_alignLeft="@+id/btn_menos_Drive"
-                            android:layout_alignEnd="@+id/btn_mais_Drive"
-                            android:layout_alignRight="@+id/btn_mais_Drive"
-                            android:layout_alignParentTop="true"
-                            android:gravity="center"
-                            android:text="Drive(s)" />
-
-
-                    </RelativeLayout>
                 </LinearLayout>
-                <!--Fim Drive -->
 
-
-                <!--Início Freq -->
                 <LinearLayout
                     android:id="@+id/config_Freq"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/area_config_Voga">
+                    android:layout_weight=".33">
 
-                    <RelativeLayout
+                    <Button
+                        android:id="@+id/btn_menos_Freq"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView_Freq"
+                        android:layout_alignTop="@+id/btn_mais_Voga"
+                        android:layout_toRightOf="@+id/checkBox_Drive"
+                        android:text="-"
+                        tools:ignore="NotSibling" />
+
+                    <EditText
+                        android:id="@+id/editText_Freq"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView_Freq"
+                        android:layout_toRightOf="@+id/btn_menos_Freq"
+                        android:gravity="center"
+                        android:hint="Valor.."
+                        android:inputType="number" />
 
 
-                        <Button
-                            android:id="@+id/btn_menos_Freq"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView_Freq"
-                            android:layout_alignTop="@+id/btn_mais_Voga"
-                            android:layout_toRightOf="@+id/checkBox_Drive"
-                            android:text="-"
-                            tools:ignore="NotSibling" />
-
-                        <Button
-                            android:id="@+id/btn_mais_Freq"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/btn_menos_Freq"
-                            android:layout_toRightOf="@+id/editText_Freq"
-                            android:text="+" />
-
-                        <EditText
-                            android:id="@+id/editText_Freq"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/textView_Freq"
-                            android:layout_toRightOf="@+id/btn_menos_Freq"
-                            android:gravity="center"
-                            android:hint="Valor.."
-                            android:inputType="number" />
-
-                        <TextView
-                            android:id="@+id/textView_Freq"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_alignStart="@+id/btn_menos_Freq"
-                            android:layout_alignLeft="@+id/btn_menos_Freq"
-                            android:layout_alignEnd="@+id/btn_mais_Freq"
-                            android:layout_alignRight="@+id/btn_mais_Freq"
-                            android:layout_alignParentTop="true"
-                            android:gravity="center"
-                            android:text="Frequência(Hz)" />
+                    <Button
+                        android:id="@+id/btn_mais_Freq"
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/btn_menos_Freq"
+                        android:layout_toRightOf="@+id/editText_Freq"
+                        android:text="+" />
 
 
-                    </RelativeLayout>
                 </LinearLayout>
-                <!--Fim Freq -->
 
-                <!--Início Cadeira -->
-                <LinearLayout
-                    android:id="@+id/area_config_Cadeira"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/area_config_Voga"
-                    android:layout_alignLeft="@+id/area_Freq"
-                    android:layout_alignTop="@+id/area_config_Drive"
-                    android:layout_alignRight="@+id/area_Freq"
-                    android:layout_alignBottom="@+id/area_config_Drive"
-                    android:layout_toRightOf="@id/area_config_Voga">
+            </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-
-                        <Button
-                            android:id="@+id/btn_menos_Cadeira"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textView_Cadeira"
-                            android:layout_toRightOf="@+id/checkBox_Drive"
-                            android:text="-"
-                            tools:ignore="NotSibling" />
-
-                        <Button
-                            android:id="@+id/btn_mais_Cadeira"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/btn_menos_Cadeira"
-                            android:layout_toRightOf="@+id/editText_Cadeira"
-                            android:text="+" />
-
-                        <EditText
-                            android:id="@+id/editText_Cadeira"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/textView_Cadeira"
-                            android:layout_toRightOf="@+id/btn_menos_Cadeira"
-                            android:gravity="center"
-                            android:hint="Valor.."
-                            android:inputType="number" />
-
-                        <TextView
-                            android:id="@+id/textView_Cadeira"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_alignStart="@+id/btn_menos_Cadeira"
-                            android:layout_alignLeft="@+id/btn_menos_Cadeira"
-                            android:layout_alignEnd="@+id/btn_mais_Cadeira"
-                            android:layout_alignRight="@+id/btn_mais_Cadeira"
-                            android:layout_alignParentTop="true"
-                            android:gravity="center"
-                            android:text="Mov (%)" />
-
-
-                    </RelativeLayout>
-                </LinearLayout>
-                <!--Fim Cadeira -->
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <RadioGroup
                     android:id="@+id/area_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/config_Freq"
-                    android:layout_alignBottom="@id/area_config_Cadeira"
-                    android:layout_toRightOf="@id/config_Freq"
-                    android:gravity="center">
+                    android:gravity="center"
+
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radio_1_1"
@@ -328,6 +230,109 @@
 
 
                 </RadioGroup>
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_border"
+                android:gravity="center">
+
+
+                <!--Início Voga -->
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/checkBox_Voga">-->
+
+                <!--<RelativeLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+
+
+                <!--</RelativeLayout>-->
+                <!--</LinearLayout>-->
+                <!--Fim Voga -->
+
+
+                <!--Início Drive -->
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/area_config_Voga"-->
+                <!--android:layout_alignLeft="@id/area_config_Voga"-->
+                <!--android:layout_alignRight="@id/area_config_Voga"-->
+                <!--android:layout_toRightOf="@+id/checkBox_Drive">-->
+
+                <!--&lt;!&ndash;<RelativeLayout&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content">&ndash;&gt;-->
+
+
+                <!--&lt;!&ndash;<Button&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/btn_menos_Drive"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="35dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_below="@+id/textView_Drive"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_alignParentLeft="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="-" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<Button&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/btn_mais_Drive"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="35dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_alignBottom="@+id/btn_menos_Drive"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_toRightOf="@+id/editText_Drive"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="+" />&ndash;&gt;-->
+
+                <!---->
+
+
+                <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
+                <!--</LinearLayout>-->
+                <!--Fim Drive -->
+
+
+                <!--Início Freq -->
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@id/area_config_Voga">-->
+
+                <!--<RelativeLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!---->
+                <!---->
+
+
+                <!--</RelativeLayout>-->
+                <!--</LinearLayout>-->
+                <!--Fim Freq -->
+
+                <!--Início Cadeira -->
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/area_config_Voga"-->
+                <!--android:layout_alignLeft="@+id/area_Freq"-->
+                <!--android:layout_alignTop="@+id/area_config_Drive"-->
+                <!--android:layout_alignRight="@+id/area_Freq"-->
+                <!--android:layout_alignBottom="@+id/area_config_Drive"-->
+                <!--android:layout_toRightOf="@id/area_config_Voga">-->
+
+                <!--<RelativeLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+
+
+                <!--</RelativeLayout>-->
+                <!--</LinearLayout>-->
+                <!--Fim Cadeira -->
 
 
             </RelativeLayout>
@@ -442,11 +447,74 @@
                 android:layout_height="30sp" />
 
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:background="@drawable/view_border"
-                android:text="Ativar Estimulação" />
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".50"
+                    android:text="Ativar Estimulação" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/view_border"
+                    android:layout_weight=".50"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView_Cadeira"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Mov (%)" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_menos_Cadeira"
+                            android:layout_width="35dp"
+                            android:layout_height="wrap_content"
+                            android:text="-" />
+
+                        <EditText
+                            android:id="@+id/editText_Cadeira"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/textView_Cadeira"
+                            android:layout_toRightOf="@+id/btn_menos_Cadeira"
+                            android:gravity="center"
+                            android:hint="Valor.."
+                            android:inputType="number" />
+
+
+                        <Button
+                            android:id="@+id/btn_mais_Cadeira"
+                            android:layout_width="35dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/btn_menos_Cadeira"
+                            android:layout_toRightOf="@+id/editText_Cadeira"
+                            android:text="+" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
