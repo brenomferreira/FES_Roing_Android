@@ -52,6 +52,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     int cadencia_old;
     boolean mov_drive;
     boolean estim = false;
+    boolean conenexao_BT;
 
 
     @Override
@@ -73,7 +74,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*SeekBar*/
         this.mViewHolder.cadencia = (SeekBar) findViewById(R.id.seekBar_Cadencia);
         this.mViewHolder.posicaoCadeira = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira);
-        this.mViewHolder.posicaoCadeirateste = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira_teste);
         this.mViewHolder.cadencia.setOnSeekBarChangeListener(this);
 
         /*TextViews*/
@@ -159,9 +159,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
 
-
-        connectedThread = new ConnectedThread(SocketHandler.getSocket());
-        connectedThread.start();
+        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT) == ParametrosConstantes.Conectado_BT_True) {
+            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+            connectedThread.start();
+            conenexao_BT = true;
+        } else {
+            conenexao_BT = false;
+        }
 
 
         //declarar depois de tudo
@@ -548,21 +552,23 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
                 if (mov_drive) {
                     /*Extensão PERNA*/
-                    if (estim)
+                    if (estim && conenexao_BT) //fixme: a conexao bluetooth nao precisa ser parametro... porem o codigo daria erro
                         connectedThread.enviar("1");
                 } else {
                     /*Flexão PERNA*/
-                    if (estim)
+                    if (estim && conenexao_BT)
                         connectedThread.enviar("2");
                 }
             } else {
+                this.mViewHolder.posicaoCadeira.setProgress(cadeira);
+
                 if (mov_drive) {
                     /*Flexão BRAÇO*/
-                    if(estim)
+                    if (estim && conenexao_BT)
                         connectedThread.enviar("1");
                 } else {
                     /*Extensão BRAÇO*/
-                    if(estim)
+                    if (estim && conenexao_BT)
                         connectedThread.enviar("0");
                 }
             }
@@ -621,7 +627,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*SeekBar*/
         SeekBar cadencia;
         SeekBar posicaoCadeira;
-        SeekBar posicaoCadeirateste;
 
 
         /*Areas layout*/

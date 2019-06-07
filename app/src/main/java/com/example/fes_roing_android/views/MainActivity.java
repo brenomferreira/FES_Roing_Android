@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.fes_roing_android.R;
+import com.example.fes_roing_android.constantes.ParametrosConstantes;
 import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.ListaDispositivos;
 import com.example.fes_roing_android.util.SecurityPreferences;
@@ -136,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 /*Desconectar dispositvo*/
                 connectedThread.enviar("btDesconectado\n");
+                this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
+
+
                 try {
                     mSocket.close();
                     conexaoBT = !conexaoBT;
@@ -189,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         FIXME: ENVIAR A MENSAGEM APÓS CONECTAR
 */
                         connectedThread.enviar("btConectado");
+                        this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_True);
 
 
                     } catch (IOException e) {
