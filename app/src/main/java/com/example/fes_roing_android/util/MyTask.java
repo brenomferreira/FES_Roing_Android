@@ -16,13 +16,14 @@ public class MyTask extends AsyncTask<ArrayList<Float>, Float, String> {
     SeekBar progressBar;
     SeekBar posicaoCadeira;
     ConnectedThread connectedThread;
-
+    /*FIXME: Atualmente está habilitado para funcionar com o bluetooth dentro do AsyncTask atravez do connectedthred. tudo comentado com fixme*/
     // CONSTRUTOR
-    public MyTask(CadenciaActivity activity, SeekBar progressBar, SeekBar posicaoCadeira, ConnectedThread connectedThread) {
+    public MyTask(CadenciaActivity activity, SeekBar progressBar, SeekBar posicaoCadeira/*, ConnectedThread connectedThread*/) {
         activityWeakReference = new WeakReference<CadenciaActivity>(activity);
         this.progressBar = progressBar;
         this.posicaoCadeira = posicaoCadeira;
-        this.connectedThread = connectedThread;
+//Fixme
+//        this.connectedThread = connectedThread;
 
 
     }// Fim do CONSTRUTOR
@@ -73,13 +74,14 @@ public class MyTask extends AsyncTask<ArrayList<Float>, Float, String> {
         float temp = values[0];
 
         progressBar.setProgress((int) temp);
-        if (temp < 60) {
-            posicaoCadeira.setProgress((int) temp);
-            connectedThread.enviar("1");
-        } else {
-            posicaoCadeira.setProgress(60);
-            connectedThread.enviar("0");
-        }
+//Fixme
+//        if (temp < 60) {
+//            posicaoCadeira.setProgress((int) temp);
+//            connectedThread.enviar("1");
+//        } else {
+//            posicaoCadeira.setProgress(60);
+//            connectedThread.enviar("0");
+//        }
 
 
     }// Fim onProgressUpdate

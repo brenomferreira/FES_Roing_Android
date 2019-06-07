@@ -447,6 +447,11 @@
                 android:layout_height="30sp" />
 
 
+            <SeekBar
+                android:id="@+id/seekBar_PosiçaoCadeira_teste"
+                android:layout_width="match_parent"
+                android:layout_height="30sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/view_border"

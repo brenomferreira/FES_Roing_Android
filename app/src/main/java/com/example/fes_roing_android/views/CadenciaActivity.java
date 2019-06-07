@@ -27,14 +27,13 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
-public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
+public class CadenciaActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
 
     LineGraphSeries<DataPoint> series;
     Random aleatorio = new Random();
@@ -48,6 +47,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<Float> vetor_03 = new ArrayList<Float>();
     ConnectedThread connectedThread;
 
+    int cadeira;
+    int cadencia;
+    int cadencia_old;
+    boolean mov_drive;
 
 
     @Override
@@ -69,7 +72,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*SeekBar*/
         this.mViewHolder.cadencia = (SeekBar) findViewById(R.id.seekBar_Cadencia);
         this.mViewHolder.posicaoCadeira = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira);
-
+        this.mViewHolder.posicaoCadeirateste = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira_teste);
+        this.mViewHolder.cadencia.setOnSeekBarChangeListener(this);
 
         /*TextViews*/
         this.mViewHolder.text_set_treino_01 = (TextView) findViewById(R.id.textView_setTreino_01);
@@ -157,7 +161,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
         //declarar depois de tudo
-        this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, connectedThread);
+        this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, connectedThread*/);
+
+
+
+        /*variaveis*/
+        cadeira = mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
 
 
     }
@@ -172,7 +181,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         int freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq);
         float recovery = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorRecovery);
         int voga = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga);
-        int cadeira = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
+        cadeira = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
         float spDrive = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.spDrive);
         float spRecov = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.spRecovery);
 
@@ -246,7 +255,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_01.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, this.connectedThread);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                 ArrayList<Float> vetor = new ArrayList<Float>();
                 this.task.execute(this.vetor_01);
             } else {
@@ -266,7 +275,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_02.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, this.connectedThread);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                 ArrayList<Float> vetor = new ArrayList<Float>();
                 this.task.execute(this.vetor_02);
             } else {
@@ -286,7 +295,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_03.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira, this.connectedThread);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                 ArrayList<Float> vetor = new ArrayList<Float>();
                 this.task.execute(this.vetor_03);
             } else {
@@ -492,6 +501,68 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//        this.mViewHolder.posicaoCadeira.setProgress(this.mViewHolder.cadencia.getProgress());
+//        this.mViewHolder.posicaoCadeirateste.setProgress(this.mViewHolder.cadencia.getProgress());
+
+
+        /*<define se esta em drive dou nao>*/
+
+        int id = seekBar.getId();
+        cadencia = this.mViewHolder.cadencia.getProgress();
+
+        if (cadencia > cadencia_old) {
+            /*momento drive*/
+            mov_drive = true;
+        } else if (cadencia < cadencia_old) {
+            /*momento recovery*/
+            mov_drive = false;
+        } else {
+            /*momento de transiçao*/
+        }
+
+        if (id == R.id.seekBar_Cadencia) {
+
+            if (cadencia <= cadeira) {
+                this.mViewHolder.posicaoCadeira.setProgress(cadencia);
+
+                if (mov_drive) {
+                    /*Extensão PERNA*/
+                    connectedThread.enviar("1");
+                } else {
+                    /*Flexão PERNA*/
+                    connectedThread.enviar("2");
+                }
+            } else {
+                if (mov_drive) {
+                    /*Flexão BRAÇO*/
+                    connectedThread.enviar("1");
+                } else {
+                    /*Extensão BRAÇO*/
+                    connectedThread.enviar("0");
+                }
+            }
+
+        }
+        cadencia_old = cadencia;
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
     private static class ViewHolder {
 
         Button set_treino_01;
@@ -526,6 +597,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*SeekBar*/
         SeekBar cadencia;
         SeekBar posicaoCadeira;
+        SeekBar posicaoCadeirateste;
 
 
         /*Areas layout*/
