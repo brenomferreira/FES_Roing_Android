@@ -51,6 +51,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     int cadencia;
     int cadencia_old;
     boolean mov_drive;
+    boolean estim = false;
 
 
     @Override
@@ -81,6 +82,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.text_set_treino_03 = (TextView) findViewById(R.id.textView_setTreino_03);
 
         /*Onclick*/
+
+        this.mViewHolder.estim = (CheckBox) findViewById(R.id.checBox_estim);
+        this.mViewHolder.estim.setOnClickListener(this);
         this.mViewHolder.checkBox_Voga = (CheckBox) findViewById(R.id.checkBox_Voga);
         this.mViewHolder.checkBox_Voga.setOnClickListener(this);
         this.mViewHolder.checkBox_Drive = (CheckBox) findViewById(R.id.checkBox_Drive);
@@ -165,6 +169,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+        /*Segurança*/
+        this.mViewHolder.estim.setChecked(false);
+
         /*variaveis*/
         cadeira = mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
 
@@ -192,6 +199,16 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + voga + " | F:" + freq + "]";
 
+
+        if (id == R.id.checBox_estim) {
+            if (this.mViewHolder.estim.isChecked()) {
+                estim = true;
+            } else {
+                estim = false;
+
+            }
+
+        }
 
         if (id == R.id.checkBox_Voga) {
             if (this.mViewHolder.checkBox_Voga.isChecked()) {
@@ -520,6 +537,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             mov_drive = false;
         } else {
             /*momento de transiçao*/
+            /*fixme: isso pode esta enviando um dado que atrapalharia o plot*/
+            connectedThread.enviar("0");
         }
 
         if (id == R.id.seekBar_Cadencia) {
@@ -529,21 +548,24 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
                 if (mov_drive) {
                     /*Extensão PERNA*/
-                    connectedThread.enviar("1");
+                    if (estim)
+                        connectedThread.enviar("1");
                 } else {
                     /*Flexão PERNA*/
-                    connectedThread.enviar("2");
+                    if (estim)
+                        connectedThread.enviar("2");
                 }
             } else {
                 if (mov_drive) {
                     /*Flexão BRAÇO*/
-                    connectedThread.enviar("1");
+                    if(estim)
+                        connectedThread.enviar("1");
                 } else {
                     /*Extensão BRAÇO*/
-                    connectedThread.enviar("0");
+                    if(estim)
+                        connectedThread.enviar("0");
                 }
             }
-
         }
         cadencia_old = cadencia;
     }
@@ -565,6 +587,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
     private static class ViewHolder {
 
+        CheckBox estim;
+        CheckBox checkBox_Drive;
+        CheckBox checkBox_Voga;
+
         Button set_treino_01;
         Button set_treino_02;
         Button set_treino_03;
@@ -583,8 +609,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         Button menos_cadeira;
 
 
-        CheckBox checkBox_Drive;
-        CheckBox checkBox_Voga;
         EditText editText_Cadeira;
         EditText editText_Drive;
         EditText editText_Freq;
