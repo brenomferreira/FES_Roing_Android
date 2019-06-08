@@ -22,12 +22,11 @@ import com.example.fes_roing_android.util.SocketHandler;
 
 public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener, SeekBar.OnSeekBarChangeListener {
 
-    private ViewHolder mViewHolder = new ViewHolder();
-    private SecurityPreferences mSecurityPreferences;
     ConnectedThread connectedThread;
     boolean conenexao_BT;
-
-
+    int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, freq, largPulso, modo;
+    private ViewHolder mViewHolder = new ViewHolder();
+    private SecurityPreferences mSecurityPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,10 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         mViewHolder.seekBar_CH56.setOnSeekBarChangeListener(this);
         mViewHolder.seekBar_CH78 = (SeekBar) findViewById(R.id.seekBar_CH78);
         mViewHolder.seekBar_CH78.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_Freq = (SeekBar) findViewById(R.id.seekBar_Freq);
+        mViewHolder.seekBar_Freq.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_LP = (SeekBar) findViewById(R.id.seekBar_LP);
+        mViewHolder.seekBar_LP.setOnSeekBarChangeListener(this);
 
 // TextViews
         mViewHolder.valor_previo = (TextView) findViewById(R.id.textView_valor_previo);
@@ -74,6 +77,10 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.editText_CH56.setOnKeyListener(this);
         this.mViewHolder.editText_CH78 = (EditText) findViewById(R.id.editText_CH78);
         this.mViewHolder.editText_CH78.setOnKeyListener(this);
+        this.mViewHolder.editText_Freq = (EditText) findViewById(R.id.editText_Freq);
+        this.mViewHolder.editText_Freq.setOnKeyListener(this);
+        this.mViewHolder.editText_LP = (EditText) findViewById(R.id.editText_LP);
+        this.mViewHolder.editText_LP.setOnKeyListener(this);
 
         //Layout
         this.mViewHolder.area_56 = (LinearLayout) findViewById(R.id.area_CH56);
@@ -100,8 +107,6 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         } else {
             conenexao_BT = false;
         }
-
-
 
 
     } // Fim onCreate
@@ -187,16 +192,16 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         if (id == R.id.editText_CH12) {
             if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
-                this.mViewHolder.seekBar_CH12.setProgress(value);
+                corrente_CH12 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
+                this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
             }
 
         } // Fim dos eventos teclados ch12
 
         if (id == R.id.editText_CH34) {
             if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
-                this.mViewHolder.seekBar_CH34.setProgress(value);
+                corrente_CH34 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
+                this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
             }
 
         } // Fim dos eventos teclados ch34
@@ -204,16 +209,16 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         if (id == R.id.editText_CH56) {
             if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
-                this.mViewHolder.seekBar_CH56.setProgress(value);
+                corrente_CH56 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
+                this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
             }
 
         } // Fim dos eventos teclados ch56
 
         if (id == R.id.editText_CH78) {
             if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
-                this.mViewHolder.seekBar_CH78.setProgress(value);
+                corrente_CH78 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
+                this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
             }
 
         } // Fim dos eventos teclados ch78
@@ -227,22 +232,33 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         if (id == R.id.seekBar_CH12) {
             this.mViewHolder.editText_CH12.setText("" + progress);
+            corrente_CH12 = progress;
 
         } // Fim slider ch12
 
         if (id == R.id.seekBar_CH34) {
             this.mViewHolder.editText_CH34.setText("" + progress);
-
+            corrente_CH34 = progress;
         } // Fim slider ch12
 
         if (id == R.id.seekBar_CH56) {
             this.mViewHolder.editText_CH56.setText("" + progress);
-
+            corrente_CH56 = progress;
         } // Fim slider ch12
 
         if (id == R.id.seekBar_CH78) {
             this.mViewHolder.editText_CH78.setText("" + progress);
+            corrente_CH78 = progress;
+        } // Fim slider ch12
 
+        if (id == R.id.seekBar_Freq) {
+            this.mViewHolder.editText_Freq.setText("" + progress);
+            freq = progress;
+        } // Fim slider ch12
+
+        if (id == R.id.seekBar_LP) {
+            this.mViewHolder.editText_LP.setText("" + progress);
+            largPulso = progress;
         } // Fim slider ch12
 
 
@@ -282,6 +298,12 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    public void setAllMemory() {
+
+    }
+
+    public void getAllMemory() {
+    }
 
     private static class ViewHolder {
         Button btn_voltar;
@@ -294,10 +316,14 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         EditText editText_CH34;
         EditText editText_CH56;
         EditText editText_CH78;
+        EditText editText_Freq;
+        EditText editText_LP;
         SeekBar seekBar_CH12;
         SeekBar seekBar_CH34;
         SeekBar seekBar_CH56;
         SeekBar seekBar_CH78;
+        SeekBar seekBar_Freq;
+        SeekBar seekBar_LP;
         TextView valor_previo;
 
         //layout
