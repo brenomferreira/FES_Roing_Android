@@ -16,12 +16,18 @@ import android.widget.TextView;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
+import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.SecurityPreferences;
+import com.example.fes_roing_android.util.SocketHandler;
 
 public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener, SeekBar.OnSeekBarChangeListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
+    ConnectedThread connectedThread;
+    boolean conenexao_BT;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,20 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.editText_CH34.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_CH56.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_CH78.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+
+        /*Conexão Bluetooth*/
+        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT) == ParametrosConstantes.Conectado_BT_True) {
+            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+            connectedThread.start();
+            conenexao_BT = true;
+        } else {
+            conenexao_BT = false;
+        }
+
+
+
 
     } // Fim onCreate
 
