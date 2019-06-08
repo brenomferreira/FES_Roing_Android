@@ -108,12 +108,22 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             conenexao_BT = false;
         }
 
+        getAllMemory();
+
+        /*Atualiza valores no display*/
+        this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
+        this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
+        this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
+        this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
+        this.mViewHolder.seekBar_Freq.setProgress(freq);
+        this.mViewHolder.seekBar_LP.setProgress(largPulso);
 
     } // Fim onCreate
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        getAllMemory();
         if (id == R.id.checkboxCH12) {
             if (this.mViewHolder.check_CH12.isChecked()) {
 // True
@@ -181,13 +191,14 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent2);
 
         } // Fim lógica btn_voltar_ac_Parametros
-
+        setAllMemory();
     } // Fim onClick
 
     @Override
     public boolean onKey(View view, int keyCode, KeyEvent event) {
         int id = view.getId();
         int evento_key = event.getKeyCode();
+        getAllMemory();
         //int evento_key = keyCode;
 
         if (id == R.id.editText_CH12) {
@@ -223,12 +234,15 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
         } // Fim dos eventos teclados ch78
 
+        setAllMemory();
         return false;
+
     }// Fim Método onKey
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int id = seekBar.getId();
+        getAllMemory();
 
         if (id == R.id.seekBar_CH12) {
             this.mViewHolder.editText_CH12.setText("" + progress);
@@ -261,11 +275,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             largPulso = progress;
         } // Fim slider ch12
 
-
-
-
-
-
+        setAllMemory();
     }// Fim SeekBar OnProgressChanged
 
 
@@ -300,9 +310,28 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
     public void setAllMemory() {
 
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH12, corrente_CH12);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH34, corrente_CH34);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH56, corrente_CH56);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH78, corrente_CH78);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_Freq_Estim, freq);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_LP, largPulso);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_Mode, modo);
+
+
     }
 
     public void getAllMemory() {
+
+        corrente_CH12 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH12);
+        corrente_CH34 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH34);
+        corrente_CH56 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH56);
+        corrente_CH78 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH78);
+        freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_Freq_Estim);
+        largPulso = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_LP);
+        modo = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_Mode);
+
+
     }
 
     private static class ViewHolder {

@@ -153,7 +153,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga));
         this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive)));
-        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq));
+        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreqAmostra));
         this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea));
 
         /*Grafico*/
@@ -189,7 +189,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*get variaveis*/
         float drive = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive);
-        int freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq);
+        int freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreqAmostra);
         float recovery = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorRecovery);
         int voga = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga);
         cadeira = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
@@ -405,7 +405,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*Armazena variaveis*/
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, drive);
-        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, freq);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreqAmostra, freq);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, voga);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorCadeirea, cadeira);
@@ -441,7 +441,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             if (event == null) {
                 String text = view.getText().toString();
                 int valor = (int) Float.parseFloat(text);
-                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, valor);
+                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreqAmostra, valor);
                 calcularParametros();
             }
         }
@@ -701,7 +701,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecovery);
-        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreq, fs);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreqAmostra, fs);
 
         return vetor;
 
