@@ -341,6 +341,37 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
                 this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
             }
         }
+        if (id == R.id.editText_CH34) {
+            if (event == null) {
+                corrente_CH34 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
+                this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
+            }
+        }
+        if (id == R.id.editText_CH56) {
+            if (event == null) {
+                corrente_CH56 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
+                this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
+            }
+        }
+        if (id == R.id.editText_CH78) {
+            if (event == null) {
+                corrente_CH78 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
+                this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
+            }
+        }
+        if (id == R.id.editText_Freq) {
+            if (event == null) {
+                freq = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_Freq.getText()));
+                this.mViewHolder.seekBar_Freq.setProgress(freq);
+            }
+        }
+        if (id == R.id.editText_LP) {
+            if (event == null) {
+                largPulso = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_LP.getText()));
+                this.mViewHolder.seekBar_LP.setProgress(largPulso);
+            }
+        }
+
 
 
 
