@@ -20,7 +20,7 @@ import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.SecurityPreferences;
 import com.example.fes_roing_android.util.SocketHandler;
 
-public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener, SeekBar.OnSeekBarChangeListener {
+public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener, SeekBar.OnSeekBarChangeListener {
 
     ConnectedThread connectedThread;
     boolean conenexao_BT;
@@ -70,17 +70,17 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
 // OnKey
         this.mViewHolder.editText_CH12 = (EditText) findViewById(R.id.editText_CH12);
-        this.mViewHolder.editText_CH12.setOnKeyListener(this);
+        this.mViewHolder.editText_CH12.setOnEditorActionListener(this);
         this.mViewHolder.editText_CH34 = (EditText) findViewById(R.id.editText_CH34);
-        this.mViewHolder.editText_CH34.setOnKeyListener(this);
+        this.mViewHolder.editText_CH34.setOnEditorActionListener(this);
         this.mViewHolder.editText_CH56 = (EditText) findViewById(R.id.editText_CH56);
-        this.mViewHolder.editText_CH56.setOnKeyListener(this);
+        this.mViewHolder.editText_CH56.setOnEditorActionListener(this);
         this.mViewHolder.editText_CH78 = (EditText) findViewById(R.id.editText_CH78);
-        this.mViewHolder.editText_CH78.setOnKeyListener(this);
+        this.mViewHolder.editText_CH78.setOnEditorActionListener(this);
         this.mViewHolder.editText_Freq = (EditText) findViewById(R.id.editText_Freq);
-        this.mViewHolder.editText_Freq.setOnKeyListener(this);
+        this.mViewHolder.editText_Freq.setOnEditorActionListener(this);
         this.mViewHolder.editText_LP = (EditText) findViewById(R.id.editText_LP);
-        this.mViewHolder.editText_LP.setOnKeyListener(this);
+        this.mViewHolder.editText_LP.setOnEditorActionListener(this);
 
         //Layout
         this.mViewHolder.area_56 = (LinearLayout) findViewById(R.id.area_CH56);
@@ -123,7 +123,6 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        getAllMemory();
         if (id == R.id.checkboxCH12) {
             if (this.mViewHolder.check_CH12.isChecked()) {
 // True
@@ -191,53 +190,50 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent2);
 
         } // Fim lógica btn_voltar_ac_Parametros
-        setAllMemory();
     } // Fim onClick
 
-    @Override
-    public boolean onKey(View view, int keyCode, KeyEvent event) {
-        int id = view.getId();
-        int evento_key = event.getKeyCode();
-        getAllMemory();
-        //int evento_key = keyCode;
-
-        if (id == R.id.editText_CH12) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                corrente_CH12 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
-                this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
-            }
-
-        } // Fim dos eventos teclados ch12
-
-        if (id == R.id.editText_CH34) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                corrente_CH34 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
-                this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
-            }
-
-        } // Fim dos eventos teclados ch34
-
-
-        if (id == R.id.editText_CH56) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                corrente_CH56 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
-                this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
-            }
-
-        } // Fim dos eventos teclados ch56
-
-        if (id == R.id.editText_CH78) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                corrente_CH78 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
-                this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
-            }
-
-        } // Fim dos eventos teclados ch78
-
-        setAllMemory();
-        return false;
-
-    }// Fim Método onKey
+//    @Override
+//    public boolean onKey(View view, int keyCode, KeyEvent event) {
+//        int id = view.getId();
+//        int evento_key = event.getKeyCode();
+//        //int evento_key = keyCode;
+//
+//        if (id == R.id.editText_CH12) {
+//            if (keyCode == 66) { // 66 corresponde à tecla ENTER
+//                corrente_CH12 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
+//                this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
+//            }
+//
+//        } // Fim dos eventos teclados ch12
+//
+//        if (id == R.id.editText_CH34) {
+//            if (keyCode == 66) { // 66 corresponde à tecla ENTER
+//                corrente_CH34 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
+//                this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
+//            }
+//
+//        } // Fim dos eventos teclados ch34
+//
+//
+//        if (id == R.id.editText_CH56) {
+//            if (keyCode == 66) { // 66 corresponde à tecla ENTER
+//                corrente_CH56 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
+//                this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
+//            }
+//
+//        } // Fim dos eventos teclados ch56
+//
+//        if (id == R.id.editText_CH78) {
+//            if (keyCode == 66) { // 66 corresponde à tecla ENTER
+//                corrente_CH78 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
+//                this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
+//            }
+//
+//        } // Fim dos eventos teclados ch78
+//
+//        return false;
+//
+//    }// Fim Método onKey
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -247,6 +243,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         if (id == R.id.seekBar_CH12) {
             this.mViewHolder.editText_CH12.setText("" + progress);
             corrente_CH12 = progress;
+            this.mViewHolder.editText_CH12.setText(""+ corrente_CH12);
 
         } // Fim slider ch12
 
@@ -333,6 +330,28 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
 
     }
+
+    @Override
+    public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+    int id = view.getId();
+
+        if (id == R.id.editText_CH12) {
+            if (event == null) {
+                corrente_CH12 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
+                this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
+            }
+        }
+
+
+
+
+        return false;
+
+
+
+    }
+
+
 
     private static class ViewHolder {
         Button btn_voltar;
