@@ -23,7 +23,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
 
-    int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso;
+    int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso, modo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,15 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.editText_CH56.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_CH78.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
+        getAllMemory();
+
+        /*Atualiza valores no display*/
+        this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
+        this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
+        this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
+        this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
+        this.mViewHolder.seekBar_freq.setProgress(valor_Freq);
+        this.mViewHolder.seekBar_lp.setProgress(valor_LarguraPulso);
     } // Fim onCreate
 
     @Override
@@ -215,6 +224,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int id = seekBar.getId();
+        getAllMemory();
 
         if (id == R.id.seekBar_CH12) {
             this.mViewHolder.editText_CH12.setText("" + progress);
@@ -246,7 +256,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             valor_LarguraPulso = progress;
         } // Fim slider Freq
 
-
+        setAllMemory();
     }// Fim SeekBar OnProgressChanged
 
 
@@ -277,6 +287,32 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
                 setEnableViews(view, enable);
             }
         }
+    }
+
+    public void setAllMemory() {
+
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH12, corrente_CH12);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH34, corrente_CH34);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH56, corrente_CH56);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH78, corrente_CH78);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_Freq_Estim, valor_Freq);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_LP, valor_LarguraPulso);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_Mode, modo);
+
+
+    }
+
+    public void getAllMemory() {
+
+        corrente_CH12 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH12);
+        corrente_CH34 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH34);
+        corrente_CH56 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH56);
+        corrente_CH78 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH78);
+        valor_Freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_Freq_Estim);
+        valor_LarguraPulso = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_LP);
+        modo = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_Mode);
+
+
     }
 
     @Override
