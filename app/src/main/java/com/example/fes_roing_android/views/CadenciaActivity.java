@@ -74,7 +74,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*SeekBar*/
         this.mViewHolder.cadencia = (SeekBar) findViewById(R.id.seekBar_Cadencia);
         this.mViewHolder.posicaoCadeira = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira);
-        this.mViewHolder.posicaoCadeirateste = (SeekBar) findViewById(R.id.seekBar_PosiçaoCadeira_teste);
         this.mViewHolder.cadencia.setOnSeekBarChangeListener(this);
 
         /*TextViews*/
@@ -626,7 +625,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*SeekBar*/
         SeekBar cadencia;
         SeekBar posicaoCadeira;
-        SeekBar posicaoCadeirateste;
 
 
         /*Areas layout*/
