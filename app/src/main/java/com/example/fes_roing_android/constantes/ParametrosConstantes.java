@@ -2,6 +2,12 @@ package com.example.fes_roing_android.constantes;
 
 public class ParametrosConstantes {
 
+
+    /*Parametros de conexão Bluetooth*/
+    public static final String Status_BT = "Status do Bluetooth";
+    public static final String Conectado_BT_True = "BT_Conectado";
+    public static final String Conectado_BT_False = "BT_Desconectado";
+
     /*Parametros de estimulação*/
     public static final String AtiveCH12 = "check_CH12";
     public static final String AtiveCH34 = "check_CH34";

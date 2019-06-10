@@ -52,6 +52,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     int cadencia_old;
     boolean mov_drive;
     boolean estim = false;
+    boolean conenexao_BT;
 
 
     @Override
@@ -159,9 +160,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
 
-
-        connectedThread = new ConnectedThread(SocketHandler.getSocket());
-        connectedThread.start();
+        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT) == ParametrosConstantes.Conectado_BT_True) {
+            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+            connectedThread.start();
+            conenexao_BT = true;
+        } else {
+            conenexao_BT = false;
+        }
 
 
         //declarar depois de tudo
