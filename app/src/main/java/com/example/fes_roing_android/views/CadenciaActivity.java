@@ -52,7 +52,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     int cadencia_old;
     boolean mov_drive;
     boolean estim = false;
-    boolean conenexao_BT;
+    boolean conexaoBT;
 
 
     @Override
@@ -159,14 +159,25 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
 
-        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT) == ParametrosConstantes.Conectado_BT_True) {
+//        /*Compara se conexão bluetooth ja voi estabelecida*/
+//        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT).equals(ParametrosConstantes.Conectado_BT_True)) {
+//            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+//            connectedThread.start();
+//            conenexao_BT = true;
+//        } else {
+//            conenexao_BT = false;
+//        }
+
+        /*testar se houve conexão bluetooth anteriormente*/
+        try {
             connectedThread = new ConnectedThread(SocketHandler.getSocket());
             connectedThread.start();
-            conenexao_BT = true;
-        } else {
-            conenexao_BT = false;
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_True);
+            conexaoBT = true;
+        } catch (Exception e) {
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
+            conexaoBT = false;
         }
-
 
         //declarar depois de tudo
         this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, connectedThread*/);

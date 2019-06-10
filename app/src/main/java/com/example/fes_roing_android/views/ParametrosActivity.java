@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
+import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.SecurityPreferences;
+import com.example.fes_roing_android.util.SocketHandler;
 
 public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, EditText.OnEditorActionListener, SeekBar.OnSeekBarChangeListener {
 
@@ -24,6 +26,8 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     private SecurityPreferences mSecurityPreferences;
 
     int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso, modo;
+    boolean conexaoBT;
+    private ConnectedThread connectedThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,20 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
         this.mViewHolder.seekBar_freq.setProgress(valor_Freq);
         this.mViewHolder.seekBar_lp.setProgress(valor_LarguraPulso);
+
+        /*testar se houve conexão bluetooth anteriormente*/
+        
+        try {
+            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+            connectedThread.start();
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_True);
+            conexaoBT = true;
+        } catch (Exception e) {
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
+            conexaoBT = false;
+        }
+        
+        
     } // Fim onCreate
 
     @Override
