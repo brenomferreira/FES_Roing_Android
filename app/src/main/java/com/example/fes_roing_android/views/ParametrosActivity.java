@@ -67,6 +67,8 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.check_CH56.setOnClickListener(this);
         this.mViewHolder.check_CH78 = (CheckBox) findViewById(R.id.checkboxCH78);
         this.mViewHolder.check_CH78.setOnClickListener(this);
+        this.mViewHolder.envi_Parametros = (Button) findViewById(R.id.btn_enviar_Estimulador);
+        this.mViewHolder.envi_Parametros.setOnClickListener(this);
 
 
         /*OnEditorActionListener*/
@@ -127,6 +129,10 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        if (id == R.id.btn_enviar_Estimulador){
+
+        }
+
         if (id == R.id.checkboxCH12) {
             if (this.mViewHolder.check_CH12.isChecked()) {
 // True
@@ -374,7 +380,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
     private static class ViewHolder {
         Button btn_voltar;
-        Button Envi_Parametros;
+        Button envi_Parametros;
         CheckBox check_CH12;
         CheckBox check_CH34;
         CheckBox check_CH56;
