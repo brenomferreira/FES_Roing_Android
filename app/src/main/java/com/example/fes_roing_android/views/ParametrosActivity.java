@@ -20,13 +20,17 @@ import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.SecurityPreferences;
 import com.example.fes_roing_android.util.SocketHandler;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, EditText.OnEditorActionListener, SeekBar.OnSeekBarChangeListener {
 
-    private ViewHolder mViewHolder = new ViewHolder();
-    private SecurityPreferences mSecurityPreferences;
-
+    DecimalFormat decimalFormat = new DecimalFormat("000", new DecimalFormatSymbols(new Locale("en", "US")));
     int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso, modo;
     boolean conexaoBT;
+    private ViewHolder mViewHolder = new ViewHolder();
+    private SecurityPreferences mSecurityPreferences;
     private ConnectedThread connectedThread;
 
     @Override
@@ -112,7 +116,7 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.seekBar_lp.setProgress(valor_LarguraPulso);
 
         /*testar se houve conexão bluetooth anteriormente*/
-        
+
         try {
             connectedThread = new ConnectedThread(SocketHandler.getSocket());
             connectedThread.start();
@@ -122,14 +126,30 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
             this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
             conexaoBT = false;
         }
-        
-        
+
+
     } // Fim onCreate
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_enviar_Estimulador){
+        if (id == R.id.btn_enviar_Estimulador) {
+
+            connectedThread.enviar(
+                    "c" +
+                            decimalFormat.format(corrente_CH12) +
+                            "d" +
+                            decimalFormat.format(corrente_CH34) +
+                            "e" +
+                            decimalFormat.format(corrente_CH56) +
+                            "x" +
+                            decimalFormat.format(corrente_CH78) +
+                            "p" +
+                            decimalFormat.format(valor_LarguraPulso) +
+                            "f" +
+                            decimalFormat.format(valor_Freq) +
+                            "m" + "1");//fixme implementar modo
+
 
         }
 
