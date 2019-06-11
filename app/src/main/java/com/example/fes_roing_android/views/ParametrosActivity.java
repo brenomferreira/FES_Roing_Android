@@ -27,7 +27,9 @@ import java.util.Locale;
 public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, EditText.OnEditorActionListener, SeekBar.OnSeekBarChangeListener {
 
     DecimalFormat decimalFormat = new DecimalFormat("000", new DecimalFormatSymbols(new Locale("en", "US")));
-    int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso, modo;
+    int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso;
+    int modo = 0;
+    boolean ch12ok, ch34ok, ch56ok, ch78ok;
     boolean conexaoBT;
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
@@ -133,7 +135,38 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         int id = view.getId();
+
         if (id == R.id.btn_enviar_Estimulador) {
+
+            byte b = 0b00000000;
+
+            /*check modo*/
+            if (this.mViewHolder.check_CH12.isChecked())
+                b = (byte) (b | 0b00000011);
+            if (this.mViewHolder.check_CH34.isChecked())
+                b = (byte) (b | 0b00001100);
+            if (this.mViewHolder.check_CH56.isChecked())
+                b = (byte) (b | 0b00110000);
+            if (this.mViewHolder.check_CH78.isChecked())
+                b = (byte) (b | 0b11000000);
+
+            if((0b00000011 & b) == 0b00000011)
+                modo = 1;
+            if((0b00001100 & b) == 0b00001100)
+                modo = 2;
+            if((0b00001111 & b) == 0b00001111)
+                modo = 3;
+            if((0b00110011 & b) == 0b00110011)
+                modo = 4;
+            if((0b00111111 & b) == 0b00111111)
+                modo = 5;
+            if((0b11001100 & b) == 0b11001100)
+                modo = 6;
+            if((0b11001111 & b) == 0b11001111)
+                modo = 7;
+            if((0b11111111 & b) == 0b11111111)
+                modo = 8;
+
 
             connectedThread.enviar(
                     "c" +
@@ -148,7 +181,8 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
                             decimalFormat.format(valor_LarguraPulso) +
                             "f" +
                             decimalFormat.format(valor_Freq) +
-                            "m" + "1");//fixme implementar modo
+                            "m" +
+                            decimalFormat.format(modo));
 
 
         }
