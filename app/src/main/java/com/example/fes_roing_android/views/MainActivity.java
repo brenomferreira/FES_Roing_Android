@@ -20,33 +20,28 @@ import com.example.fes_roing_android.util.SecurityPreferences;
 import com.example.fes_roing_android.util.SocketHandler;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private ViewHolder mViewHolder = new ViewHolder();
-    private SecurityPreferences mSecurityPreferences;
-    private static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-
-/*necessario para a conexao bluetooth*/
+    /*necessario para a conexao bluetooth*/
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVER_BT = 1;
     private static final int SOLICITA_CONEXAO = 2;
-    ConnectedThread connectedThread;
+    private static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     private static String MAC = null;
+    ConnectedThread connectedThread;
     BluetoothAdapter mBlueAdapter;
     BluetoothDevice mDevice;
     BluetoothSocket mSocket;
     UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     boolean conexaoBT = false;
     boolean btLigado = false;
+    private ViewHolder mViewHolder = new ViewHolder();
+    private SecurityPreferences mSecurityPreferences;
     /* FIM (necessario para a conexao bluetooth)*/
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +59,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.mViewHolder.aquecimento = (Button) findViewById(R.id.btn_aquecimento);
         this.mViewHolder.aquecimento.setOnClickListener(this);
 
+        /*testar se houve conexão bluetooth anteriormente*/
+        try {
+            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+            connectedThread.start();
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_True);
+            conexaoBT = true;
+        } catch (Exception e) {
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
+            conexaoBT = false;
+        }
+
+
     }
 
     @Override
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
     }
 
-// importante para quando retornar para esta tela (Ciclo de vida )
+    // importante para quando retornar para esta tela (Ciclo de vida )
     @Override
     protected void onResume() {
         super.onResume();
@@ -106,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //todo////////////////////////////////////////////////////
         else if (id == R.id.btn_conectBTh) {
             // logica da conexão
-
 
 
             if (!mBlueAdapter.isEnabled()) {
@@ -153,10 +159,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-
         }// fim btn_conectBTH
 
-        else if (id == R.id.btn_aquecimento){
+        else if (id == R.id.btn_aquecimento) {
             // Lógica de navegação.
             // Intent intent = new Intent(getApplicationContext(), ParametrosActivity.class);
             Intent intent = new Intent(this, CadenciaActivity.class); // chama outra view
@@ -213,23 +218,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-    private static class ViewHolder {
-        Button conecta_bluetooth;
-        Button parametros;
-        Button aquecimento;
-    } // Fim ViewHolder
-
-
     /**
-     *
      * @param msg
      */
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-
+    private static class ViewHolder {
+        Button conecta_bluetooth;
+        Button parametros;
+        Button aquecimento;
+    } // Fim ViewHolder
 
 
 }

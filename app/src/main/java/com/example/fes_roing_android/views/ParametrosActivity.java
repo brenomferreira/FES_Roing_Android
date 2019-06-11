@@ -16,12 +16,24 @@ import android.widget.TextView;
 
 import com.example.fes_roing_android.R;
 import com.example.fes_roing_android.constantes.ParametrosConstantes;
+import com.example.fes_roing_android.util.ConnectedThread;
 import com.example.fes_roing_android.util.SecurityPreferences;
+import com.example.fes_roing_android.util.SocketHandler;
 
-public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener, SeekBar.OnSeekBarChangeListener {
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
+public class ParametrosActivity extends AppCompatActivity implements View.OnClickListener, EditText.OnEditorActionListener, SeekBar.OnSeekBarChangeListener {
+
+    DecimalFormat decimalFormat = new DecimalFormat("000", new DecimalFormatSymbols(new Locale("en", "US")));
+    int corrente_CH12, corrente_CH34, corrente_CH56, corrente_CH78, valor_Freq, valor_LarguraPulso;
+    int modo = 0;
+    boolean ch12ok, ch34ok, ch56ok, ch78ok;
+    boolean conexaoBT;
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
+    private ConnectedThread connectedThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,10 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         mViewHolder.seekBar_CH56.setOnSeekBarChangeListener(this);
         mViewHolder.seekBar_CH78 = (SeekBar) findViewById(R.id.seekBar_CH78);
         mViewHolder.seekBar_CH78.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_freq = (SeekBar) findViewById(R.id.seekBar_Freq);
+        mViewHolder.seekBar_freq.setOnSeekBarChangeListener(this);
+        mViewHolder.seekBar_lp = (SeekBar) findViewById(R.id.seekBar_LP);
+        mViewHolder.seekBar_lp.setOnSeekBarChangeListener(this);
 
 // TextViews
         mViewHolder.valor_previo = (TextView) findViewById(R.id.textView_valor_previo);
@@ -57,17 +73,24 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.check_CH56.setOnClickListener(this);
         this.mViewHolder.check_CH78 = (CheckBox) findViewById(R.id.checkboxCH78);
         this.mViewHolder.check_CH78.setOnClickListener(this);
+        this.mViewHolder.envi_Parametros = (Button) findViewById(R.id.btn_enviar_Estimulador);
+        this.mViewHolder.envi_Parametros.setOnClickListener(this);
 
 
-// OnKey
+        /*OnEditorActionListener*/
         this.mViewHolder.editText_CH12 = (EditText) findViewById(R.id.editText_CH12);
-        this.mViewHolder.editText_CH12.setOnKeyListener(this);
+        this.mViewHolder.editText_CH12.setOnEditorActionListener(this);
         this.mViewHolder.editText_CH34 = (EditText) findViewById(R.id.editText_CH34);
-        this.mViewHolder.editText_CH34.setOnKeyListener(this);
+        this.mViewHolder.editText_CH34.setOnEditorActionListener(this);
         this.mViewHolder.editText_CH56 = (EditText) findViewById(R.id.editText_CH56);
-        this.mViewHolder.editText_CH56.setOnKeyListener(this);
+        this.mViewHolder.editText_CH56.setOnEditorActionListener(this);
         this.mViewHolder.editText_CH78 = (EditText) findViewById(R.id.editText_CH78);
-        this.mViewHolder.editText_CH78.setOnKeyListener(this);
+        this.mViewHolder.editText_CH78.setOnEditorActionListener(this);
+        this.mViewHolder.editText_Freq = (EditText) findViewById(R.id.editText_Freq);
+        this.mViewHolder.editText_Freq.setOnEditorActionListener(this);
+        this.mViewHolder.editText_LP = (EditText) findViewById(R.id.editText_LP);
+        this.mViewHolder.editText_LP.setOnEditorActionListener(this);
+
 
         //Layout
         this.mViewHolder.area_56 = (LinearLayout) findViewById(R.id.area_CH56);
@@ -84,11 +107,88 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         this.mViewHolder.editText_CH56.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_CH78.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
+        getAllMemory();
+
+        /*Atualiza valores no display*/
+        this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
+        this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
+        this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
+        this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
+        this.mViewHolder.seekBar_freq.setProgress(valor_Freq);
+        this.mViewHolder.seekBar_lp.setProgress(valor_LarguraPulso);
+
+        /*testar se houve conexão bluetooth anteriormente*/
+
+        try {
+            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+            connectedThread.start();
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_True);
+            conexaoBT = true;
+        } catch (Exception e) {
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
+            conexaoBT = false;
+        }
+
+
     } // Fim onCreate
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
+
+        if (id == R.id.btn_enviar_Estimulador) {
+
+            byte b = 0b00000000;
+
+            /*check modo*/
+            if (this.mViewHolder.check_CH12.isChecked())
+                b = (byte) (b | 0b00000011);
+            if (this.mViewHolder.check_CH34.isChecked())
+                b = (byte) (b | 0b00001100);
+            if (this.mViewHolder.check_CH56.isChecked())
+                b = (byte) (b | 0b00110000);
+            if (this.mViewHolder.check_CH78.isChecked())
+                b = (byte) (b | 0b11000000);
+
+            if((0b00000011 & b) == 0b00000011)
+                modo = 1;
+            if((0b00001100 & b) == 0b00001100)
+                modo = 2;
+            if((0b00001111 & b) == 0b00001111)
+                modo = 3;
+            if((0b00110011 & b) == 0b00110011)
+                modo = 4;
+            if((0b00111111 & b) == 0b00111111)
+                modo = 5;
+            if((0b11001100 & b) == 0b11001100)
+                modo = 6;
+            if((0b11001111 & b) == 0b11001111)
+                modo = 7;
+            if((0b11111111 & b) == 0b11111111)
+                modo = 8;
+
+
+            connectedThread.enviar(
+                    "c" +
+                            decimalFormat.format(corrente_CH12) +
+                            "d" +
+                            decimalFormat.format(corrente_CH34) +
+                            "e" +
+                            decimalFormat.format(corrente_CH56) +
+                            "x" +
+                            decimalFormat.format(corrente_CH78) +
+                            "p" +
+                            decimalFormat.format(valor_LarguraPulso) +
+                            "f" +
+                            decimalFormat.format(valor_Freq) +
+                            "m" +
+                            decimalFormat.format(modo));
+
+            Intent intent3 = new Intent(this, MainActivity.class); // chama outra view
+            startActivity(intent3);
+
+        }
+
         if (id == R.id.checkboxCH12) {
             if (this.mViewHolder.check_CH12.isChecked()) {
 // True
@@ -159,77 +259,84 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
 
     } // Fim onClick
 
-    @Override
-    public boolean onKey(View view, int keyCode, KeyEvent event) {
-        int id = view.getId();
-        int evento_key = event.getKeyCode();
-        //int evento_key = keyCode;
-
-        if (id == R.id.editText_CH12) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
-                this.mViewHolder.seekBar_CH12.setProgress(value);
-            }
-
-        } // Fim dos eventos teclados ch12
-
-        if (id == R.id.editText_CH34) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
-                this.mViewHolder.seekBar_CH34.setProgress(value);
-            }
-
-        } // Fim dos eventos teclados ch34
-
-
-        if (id == R.id.editText_CH56) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
-                this.mViewHolder.seekBar_CH56.setProgress(value);
-            }
-
-        } // Fim dos eventos teclados ch56
-
-        if (id == R.id.editText_CH78) {
-            if (evento_key == 66) { // 66 corresponde à tecla ENTER
-                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
-                this.mViewHolder.seekBar_CH78.setProgress(value);
-            }
-
-        } // Fim dos eventos teclados ch78
-
-        return false;
-    }// Fim Método onKey
+//    @Override
+//    public boolean onKey(View view, int keyCode, KeyEvent event) {
+//        int id = view.getId();
+//        int evento_key = event.getKeyCode();
+//        //int evento_key = keyCode;
+//
+//        if (id == R.id.editText_CH12) {
+//            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+//                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
+//                this.mViewHolder.seekBar_CH12.setProgress(value);
+//            }
+//
+//        } // Fim dos eventos teclados ch12
+//
+//        if (id == R.id.editText_CH34) {
+//            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+//                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
+//                this.mViewHolder.seekBar_CH34.setProgress(value);
+//            }
+//
+//        } // Fim dos eventos teclados ch34
+//
+//
+//        if (id == R.id.editText_CH56) {
+//            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+//                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
+//                this.mViewHolder.seekBar_CH56.setProgress(value);
+//            }
+//
+//        } // Fim dos eventos teclados ch56
+//
+//        if (id == R.id.editText_CH78) {
+//            if (evento_key == 66) { // 66 corresponde à tecla ENTER
+//                int value = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
+//                this.mViewHolder.seekBar_CH78.setProgress(value);
+//            }
+//
+//        } // Fim dos eventos teclados ch78
+//
+//        return false;
+//    }// Fim Método onKey
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int id = seekBar.getId();
+        getAllMemory();
 
         if (id == R.id.seekBar_CH12) {
             this.mViewHolder.editText_CH12.setText("" + progress);
-
+            corrente_CH12 = progress;
         } // Fim slider ch12
 
         if (id == R.id.seekBar_CH34) {
             this.mViewHolder.editText_CH34.setText("" + progress);
-
+            corrente_CH34 = progress;
         } // Fim slider ch12
 
         if (id == R.id.seekBar_CH56) {
             this.mViewHolder.editText_CH56.setText("" + progress);
-
+            corrente_CH56 = progress;
         } // Fim slider ch12
 
         if (id == R.id.seekBar_CH78) {
             this.mViewHolder.editText_CH78.setText("" + progress);
-
+            corrente_CH78 = progress;
         } // Fim slider ch12
 
+        if (id == R.id.seekBar_Freq) {
+            this.mViewHolder.editText_Freq.setText("" + progress);
+            valor_Freq = progress;
+        } // Fim slider Freq
 
+        if (id == R.id.seekBar_LP) {
+            this.mViewHolder.editText_LP.setText("" + progress);
+            valor_LarguraPulso = progress;
+        } // Fim slider Freq
 
-
-
-
+        setAllMemory();
     }// Fim SeekBar OnProgressChanged
 
 
@@ -262,10 +369,74 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    public void setAllMemory() {
+
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH12, corrente_CH12);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH34, corrente_CH34);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH56, corrente_CH56);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_CH78, corrente_CH78);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_Freq_Estim, valor_Freq);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_LP, valor_LarguraPulso);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.Valor_Mode, modo);
+
+
+    }
+
+    public void getAllMemory() {
+
+        corrente_CH12 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH12);
+        corrente_CH34 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH34);
+        corrente_CH56 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH56);
+        corrente_CH78 = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_CH78);
+        valor_Freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_Freq_Estim);
+        valor_LarguraPulso = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_LP);
+        modo = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.Valor_Mode);
+
+
+    }
+
+    @Override
+    public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+        int id = view.getId();
+
+        if (id == R.id.editText_CH12) {
+            corrente_CH12 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH12.getText()));
+            this.mViewHolder.seekBar_CH12.setProgress(corrente_CH12);
+        }
+
+        if (id == R.id.editText_CH34) {
+            corrente_CH34 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH34.getText()));
+            this.mViewHolder.seekBar_CH34.setProgress(corrente_CH34);
+        }
+
+        if (id == R.id.editText_CH56) {
+            corrente_CH56 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH56.getText()));
+            this.mViewHolder.seekBar_CH56.setProgress(corrente_CH56);
+        }
+
+        if (id == R.id.editText_CH78) {
+            corrente_CH78 = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_CH78.getText()));
+            this.mViewHolder.seekBar_CH78.setProgress(corrente_CH78);
+        }
+
+        if (id == R.id.editText_Freq) {
+            valor_Freq = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_Freq.getText()));
+            this.mViewHolder.seekBar_freq.setProgress(valor_Freq);
+        }
+
+        if (id == R.id.editText_LP) {
+            valor_LarguraPulso = (int) Integer.parseInt(String.valueOf(this.mViewHolder.editText_LP.getText()));
+            this.mViewHolder.seekBar_lp.setProgress(valor_LarguraPulso);
+        }
+
+
+        return false;
+    }
+
 
     private static class ViewHolder {
         Button btn_voltar;
-        Button Envi_Parametros;
+        Button envi_Parametros;
         CheckBox check_CH12;
         CheckBox check_CH34;
         CheckBox check_CH56;
@@ -274,10 +445,14 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         EditText editText_CH34;
         EditText editText_CH56;
         EditText editText_CH78;
+        EditText editText_Freq;
+        EditText editText_LP;
         SeekBar seekBar_CH12;
         SeekBar seekBar_CH34;
         SeekBar seekBar_CH56;
         SeekBar seekBar_CH78;
+        SeekBar seekBar_freq;
+        SeekBar seekBar_lp;
         TextView valor_previo;
 
         //layout

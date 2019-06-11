@@ -20,7 +20,7 @@ public class ParametrosConstantes {
     public static final String Valor_CH34 = "CH34";
     public static final String Valor_CH56 = "CH56";
     public static final String Valor_CH78 = "CH78";
-    public static final String Valor_Freq = "Freq";
+    public static final String Valor_Freq_Estim = "Freq";
     public static final String Valor_LP = "LP";
     public static final String Valor_Mode = "MODE";
 
@@ -28,7 +28,7 @@ public class ParametrosConstantes {
     public static final String valorVoga        = "Valor_Voga";        // int
     public static final String valorDrive       = "Valor_Drive";       // float
     public static final String valorRecovery    = "Valor_Recovery";    // float
-    public static final String valorFreq        = "Valor_Freq";        // int
+    public static final String valorFreqAmostra = "Valor_Freq";        // int
     public static final String valorCadeirea    = "Valor_Cadeira";     // int
     public static final String cadencia         = "Valor_Cadencia";    // int
     public static final String spDrive          = "sample_Drive";      // int

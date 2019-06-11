@@ -52,7 +52,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     int cadencia_old;
     boolean mov_drive;
     boolean estim = false;
-    boolean conenexao_BT;
+    boolean conexaoBT;
 
 
     @Override
@@ -153,20 +153,31 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga));
         this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive)));
-        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq));
+        this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreqAmostra));
         this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea));
 
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
 
-        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT) == ParametrosConstantes.Conectado_BT_True) {
+//        /*Compara se conexão bluetooth ja voi estabelecida*/
+//        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT).equals(ParametrosConstantes.Conectado_BT_True)) {
+//            connectedThread = new ConnectedThread(SocketHandler.getSocket());
+//            connectedThread.start();
+//            conenexao_BT = true;
+//        } else {
+//            conenexao_BT = false;
+//        }
+
+        /*testar se houve conexão bluetooth anteriormente*/
+        try {
             connectedThread = new ConnectedThread(SocketHandler.getSocket());
             connectedThread.start();
-            conenexao_BT = true;
-        } else {
-            conenexao_BT = false;
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_True);
+            conexaoBT = true;
+        } catch (Exception e) {
+            this.mSecurityPreferences.storeString(ParametrosConstantes.Status_BT, ParametrosConstantes.Conectado_BT_False);
+            conexaoBT = false;
         }
-
 
         //declarar depois de tudo
         this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, connectedThread*/);
@@ -189,7 +200,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*get variaveis*/
         float drive = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive);
-        int freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreq);
+        int freq = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreqAmostra);
         float recovery = this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorRecovery);
         int voga = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga);
         cadeira = this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
@@ -405,7 +416,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*Armazena variaveis*/
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorDrive, drive);
-        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, freq);
+        this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreqAmostra, freq);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorVoga, voga);
         this.mSecurityPreferences.storeInt(ParametrosConstantes.valorCadeirea, cadeira);
@@ -441,7 +452,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             if (event == null) {
                 String text = view.getText().toString();
                 int valor = (int) Float.parseFloat(text);
-                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreq, valor);
+                this.mSecurityPreferences.storeInt(ParametrosConstantes.valorFreqAmostra, valor);
                 calcularParametros();
             }
         }
@@ -552,23 +563,21 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
                 if (mov_drive) {
                     /*Extensão PERNA*/
-                    if (estim && conenexao_BT) //fixme: a conexao bluetooth nao precisa ser parametro... porem o codigo daria erro
+                    if (estim)
                         connectedThread.enviar("1");
                 } else {
                     /*Flexão PERNA*/
-                    if (estim && conenexao_BT)
+                    if (estim)
                         connectedThread.enviar("2");
                 }
             } else {
-                this.mViewHolder.posicaoCadeira.setProgress(cadeira);
-
                 if (mov_drive) {
                     /*Flexão BRAÇO*/
-                    if (estim && conenexao_BT)
+                    if(estim)
                         connectedThread.enviar("1");
                 } else {
                     /*Extensão BRAÇO*/
-                    if (estim && conenexao_BT)
+                    if(estim)
                         connectedThread.enviar("0");
                 }
             }
@@ -701,7 +710,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecovery);
-        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreq, fs);
+        this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreqAmostra, fs);
 
         return vetor;
 
