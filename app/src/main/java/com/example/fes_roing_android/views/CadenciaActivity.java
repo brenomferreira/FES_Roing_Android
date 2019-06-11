@@ -220,6 +220,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 estim = true;
             } else {
                 estim = false;
+                connectedThread.enviar("0");
+
 
             }
 
