@@ -184,6 +184,8 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
                             "m" +
                             decimalFormat.format(modo));
 
+            Intent intent3 = new Intent(this, MainActivity.class); // chama outra view
+            startActivity(intent3);
 
         }
 
