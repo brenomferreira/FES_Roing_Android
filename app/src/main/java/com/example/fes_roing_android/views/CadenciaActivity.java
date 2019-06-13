@@ -573,6 +573,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                         connectedThread.enviar("2");
                 }
             } else {
+                this.mViewHolder.posicaoCadeira.setProgress(cadeira);
+
                 if (mov_drive) {
                     /*Flexão BRAÇO*/
                     if(estim)
