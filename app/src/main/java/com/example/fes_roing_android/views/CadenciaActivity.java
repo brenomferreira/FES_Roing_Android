@@ -120,8 +120,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
         /*onEditorAction*/
-        this.mViewHolder.editText_Cadeira = (EditText) findViewById(R.id.editText_Cadeira);
-        this.mViewHolder.editText_Cadeira.setOnEditorActionListener(this);
+        this.mViewHolder.editText_Cadeira = (TextView) findViewById(R.id.editText_Cadeira);
+        //fixme: this.mViewHolder.editText_Cadeira.setOnEditorActionListener(this);
         this.mViewHolder.editText_Drive = (EditText) findViewById(R.id.editText_Drive);
         this.mViewHolder.editText_Drive.setOnEditorActionListener(this);
         this.mViewHolder.editText_Freq = (EditText) findViewById(R.id.editText_Freq);
@@ -628,7 +628,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         Button menos_cadeira;
 
 
-        EditText editText_Cadeira;
+        TextView editText_Cadeira;
         EditText editText_Drive;
         EditText editText_Freq;
         EditText editText_Voga;

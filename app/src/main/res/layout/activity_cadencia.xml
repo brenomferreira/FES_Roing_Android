@@ -93,16 +93,12 @@
                         android:id="@+id/btn_menos_Voga"
                         android:layout_width="35dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textView_Voga"
-                        android:layout_alignParentLeft="true"
                         android:text="-" />
 
                     <EditText
                         android:id="@+id/editText_Voga"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/textView_Voga"
-                        android:layout_toRightOf="@+id/btn_menos_Voga"
                         android:gravity="center"
                         android:hint="Valor.."
                         android:inputType="number" />
@@ -112,9 +108,6 @@
                         android:id="@+id/btn_mais_Voga"
                         android:layout_width="35dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/btn_menos_Voga"
-                        android:layout_alignParentRight="@+id/textView_Voga"
-                        android:layout_toRightOf="@+id/editText_Voga"
                         android:text="+" />
 
 
@@ -139,8 +132,6 @@
                         android:id="@+id/editText_Drive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/textView_Drive"
-                        android:layout_toRightOf="@+id/btn_menos_Drive"
                         android:gravity="center"
                         android:hint="Valor.."
                         android:inputType="numberDecimal" />
@@ -166,9 +157,6 @@
                         android:id="@+id/btn_menos_Freq"
                         android:layout_width="35dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textView_Freq"
-                        android:layout_alignTop="@+id/btn_mais_Voga"
-                        android:layout_toRightOf="@+id/checkBox_Drive"
                         android:text="-"
                         tools:ignore="NotSibling" />
 
@@ -176,8 +164,6 @@
                         android:id="@+id/editText_Freq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/textView_Freq"
-                        android:layout_toRightOf="@+id/btn_menos_Freq"
                         android:gravity="center"
                         android:hint="Valor.."
                         android:inputType="number" />
@@ -489,15 +475,13 @@
                             android:layout_height="wrap_content"
                             android:text="-" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/editText_Cadeira"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/textView_Cadeira"
-                            android:layout_toRightOf="@+id/btn_menos_Cadeira"
                             android:gravity="center"
                             android:hint="Valor.."
-                            android:inputType="number" />
+                             />
 
 
                         <Button
