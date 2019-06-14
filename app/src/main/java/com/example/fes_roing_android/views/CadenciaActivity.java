@@ -131,6 +131,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
         /*setEnableViews*/
+        this.mViewHolder.area_Pernas = (TextView) findViewById(R.id.textView_Braços);
+        this.mViewHolder.area_Bracos = (TextView) findViewById(R.id.textView_Pernas);
         this.mViewHolder.area_configDrive = (LinearLayout) findViewById(R.id.area_config_Drive);
         this.mViewHolder.area_configVoga = (LinearLayout) findViewById(R.id.area_config_Voga);
         this.mViewHolder.area_radioButton = (RadioGroup) findViewById(R.id.area_radioButton);
@@ -396,12 +398,40 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 cadeira = cadeira - (cadeira % 5);
             }
             cadeira = cadeira + 5;
+            /*Redimensiona o layout*/
+            View v_1 = findViewById(R.id.textView_Pernas);
+            LinearLayout.LayoutParams loparams_1 = (LinearLayout.LayoutParams) v_1.getLayoutParams();
+            //loparams_1.height = 0;
+            loparams_1.weight = cadeira;
+            v_1.setLayoutParams(loparams_1);
+
+            View v_2 = findViewById(R.id.textView_Braços);
+            LinearLayout.LayoutParams loparams_2 = (LinearLayout.LayoutParams) v_2.getLayoutParams();
+            //loparams_1.height = 0;
+            loparams_2.weight = 100 - cadeira;
+            v_2.setLayoutParams(loparams_2);
+            /*Fim Redimensiona o layout*/
+
         }
         if (id == R.id.btn_menos_Cadeira) {
             if ((cadeira % 5) != 0) {
                 cadeira = cadeira - (cadeira % 5);
             }
             cadeira = cadeira - 5;
+
+            /*Redimensiona o layout*/
+            View v_1 = findViewById(R.id.textView_Pernas);
+            LinearLayout.LayoutParams loparams_1 = (LinearLayout.LayoutParams) v_1.getLayoutParams();
+            //loparams_1.height = 0;
+            loparams_1.weight = cadeira;
+            v_1.setLayoutParams(loparams_1);
+
+            View v_2 = findViewById(R.id.textView_Braços);
+            LinearLayout.LayoutParams loparams_2 = (LinearLayout.LayoutParams) v_2.getLayoutParams();
+            //loparams_1.height = 0;
+            loparams_2.weight = 100 - cadeira;
+            v_2.setLayoutParams(loparams_2);
+            /*Fim Redimensiona o layout*/
         }
 
 
@@ -577,11 +607,11 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
                 if (mov_drive) {
                     /*Flexão BRAÇO*/
-                    if(estim)
+                    if (estim)
                         connectedThread.enviar("1");
                 } else {
                     /*Extensão BRAÇO*/
-                    if(estim)
+                    if (estim)
                         connectedThread.enviar("0");
                 }
             }
@@ -643,6 +673,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
 
         /*Areas layout*/
+        TextView area_Pernas;
+        TextView area_Bracos;
         LinearLayout area_configDrive;
         LinearLayout area_configVoga;
         RadioGroup area_radioButton;
