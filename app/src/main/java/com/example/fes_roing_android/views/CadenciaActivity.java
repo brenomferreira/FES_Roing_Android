@@ -192,6 +192,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*variaveis*/
         cadeira = mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea);
 
+        /*Atualiza display*/
+        indicaLimites(cadeira); //Redimensiona indicador na tela
+
 
     }
 
@@ -398,19 +401,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 cadeira = cadeira - (cadeira % 5);
             }
             cadeira = cadeira + 5;
-            /*Redimensiona o layout*/
-            View v_1 = findViewById(R.id.textView_Pernas);
-            LinearLayout.LayoutParams loparams_1 = (LinearLayout.LayoutParams) v_1.getLayoutParams();
-            //loparams_1.height = 0;
-            loparams_1.weight = cadeira;
-            v_1.setLayoutParams(loparams_1);
 
-            View v_2 = findViewById(R.id.textView_Braços);
-            LinearLayout.LayoutParams loparams_2 = (LinearLayout.LayoutParams) v_2.getLayoutParams();
-            //loparams_1.height = 0;
-            loparams_2.weight = 100 - cadeira;
-            v_2.setLayoutParams(loparams_2);
-            /*Fim Redimensiona o layout*/
+            /*Redimensiona indicador na tela*/
+            indicaLimites(cadeira);
 
         }
         if (id == R.id.btn_menos_Cadeira) {
@@ -419,19 +412,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             }
             cadeira = cadeira - 5;
 
-            /*Redimensiona o layout*/
-            View v_1 = findViewById(R.id.textView_Pernas);
-            LinearLayout.LayoutParams loparams_1 = (LinearLayout.LayoutParams) v_1.getLayoutParams();
-            //loparams_1.height = 0;
-            loparams_1.weight = cadeira;
-            v_1.setLayoutParams(loparams_1);
+            /*Redimensiona indicador na tela*/
+            indicaLimites(cadeira);
 
-            View v_2 = findViewById(R.id.textView_Braços);
-            LinearLayout.LayoutParams loparams_2 = (LinearLayout.LayoutParams) v_2.getLayoutParams();
-            //loparams_1.height = 0;
-            loparams_2.weight = 100 - cadeira;
-            v_2.setLayoutParams(loparams_2);
-            /*Fim Redimensiona o layout*/
         }
 
 
@@ -749,6 +732,24 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorFreqAmostra, fs);
 
         return vetor;
+
+    }
+
+    public void indicaLimites(Integer cadeira) {
+        /*Redimensiona o layout*/
+        View v_1 = findViewById(R.id.textView_Pernas);
+        LinearLayout.LayoutParams loparams_1 = (LinearLayout.LayoutParams) v_1.getLayoutParams();
+        //loparams_1.height = 0;
+        loparams_1.weight = cadeira;
+        v_1.setLayoutParams(loparams_1);
+
+        View v_2 = findViewById(R.id.textView_Braços);
+        LinearLayout.LayoutParams loparams_2 = (LinearLayout.LayoutParams) v_2.getLayoutParams();
+        //loparams_1.height = 0;
+        loparams_2.weight = 100 - cadeira;
+        v_2.setLayoutParams(loparams_2);
+        /*Fim Redimensiona o layout*/
+
 
     }
 
