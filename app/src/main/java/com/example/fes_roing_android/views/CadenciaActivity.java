@@ -38,6 +38,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     LineGraphSeries<DataPoint> series;
     Random aleatorio = new Random();
     DecimalFormat decimalFormat = new DecimalFormat("#0.00", new DecimalFormatSymbols(new Locale("en", "US")));
+    ConnectedThread connectedThread;
+    int cadeira;
+    int cadencia;
+    int cadencia_old;
+    boolean mov_drive;
+    boolean estim = false;
+    boolean conexaoBT;
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
     private MyTask task;
@@ -45,15 +52,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<Float> vetor_01 = new ArrayList<Float>();
     private ArrayList<Float> vetor_02 = new ArrayList<Float>();
     private ArrayList<Float> vetor_03 = new ArrayList<Float>();
-    ConnectedThread connectedThread;
-
-    int cadeira;
-    int cadencia;
-    int cadencia_old;
-    boolean mov_drive;
-    boolean estim = false;
-    boolean conexaoBT;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,7 +223,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 estim = true;
             } else {
                 estim = false;
-                connectedThread.enviar("0");
+                if (conexaoBT)
+                    connectedThread.enviar("0");
 
 
             }
@@ -602,6 +601,22 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         cadencia_old = cadencia;
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (conexaoBT)
+            connectedThread.enviar("0");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (conexaoBT)
+            connectedThread.enviar("0");
+
+    }
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -616,58 +631,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
-    private static class ViewHolder {
-
-        CheckBox estim;
-        CheckBox checkBox_Drive;
-        CheckBox checkBox_Voga;
-
-        Button set_treino_01;
-        Button set_treino_02;
-        Button set_treino_03;
-
-        Button start_treino_01;
-        Button start_treino_02;
-        Button start_treino_03;
-
-        Button mais_voga;
-        Button menos_voga;
-        Button mais_drive;
-        Button menos_drive;
-        Button mais_freq;
-        Button menos_freq;
-        Button mais_cadeira;
-        Button menos_cadeira;
-
-
-        TextView editText_Cadeira;
-        EditText editText_Drive;
-        EditText editText_Freq;
-        EditText editText_Voga;
-        TextView text_set_treino_01;
-        TextView text_set_treino_02;
-        TextView text_set_treino_03;
-        GraphView graph;
-
-        /*SeekBar*/
-        SeekBar cadencia;
-        SeekBar posicaoCadeira;
-
-
-        /*Areas layout*/
-        TextView area_Pernas;
-        TextView area_Bracos;
-        LinearLayout area_configDrive;
-        LinearLayout area_configVoga;
-        RadioGroup area_radioButton;
-        RadioButton radio_1_1;
-        RadioButton radio_1_2;
-        RadioButton radio_1_3;
-
-
-    }
-
 
     /**
      * Função para gerar o gráfico da voga.
@@ -749,6 +712,57 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         loparams_2.weight = 100 - cadeira;
         v_2.setLayoutParams(loparams_2);
         /*Fim Redimensiona o layout*/
+
+
+    }
+
+    private static class ViewHolder {
+
+        CheckBox estim;
+        CheckBox checkBox_Drive;
+        CheckBox checkBox_Voga;
+
+        Button set_treino_01;
+        Button set_treino_02;
+        Button set_treino_03;
+
+        Button start_treino_01;
+        Button start_treino_02;
+        Button start_treino_03;
+
+        Button mais_voga;
+        Button menos_voga;
+        Button mais_drive;
+        Button menos_drive;
+        Button mais_freq;
+        Button menos_freq;
+        Button mais_cadeira;
+        Button menos_cadeira;
+
+
+        TextView editText_Cadeira;
+        EditText editText_Drive;
+        EditText editText_Freq;
+        EditText editText_Voga;
+        TextView text_set_treino_01;
+        TextView text_set_treino_02;
+        TextView text_set_treino_03;
+        GraphView graph;
+
+        /*SeekBar*/
+        SeekBar cadencia;
+        SeekBar posicaoCadeira;
+
+
+        /*Areas layout*/
+        TextView area_Pernas;
+        TextView area_Bracos;
+        LinearLayout area_configDrive;
+        LinearLayout area_configVoga;
+        RadioGroup area_radioButton;
+        RadioButton radio_1_1;
+        RadioButton radio_1_2;
+        RadioButton radio_1_3;
 
 
     }
