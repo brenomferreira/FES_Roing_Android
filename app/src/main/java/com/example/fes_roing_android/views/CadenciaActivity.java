@@ -119,14 +119,15 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.limpaActivity.setOnClickListener(this);
 
         /*onEditorAction*/
-        this.mViewHolder.editText_Cadeira = (TextView) findViewById(R.id.editText_Cadeira);
-//fixme: this.mViewHolder.editText_Cadeira.setOnEditorActionListener(this);
+        this.mViewHolder.textView_Cadeira = (TextView) findViewById(R.id.editText_Cadeira);
+//fixme: this.mViewHolder.textView_Cadeira.setOnEditorActionListener(this);
         this.mViewHolder.editText_Drive = (EditText) findViewById(R.id.editText_Drive);
         this.mViewHolder.editText_Drive.setOnEditorActionListener(this);
         this.mViewHolder.editText_Freq = (EditText) findViewById(R.id.editText_Freq);
         this.mViewHolder.editText_Freq.setOnEditorActionListener(this);
         this.mViewHolder.editText_Voga = (EditText) findViewById(R.id.editText_Voga);
         this.mViewHolder.editText_Voga.setOnEditorActionListener(this);
+
 
         /*setEnableViews*/
         this.mViewHolder.area_Pernas = (TextView) findViewById(R.id.textView_Braços);
@@ -138,7 +139,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         setEnableViews(this.mViewHolder.area_radioButton, false);
 
         /*onEditorAction IME_ACTION_DONE*/
-        this.mViewHolder.editText_Cadeira.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        this.mViewHolder.textView_Cadeira.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Drive.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Freq.setImeOptions(EditorInfo.IME_ACTION_DONE);
         this.mViewHolder.editText_Voga.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -152,7 +153,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga));
         this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive)));
         this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreqAmostra));
-        this.mViewHolder.editText_Cadeira.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea));
+        this.mViewHolder.textView_Cadeira.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorCadeirea));
 
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
@@ -426,7 +427,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*Atualiza display*/
         text_drive = decimalFormat.format(drive);
         this.mViewHolder.editText_Voga.setText("" + voga);
-        this.mViewHolder.editText_Cadeira.setText("" + cadeira);
+        this.mViewHolder.textView_Cadeira.setText("" + cadeira);
         this.mViewHolder.editText_Freq.setText("" + freq);
         this.mViewHolder.editText_Drive.setText(text_drive);
 
@@ -441,6 +442,11 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecov);
         /*Fim Armazena variaveis*/
+
+
+        this.mViewHolder.editText_Drive.clearFocus();
+        this.mViewHolder.editText_Freq.clearFocus();
+        this.mViewHolder.editText_Voga.clearFocus();
 
     }// Fim OnClic
 
@@ -745,7 +751,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         GraphView graph;
 
-        TextView editText_Cadeira;
+        TextView textView_Cadeira;
         TextView text_set_treino_01;
         TextView text_set_treino_02;
         TextView text_set_treino_03;
