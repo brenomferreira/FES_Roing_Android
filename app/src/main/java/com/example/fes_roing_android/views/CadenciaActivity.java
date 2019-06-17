@@ -43,7 +43,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     int cadencia;
     int cadencia_old;
     boolean mov_drive;
-    boolean estim = false;
+    boolean run_estim = false;
+    boolean solic_estim = false;
     boolean conexaoBT;
     private ViewHolder mViewHolder = new ViewHolder();
     private SecurityPreferences mSecurityPreferences;
@@ -220,12 +221,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.checBox_estim) {
             if (this.mViewHolder.estim.isChecked()) {
-                estim = true;
+                solic_estim = true;
             } else {
-                estim = false;
+                solic_estim = false;
+                run_estim = false;
                 if (conexaoBT)
                     connectedThread.enviar("0");
-
 
             }
 
@@ -302,6 +303,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.cadencia.setProgress(0);
                 this.mViewHolder.posicaoCadeira.setProgress(0);
                 this.task.cancel(true);
+
+                if(run_estim){
+                    run_estim = false;
+                    connectedThread.enviar("0");
+                                 }
+                this.mViewHolder.estim.setChecked(false);
+
+
 
             }
 
@@ -572,16 +581,20 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.seekBar_Cadencia) {
 
+            if (cadencia_old == 0 & solic_estim){
+                run_estim = true;
+            }
+
             if (cadencia <= cadeira) {
                 this.mViewHolder.posicaoCadeira.setProgress(cadencia);
 
                 if (mov_drive) {
                     /*Extensão PERNA*/
-                    if (estim)
+                    if (run_estim)
                         connectedThread.enviar("1");
                 } else {
                     /*Flexão PERNA*/
-                    if (estim)
+                    if (run_estim)
                         connectedThread.enviar("2");
                 }
             } else {
@@ -589,11 +602,11 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
                 if (mov_drive) {
                     /*Flexão BRAÇO*/
-                    if (estim)
+                    if (run_estim)
                         connectedThread.enviar("1");
                 } else {
                     /*Extensão BRAÇO*/
-                    if (estim)
+                    if (run_estim)
                         connectedThread.enviar("0");
                 }
             }
