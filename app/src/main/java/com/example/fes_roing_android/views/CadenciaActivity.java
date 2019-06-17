@@ -62,13 +62,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*util packages*/
         this.mSecurityPreferences = new SecurityPreferences(this);
 
-
-//        /*executar para limpar memoria*/
-//        File sharedPreferenceFile = new File("/data/data/" + getPackageName() + "/shared_prefs/");
-//        File[] listFiles = sharedPreferenceFile.listFiles();
-//        for (File file : listFiles) {
-//            file.delete();
-//        }
+// /*executar para limpar memoria*/
+// File sharedPreferenceFile = new File("/data/data/" + getPackageName() + "/shared_prefs/");
+// File[] listFiles = sharedPreferenceFile.listFiles();
+// for (File file : listFiles) {
+// file.delete();
+// }
 
         /*SeekBar*/
         this.mViewHolder.cadencia = (SeekBar) findViewById(R.id.seekBar_Cadencia);
@@ -117,17 +116,15 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.start_treino_03 = (Button) findViewById(R.id.btn_startTreino03);
         this.mViewHolder.start_treino_03.setOnClickListener(this);
 
-
         /*onEditorAction*/
         this.mViewHolder.editText_Cadeira = (TextView) findViewById(R.id.editText_Cadeira);
-        //fixme: this.mViewHolder.editText_Cadeira.setOnEditorActionListener(this);
+//fixme: this.mViewHolder.editText_Cadeira.setOnEditorActionListener(this);
         this.mViewHolder.editText_Drive = (EditText) findViewById(R.id.editText_Drive);
         this.mViewHolder.editText_Drive.setOnEditorActionListener(this);
         this.mViewHolder.editText_Freq = (EditText) findViewById(R.id.editText_Freq);
         this.mViewHolder.editText_Freq.setOnEditorActionListener(this);
         this.mViewHolder.editText_Voga = (EditText) findViewById(R.id.editText_Voga);
         this.mViewHolder.editText_Voga.setOnEditorActionListener(this);
-
 
         /*setEnableViews*/
         this.mViewHolder.area_Pernas = (TextView) findViewById(R.id.textView_Braços);
@@ -137,7 +134,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.area_radioButton = (RadioGroup) findViewById(R.id.area_radioButton);
         this.mViewHolder.area_radioButton.setOnCheckedChangeListener(this);
         setEnableViews(this.mViewHolder.area_radioButton, false);
-
 
         /*onEditorAction IME_ACTION_DONE*/
         this.mViewHolder.editText_Cadeira.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -151,7 +147,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
         this.mViewHolder.radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
 
-
         this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga));
         this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive)));
         this.mViewHolder.editText_Freq.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorFreqAmostra));
@@ -159,15 +154,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*Grafico*/
         this.mViewHolder.graph = (GraphView) findViewById(R.id.graph1);
-
-//        /*Compara se conexão bluetooth ja voi estabelecida*/
-//        if (this.mSecurityPreferences.getStoredString(ParametrosConstantes.Status_BT).equals(ParametrosConstantes.Conectado_BT_True)) {
-//            connectedThread = new ConnectedThread(SocketHandler.getSocket());
-//            connectedThread.start();
-//            conenexao_BT = true;
-//        } else {
-//            conenexao_BT = false;
-//        }
 
         /*testar se houve conexão bluetooth anteriormente*/
         try {
@@ -180,10 +166,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             conexaoBT = false;
         }
 
-        //declarar depois de tudo
+//declarar depois de tudo
         this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, connectedThread*/);
-
-
 
         /*Segurança*/
         this.mViewHolder.estim.setChecked(false);
@@ -193,7 +177,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*Atualiza display*/
         indicaLimites(cadeira); //Redimensiona indicador na tela
-
 
     }
 
@@ -218,7 +201,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + voga + " | F:" + freq + "]";
 
-
         if (id == R.id.checBox_estim) {
             if (this.mViewHolder.estim.isChecked()) {
                 solic_estim = true;
@@ -229,7 +211,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                     connectedThread.enviar("0");
 
             }
-
         }
 
         if (id == R.id.checkBox_Voga) {
@@ -304,18 +285,16 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.mViewHolder.posicaoCadeira.setProgress(0);
                 this.task.cancel(true);
 
-                if(run_estim){
+                if (run_estim) {
                     run_estim = false;
                     solic_estim = false;
                     connectedThread.enviar("0");
-                                 }
+                }
                 this.mViewHolder.estim.setChecked(false);
 
-
-
             }
-
         }
+
         if (id == R.id.btn_startTreino02) {
             if (this.mViewHolder.start_treino_02.getText().toString().equals("Treino (2)")) {
                 this.task.cancel(true);
@@ -334,8 +313,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.task.cancel(true);
 
             }
-
         }
+
         if (id == R.id.btn_startTreino03) {
             if (this.mViewHolder.start_treino_03.getText().toString().equals("Treino (3)")) {
                 this.task.cancel(true);
@@ -354,11 +333,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 this.task.cancel(true);
 
             }
-
         }
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
         /*Voga*/
         if (id == R.id.btn_mais_Voga) {
             if ((voga % 1) != 0) {
@@ -410,6 +387,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 cadeira = cadeira - (cadeira % 5);
             }
             cadeira = cadeira + 5;
+            if (cadeira >= 85)
+                cadeira = 85;
 
             /*Redimensiona indicador na tela*/
             indicaLimites(cadeira);
@@ -420,13 +399,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 cadeira = cadeira - (cadeira % 5);
             }
             cadeira = cadeira - 5;
+            if (cadeira <= 15)
+                cadeira = 15;
 
             /*Redimensiona indicador na tela*/
             indicaLimites(cadeira);
 
         }
-
-
 
         /*Atualiza display*/
         text_drive = decimalFormat.format(drive);
@@ -434,7 +413,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Cadeira.setText("" + cadeira);
         this.mViewHolder.editText_Freq.setText("" + freq);
         this.mViewHolder.editText_Drive.setText(text_drive);
-
 
         /*Fim Atualiza display*/
 
@@ -447,7 +425,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spDrive, spDrive);
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.spRecovery, spRecov);
         /*Fim Armazena variaveis*/
-
 
     }// Fim OnClic
 
@@ -489,31 +466,26 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
-
         return false;
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-
         if (checkedId == R.id.radio_1_1) {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 1",
                     Toast.LENGTH_SHORT).show();
             this.mSecurityPreferences.storeInt(ParametrosConstantes.cadencia, 1);
-
 
         } else if (checkedId == R.id.radio_1_2) {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 2",
                     Toast.LENGTH_SHORT).show();
             this.mSecurityPreferences.storeInt(ParametrosConstantes.cadencia, 2);
 
-
         } else {
             Toast.makeText(getApplicationContext(), "Escolha: mov 1 para 3",
                     Toast.LENGTH_SHORT).show();
             this.mSecurityPreferences.storeInt(ParametrosConstantes.cadencia, 3);
-
 
         }
 
@@ -539,10 +511,9 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             this.mViewHolder.editText_Voga.setText(text);
         }
 
-        // calculo do Recovery (por ultimo para pegar as atualizaçoes dos valores)
+// calculo do Recovery (por ultimo para pegar as atualizaçoes dos valores)
         float recovery = (60f / voga) - drive;
         this.mSecurityPreferences.storeFloat(ParametrosConstantes.valorRecovery, recovery);
-
 
     }
 
@@ -559,9 +530,8 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//        this.mViewHolder.posicaoCadeira.setProgress(this.mViewHolder.cadencia.getProgress());
-//        this.mViewHolder.posicaoCadeirateste.setProgress(this.mViewHolder.cadencia.getProgress());
-
+// this.mViewHolder.posicaoCadeira.setProgress(this.mViewHolder.cadencia.getProgress());
+// this.mViewHolder.posicaoCadeirateste.setProgress(this.mViewHolder.cadencia.getProgress());
 
         /*<define se esta em drive dou nao>*/
 
@@ -582,7 +552,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.seekBar_Cadencia) {
 
-            if (cadencia_old == 0 & solic_estim){
+            if (cadencia_old == 0 & solic_estim) {
                 run_estim = true;
             }
 
@@ -614,7 +584,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         }
         cadencia_old = cadencia;
     }
-
 
     @Override
     protected void onPause() {
@@ -667,7 +636,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         spDrive = drive / t;
         spRecovery = recov / t;
 
-
         vetor.add(fs);
         vetor.add(spDrive + spRecovery);
 
@@ -690,7 +658,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             String txt = "Recov_" + i;
             this.mSecurityPreferences.storeFloat(txt, yd);
             vetor.add(yd);
-
 
             this.mViewHolder.graph.addSeries(series);
 
@@ -716,17 +683,16 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         /*Redimensiona o layout*/
         View v_1 = findViewById(R.id.textView_Pernas);
         LinearLayout.LayoutParams loparams_1 = (LinearLayout.LayoutParams) v_1.getLayoutParams();
-        //loparams_1.height = 0;
+//loparams_1.height = 0;
         loparams_1.weight = cadeira;
         v_1.setLayoutParams(loparams_1);
 
         View v_2 = findViewById(R.id.textView_Braços);
         LinearLayout.LayoutParams loparams_2 = (LinearLayout.LayoutParams) v_2.getLayoutParams();
-        //loparams_1.height = 0;
+//loparams_1.height = 0;
         loparams_2.weight = 100 - cadeira;
         v_2.setLayoutParams(loparams_2);
         /*Fim Redimensiona o layout*/
-
 
     }
 
@@ -753,7 +719,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         Button mais_cadeira;
         Button menos_cadeira;
 
-
         TextView editText_Cadeira;
         EditText editText_Drive;
         EditText editText_Freq;
@@ -767,7 +732,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         SeekBar cadencia;
         SeekBar posicaoCadeira;
 
-
         /*Areas layout*/
         TextView area_Pernas;
         TextView area_Bracos;
@@ -778,7 +742,5 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         RadioButton radio_1_2;
         RadioButton radio_1_3;
 
-
     }
-
 }// FIM //
