@@ -81,18 +81,12 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*Onclick*/
 
-        this.mViewHolder.estim = (CheckBox) findViewById(R.id.checBox_estim);
-        this.mViewHolder.estim.setOnClickListener(this);
-        this.mViewHolder.checkBox_Voga = (CheckBox) findViewById(R.id.checkBox_Voga);
-        this.mViewHolder.checkBox_Voga.setOnClickListener(this);
         this.mViewHolder.checkBox_Drive = (CheckBox) findViewById(R.id.checkBox_Drive);
         this.mViewHolder.checkBox_Drive.setOnClickListener(this);
-        this.mViewHolder.set_treino_01 = (Button) findViewById(R.id.btn_setTreino_01);
-        this.mViewHolder.set_treino_01.setOnClickListener(this);
-        this.mViewHolder.set_treino_02 = (Button) findViewById(R.id.btn_setTreino_02);
-        this.mViewHolder.set_treino_02.setOnClickListener(this);
-        this.mViewHolder.set_treino_03 = (Button) findViewById(R.id.btn_setTreino_03);
-        this.mViewHolder.set_treino_03.setOnClickListener(this);
+        this.mViewHolder.checkBox_Voga = (CheckBox) findViewById(R.id.checkBox_Voga);
+        this.mViewHolder.checkBox_Voga.setOnClickListener(this);
+        this.mViewHolder.estim = (CheckBox) findViewById(R.id.checBox_estim);
+        this.mViewHolder.estim.setOnClickListener(this);
         this.mViewHolder.mais_cadeira = (Button) findViewById(R.id.btn_mais_Cadeira);
         this.mViewHolder.mais_cadeira.setOnClickListener(this);
         this.mViewHolder.mais_drive = (Button) findViewById(R.id.btn_mais_Drive);
@@ -109,12 +103,20 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.menos_freq.setOnClickListener(this);
         this.mViewHolder.menos_voga = (Button) findViewById(R.id.btn_menos_Voga);
         this.mViewHolder.menos_voga.setOnClickListener(this);
+        this.mViewHolder.set_treino_01 = (Button) findViewById(R.id.btn_setTreino_01);
+        this.mViewHolder.set_treino_01.setOnClickListener(this);
+        this.mViewHolder.set_treino_02 = (Button) findViewById(R.id.btn_setTreino_02);
+        this.mViewHolder.set_treino_02.setOnClickListener(this);
+        this.mViewHolder.set_treino_03 = (Button) findViewById(R.id.btn_setTreino_03);
+        this.mViewHolder.set_treino_03.setOnClickListener(this);
         this.mViewHolder.start_treino_01 = (Button) findViewById(R.id.btn_startTreino01);
         this.mViewHolder.start_treino_01.setOnClickListener(this);
         this.mViewHolder.start_treino_02 = (Button) findViewById(R.id.btn_startTreino02);
         this.mViewHolder.start_treino_02.setOnClickListener(this);
         this.mViewHolder.start_treino_03 = (Button) findViewById(R.id.btn_startTreino03);
         this.mViewHolder.start_treino_03.setOnClickListener(this);
+        this.mViewHolder.limpaActivity = (Button) findViewById(R.id.btn_LimparMemoria);
+        this.mViewHolder.limpaActivity.setOnClickListener(this);
 
         /*onEditorAction*/
         this.mViewHolder.editText_Cadeira = (TextView) findViewById(R.id.editText_Cadeira);
@@ -142,10 +144,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         this.mViewHolder.editText_Voga.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         /*RadioButton*/
-        this.mViewHolder.radio_1_1 = (RadioButton) findViewById(R.id.radio_1_1);
-        this.mViewHolder.radio_1_1.setChecked(true);
-        this.mViewHolder.radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
-        this.mViewHolder.radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
+        this.mViewHolder.area_radio_1_1 = (RadioButton) findViewById(R.id.radio_1_1);
+        this.mViewHolder.area_radio_1_1.setChecked(true);
+        this.mViewHolder.area_radio_1_2 = (RadioButton) findViewById(R.id.radio_1_2);
+        this.mViewHolder.area_radio_1_3 = (RadioButton) findViewById(R.id.radio_1_3);
 
         this.mViewHolder.editText_Voga.setHint("" + this.mSecurityPreferences.getStoredInt(ParametrosConstantes.valorVoga));
         this.mViewHolder.editText_Drive.setHint(decimalFormat.format(this.mSecurityPreferences.getStoredFloat(ParametrosConstantes.valorDrive)));
@@ -177,6 +179,13 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         /*Atualiza display*/
         indicaLimites(cadeira); //Redimensiona indicador na tela
+
+
+        /*Enquanto nao setar treino os botoes de start ficam desabilitados*/
+        this.mViewHolder.start_treino_01.setEnabled(false);
+        this.mViewHolder.start_treino_02.setEnabled(false);
+        this.mViewHolder.start_treino_03.setEnabled(false);
+
 
     }
 
@@ -249,22 +258,29 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.btn_setTreino_01) {
             this.mViewHolder.text_set_treino_01.setText(result);
+            this.vetor_01.clear();
             this.vetor_01 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_01.setTextColor(series.getColor());
+            this.mViewHolder.start_treino_01.setEnabled(true);
 
         }
 
         if (id == R.id.btn_setTreino_02) {
             this.mViewHolder.text_set_treino_02.setText(result);
+            this.vetor_02.clear();
             this.vetor_02 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_02.setTextColor(series.getColor());
+            this.mViewHolder.start_treino_01.setEnabled(true);
+
 
         }
 
         if (id == R.id.btn_setTreino_03) {
             this.mViewHolder.text_set_treino_03.setText(result);
+            this.vetor_03.clear();
             this.vetor_03 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_03.setTextColor(series.getColor());
+            this.mViewHolder.start_treino_01.setEnabled(true);
 
         }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -432,6 +448,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
 
         int id = view.getId();
+
+        if (id == R.id.btn_LimparMemoria) {
+        }
+
 
         if (id == R.id.editText_Voga) {
             if (event == null) {
@@ -698,49 +718,50 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
     private static class ViewHolder {
 
-        CheckBox estim;
-        CheckBox checkBox_Drive;
-        CheckBox checkBox_Voga;
 
-        Button set_treino_01;
-        Button set_treino_02;
-        Button set_treino_03;
-
-        Button start_treino_01;
-        Button start_treino_02;
-        Button start_treino_03;
-
-        Button mais_voga;
-        Button menos_voga;
+        Button mais_cadeira;
+        Button menos_cadeira;
         Button mais_drive;
         Button menos_drive;
         Button mais_freq;
         Button menos_freq;
-        Button mais_cadeira;
-        Button menos_cadeira;
+        Button mais_voga;
+        Button menos_voga;
+        Button set_treino_01;
+        Button set_treino_02;
+        Button set_treino_03;
+        Button start_treino_01;
+        Button start_treino_02;
+        Button start_treino_03;
+        Button limpaActivity;
 
-        TextView editText_Cadeira;
+        CheckBox checkBox_Drive;
+        CheckBox checkBox_Voga;
+        CheckBox estim;
+
         EditText editText_Drive;
         EditText editText_Freq;
         EditText editText_Voga;
+
+        GraphView graph;
+
+        TextView editText_Cadeira;
         TextView text_set_treino_01;
         TextView text_set_treino_02;
         TextView text_set_treino_03;
-        GraphView graph;
 
-        /*SeekBar*/
         SeekBar cadencia;
         SeekBar posicaoCadeira;
 
         /*Areas layout*/
-        TextView area_Pernas;
-        TextView area_Bracos;
         LinearLayout area_configDrive;
         LinearLayout area_configVoga;
+        RadioButton area_radio_1_1;
+        RadioButton area_radio_1_2;
+        RadioButton area_radio_1_3;
         RadioGroup area_radioButton;
-        RadioButton radio_1_1;
-        RadioButton radio_1_2;
-        RadioButton radio_1_3;
+        TextView area_Bracos;
+        TextView area_Pernas;
 
     }
 }// FIM //
