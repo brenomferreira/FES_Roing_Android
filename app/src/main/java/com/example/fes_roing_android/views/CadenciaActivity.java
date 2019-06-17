@@ -306,6 +306,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
                 if(run_estim){
                     run_estim = false;
+                    solic_estim = false;
                     connectedThread.enviar("0");
                                  }
                 this.mViewHolder.estim.setChecked(false);
