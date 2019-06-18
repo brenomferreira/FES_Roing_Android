@@ -307,16 +307,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         if (id == R.id.btn_startTreino01) {
             if (this.mViewHolder.start_treino_01.getText().toString().equals("Treino (1)")) {
-                this.mViewHolder.start_treino_01.setText("Treino (1)");
-                this.mViewHolder.start_treino_02.setText("Treino (2)");
-                this.mViewHolder.start_treino_03.setText("Treino (3)");
-                this.mViewHolder.start_treino_01.setText("Executando");
+                this.mViewHolder.start_treino_01.setText("Solicitado");
 
                 if (!run_cadencia) {
                     this.task.cancel(true);
                     this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                     this.task.execute(this.vetor_01);
                     run_cadencia = true;
+                    this.mViewHolder.start_treino_01.setText("Executando");
                 } else {
                     solic_treino_01 = true; /*dentro de chang seekbarr*/
                 }
@@ -338,16 +336,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.btn_startTreino02) {
             if (this.mViewHolder.start_treino_02.getText().toString().equals("Treino (2)")) {
-                this.mViewHolder.start_treino_01.setText("Treino (1)");
-                this.mViewHolder.start_treino_02.setText("Treino (2)");
-                this.mViewHolder.start_treino_03.setText("Treino (3)");
-                this.mViewHolder.start_treino_02.setText("Executando");
+                this.mViewHolder.start_treino_02.setText("Solicitado");
 
                 if (!run_cadencia) {
                     this.task.cancel(true);
                     this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                     this.task.execute(this.vetor_02);
                     run_cadencia = true;
+                    this.mViewHolder.start_treino_02.setText("Executando");
                 } else {
                     solic_treino_02 = true; /*dentro de chang seekbarr*/
                 }
@@ -369,16 +365,14 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 
         if (id == R.id.btn_startTreino03) {
             if (this.mViewHolder.start_treino_03.getText().toString().equals("Treino (3)")) {
-                this.mViewHolder.start_treino_01.setText("Treino (1)");
-                this.mViewHolder.start_treino_02.setText("Treino (2)");
-                this.mViewHolder.start_treino_03.setText("Treino (3)");
-                this.mViewHolder.start_treino_03.setText("Executando");
+                this.mViewHolder.start_treino_03.setText("Solicitado");
 
                 if (!run_cadencia) {
                     this.task.cancel(true);
                     this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                     this.task.execute(this.vetor_03);
                     run_cadencia = true;
+                    this.mViewHolder.start_treino_03.setText("Executando");
                 } else {
                     solic_treino_03 = true; /*dentro de chang seekbarr*/
                 }
@@ -625,31 +619,42 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                 run_estim = true;
             }
 
-            if (cadencia == 0 & solic_treino_01){
+            if (cadencia == 0 & solic_treino_01) {
                 this.task.cancel(true);
                 this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                 this.task.execute(this.vetor_01);
                 solic_treino_01 = false;
                 solic_treino_02 = false;
                 solic_treino_03 = false;
-            }else if (cadencia == 0 & solic_treino_02){
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_01.setText("Executando");
+
+            } else if (cadencia == 0 & solic_treino_02) {
                 this.task.cancel(true);
                 this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                 this.task.execute(this.vetor_02);
                 solic_treino_01 = false;
                 solic_treino_02 = false;
                 solic_treino_03 = false;
-            }else if (cadencia == 0 & solic_treino_03){
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_02.setText("Executando");
+
+            } else if (cadencia == 0 & solic_treino_03) {
                 this.task.cancel(true);
                 this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
                 this.task.execute(this.vetor_03);
                 solic_treino_01 = false;
                 solic_treino_02 = false;
                 solic_treino_03 = false;
+                this.mViewHolder.start_treino_01.setText("Treino (1)");
+                this.mViewHolder.start_treino_02.setText("Treino (2)");
+                this.mViewHolder.start_treino_03.setText("Treino (3)");
+                this.mViewHolder.start_treino_03.setText("Executando");
             }
-
-
-
 
 
             if (cadencia <= cadeira) {
