@@ -1,5 +1,6 @@
 package com.example.fes_roing_android.views;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -210,6 +211,21 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
         String text_recovery = decimalFormat.format(recovery);
 
         String result = "[D:" + text_drive + " | R:" + text_recovery + " | V:" + voga + " | F:" + freq + "]";
+
+        if (id == R.id.btn_LimparMemoria) {
+
+            try {
+                this.task.cancel(true);
+            } catch (Exception e) {
+
+            }
+
+
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+
 
         if (id == R.id.checBox_estim) {
             if (this.mViewHolder.estim.isChecked()) {
@@ -454,9 +470,6 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
 
         int id = view.getId();
-
-        if (id == R.id.btn_LimparMemoria) {
-        }
 
 
         if (id == R.id.editText_Voga) {
