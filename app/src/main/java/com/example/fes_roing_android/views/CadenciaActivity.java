@@ -54,6 +54,10 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<Float> vetor_01 = new ArrayList<Float>();
     private ArrayList<Float> vetor_02 = new ArrayList<Float>();
     private ArrayList<Float> vetor_03 = new ArrayList<Float>();
+    private boolean solic_treino_01 = false;
+    private boolean solic_treino_02 = false;
+    private boolean solic_treino_03 = false;
+    private boolean run_cadencia = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -303,19 +307,22 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         if (id == R.id.btn_startTreino01) {
             if (this.mViewHolder.start_treino_01.getText().toString().equals("Treino (1)")) {
-                this.task.cancel(true);
                 this.mViewHolder.start_treino_01.setText("Treino (1)");
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_01.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
-                ArrayList<Float> vetor = new ArrayList<Float>();
-                this.task.execute(this.vetor_01);
-            } else {
 
+                if (!run_cadencia) {
+                    this.task.cancel(true);
+                    this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
+                    this.task.execute(this.vetor_01);
+                    run_cadencia = true;
+                } else {
+                    solic_treino_01 = true; /*dentro de chang seekbarr*/
+                }
+            } else {
+                run_cadencia = false;
                 this.mViewHolder.start_treino_01.setText("Treino (1)");
-                this.mViewHolder.cadencia.setProgress(0);
-                this.mViewHolder.posicaoCadeira.setProgress(0);
                 this.task.cancel(true);
 
                 if (run_estim) {
@@ -324,47 +331,70 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
                     connectedThread.enviar("0");
                 }
                 this.mViewHolder.estim.setChecked(false);
-
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
             }
         }
 
         if (id == R.id.btn_startTreino02) {
             if (this.mViewHolder.start_treino_02.getText().toString().equals("Treino (2)")) {
-                this.task.cancel(true);
                 this.mViewHolder.start_treino_01.setText("Treino (1)");
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_02.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
-                ArrayList<Float> vetor = new ArrayList<Float>();
-                this.task.execute(this.vetor_02);
-            } else {
 
+                if (!run_cadencia) {
+                    this.task.cancel(true);
+                    this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
+                    this.task.execute(this.vetor_02);
+                    run_cadencia = true;
+                } else {
+                    solic_treino_02 = true; /*dentro de chang seekbarr*/
+                }
+            } else {
+                run_cadencia = false;
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
-                this.mViewHolder.cadencia.setProgress(0);
-                this.mViewHolder.posicaoCadeira.setProgress(0);
                 this.task.cancel(true);
 
+                if (run_estim) {
+                    run_estim = false;
+                    solic_estim = false;
+                    connectedThread.enviar("0");
+                }
+                this.mViewHolder.estim.setChecked(false);
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
             }
         }
 
         if (id == R.id.btn_startTreino03) {
             if (this.mViewHolder.start_treino_03.getText().toString().equals("Treino (3)")) {
-                this.task.cancel(true);
                 this.mViewHolder.start_treino_01.setText("Treino (1)");
                 this.mViewHolder.start_treino_02.setText("Treino (2)");
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
                 this.mViewHolder.start_treino_03.setText("Executando");
-                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
-                ArrayList<Float> vetor = new ArrayList<Float>();
-                this.task.execute(this.vetor_03);
-            } else {
 
+                if (!run_cadencia) {
+                    this.task.cancel(true);
+                    this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
+                    this.task.execute(this.vetor_03);
+                    run_cadencia = true;
+                } else {
+                    solic_treino_03 = true; /*dentro de chang seekbarr*/
+                }
+            } else {
+                run_cadencia = false;
                 this.mViewHolder.start_treino_03.setText("Treino (3)");
-                this.mViewHolder.cadencia.setProgress(0);
-                this.mViewHolder.posicaoCadeira.setProgress(0);
                 this.task.cancel(true);
 
+                if (run_estim) {
+                    run_estim = false;
+                    solic_estim = false;
+                    connectedThread.enviar("0");
+                }
+                this.mViewHolder.estim.setChecked(false);
+                this.mViewHolder.cadencia.setProgress(0);
+                this.mViewHolder.posicaoCadeira.setProgress(0);
             }
         }
 
@@ -594,6 +624,33 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             if (cadencia_old == 0 & solic_estim) {
                 run_estim = true;
             }
+
+            if (cadencia == 0 & solic_treino_01){
+                this.task.cancel(true);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
+                this.task.execute(this.vetor_01);
+                solic_treino_01 = false;
+                solic_treino_02 = false;
+                solic_treino_03 = false;
+            }else if (cadencia == 0 & solic_treino_02){
+                this.task.cancel(true);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
+                this.task.execute(this.vetor_02);
+                solic_treino_01 = false;
+                solic_treino_02 = false;
+                solic_treino_03 = false;
+            }else if (cadencia == 0 & solic_treino_03){
+                this.task.cancel(true);
+                this.task = new MyTask(this, this.mViewHolder.cadencia, this.mViewHolder.posicaoCadeira/*, this.connectedThread*/);
+                this.task.execute(this.vetor_03);
+                solic_treino_01 = false;
+                solic_treino_02 = false;
+                solic_treino_03 = false;
+            }
+
+
+
+
 
             if (cadencia <= cadeira) {
                 this.mViewHolder.posicaoCadeira.setProgress(cadencia);
