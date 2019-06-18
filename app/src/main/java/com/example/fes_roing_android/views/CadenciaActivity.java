@@ -287,7 +287,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             this.vetor_02.clear();
             this.vetor_02 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_02.setTextColor(series.getColor());
-            this.mViewHolder.start_treino_01.setEnabled(true);
+            this.mViewHolder.start_treino_02.setEnabled(true);
 
 
         }
@@ -297,7 +297,7 @@ public class CadenciaActivity extends AppCompatActivity implements View.OnClickL
             this.vetor_03.clear();
             this.vetor_03 = geraGrafico((float) voga, drive, (float) freq);
             this.mViewHolder.text_set_treino_03.setTextColor(series.getColor());
-            this.mViewHolder.start_treino_01.setEnabled(true);
+            this.mViewHolder.start_treino_03.setEnabled(true);
 
         }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
